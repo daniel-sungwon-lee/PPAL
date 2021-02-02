@@ -1,0 +1,34 @@
+*{
+  font-family: Product Sans, sans-serif;
+}
+.container{
+  margin-top: 6.5rem;
+}
+.row{
+  justify-content: center;
+  margin: 1.5rem 0;
+  transition: all 0.3s ease-out;
+}
+.button-outline{
+  border: solid black 3px;
+  border-radius: 13px;
+  width: 249px;
+  height: 56px;
+}
+.type-button{
+  background-color: white;
+  width: 249px;
+  height: 56px;
+  border: solid black 3px;
+  font-size: 22px;
+  text-align: left;
+  padding: 0 24px;
+  border-radius: 13px;
+  transform: translate(-10px,-10px);
+  transition: all 0.3s ease-out;
+  outline: none !important;
+}
+.type-button:hover{
+  transform: translate(-3px, -3px);
+  background-color: #FFF9C5;
+}
