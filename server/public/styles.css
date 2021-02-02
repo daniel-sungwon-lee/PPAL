@@ -1,8 +1,17 @@
 *{
   font-family: Product Sans, sans-serif;
 }
+.nav-button{
+  outline: none !important;
+}
+.nav-links{
+  transition: all 0.5s ease-out;
+}
+.nav-links:hover{
+  transform: translate(20px,0)
+}
 .container{
-  margin-top: 6.5rem;
+  margin-top: 8rem;
 }
 .row{
   justify-content: center;

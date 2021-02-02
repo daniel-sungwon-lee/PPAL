@@ -19,12 +19,15 @@ export default class Nav extends React.Component{
       <div class="fixed-top">
         <div class="collapse" id="navbarToggleExternalContent">
           <div class="bg-dark p-4">
-            <h5 class="text-white h4">Collapsed content</h5>
-            <span class="text-muted">Toggleable via the navbar brand.</span>
+            <a href="#" class="text-decoration-none"><h5 class="text-white h4 nav-links">Home</h5></a>
+            <a href="#routines" class="text-decoration-none"><h5 class="text-white h4 nav-links">Routines</h5></a>
+            <a href="#favorites" class="text-decoration-none"><h5 class="text-white h4 nav-links">Favorites</h5></a>
+            <a href="#stopwatch" class="text-decoration-none"><h5 class="text-white h4 nav-links">Stopwatch</h5></a>
+            <a href="#quote" class="text-decoration-none"><h5 class="text-white h4 nav-links">Motivational Quote</h5></a>
           </div>
         </div>
         <nav class="navbar navbar-dark bg-dark">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler nav-button" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
         </nav>

@@ -16,7 +16,7 @@ export default class Home extends React.Component{
             return (
             <div className="row">
               <div className="button-outline">
-                <button className="type-button">{type}</button>
+                <a href={`#${type}`}><button className="type-button">{type}</button></a>
               </div>
             </div>
             )
