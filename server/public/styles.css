@@ -41,3 +41,35 @@
   transform: translate(-3px, -3px);
   background-color: #FFF9C5;
 }
+
+.spinnerDiv{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.row.row-exercise{
+  border: solid black 1px;
+  border-radius: 16px;
+  margin: auto;
+  margin-bottom: 2.5rem;
+  transition: all 0.3s ease-out;
+}
+.exercise-name{
+  border: solid black 3px;
+  border-radius: 13px;
+  width: 100%;
+  transition: all 0.3s ease-out;
+  margin: 0;
+  text-align: center;
+  padding: 2rem;
+  background-color: white;
+  outline: none !important;
+}
+.exercise-name:hover{
+  transform: translate(0, -10px);
+  background-color: #FFF9C5;
+}
+.row.row-exercise:hover{
+  background-color: black;
+}

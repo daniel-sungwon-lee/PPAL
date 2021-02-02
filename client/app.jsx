@@ -4,6 +4,8 @@ import Nav from "./components/nav"
 import {parseRoute} from "./lib"
 import Exercises from "./pages/exercises"
 
+const types = ["Chest", "Back", "Biceps", "Triceps", "Shoulders", "Legs", "Abs"]
+
 export default class App extends React.Component {
   constructor(props){
     super(props)
@@ -18,10 +20,14 @@ export default class App extends React.Component {
 
   renderPage(){
     const {route} = this.state
+
     if(route.path===""){
-      return <Home />
+      return <Home types={types} />
     }
 
+    if(types.includes(route.path)){
+      return <Exercises exercise={route.path} />
+    }
   }
 
   render() {
