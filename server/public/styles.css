@@ -48,6 +48,13 @@
   top: 50%;
   transform: translate(-50%, -50%);
 }
+.exercises-container{
+  margin-top: 56px;
+}
+.exercises-header{
+  text-transform: uppercase;
+  margin: 2rem;
+}
 .row.row-exercise{
   border: solid black 1px;
   border-radius: 16px;

@@ -135,18 +135,21 @@ export default class Exercises extends React.Component{
 
   render(){
     return (
-      <div className="container w-75">
-        {
-          this.state.exercises.map(exercise=>{
-            return (
-              <a className="text-decoration-none text-dark" key={exercise.id} href="">
-                <div className="row row-exercise w-100">
-                  <button className="h4 exercise-name">{exercise.name}</button>
-                </div>
-              </a>
-            )
-          })
-        }
+      <div className="container exercises-container d-flex flex-column">
+        <h2 className="text-center exercises-header">{this.props.exercise}</h2>
+        <div className="m-auto w-75">
+          {
+            this.state.exercises.map(exercise=>{
+              return (
+                <a className="text-decoration-none text-dark" key={exercise.id} href="">
+                  <div className="row row-exercise w-100">
+                    <button className="h4 exercise-name">{exercise.name}</button>
+                  </div>
+                </a>
+              )
+            })
+          }
+        </div>
       </div>
     )
   }
