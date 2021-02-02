@@ -16,33 +16,19 @@ export default class Nav extends React.Component{
 
   render(){
     return (
-      <>
-      {/*
-        <div className="menuToggle">
-          <input type="checkbox" />
-          <span></span>
-          <span></span>
-          <span></span>
-          <ul className="menu">
-            <a href="#">
-              <li>Home</li>
-            </a>
-            <a href="">
-              <li>Routines</li>
-            </a>
-            <a href="">
-              <li>Favorites</li>
-            </a>
-            <a href="">
-              <li>Stopwatch</li>
-            </a>
-            <a href="">
-              <li>Motivational Quote</li>
-            </a>
-          </ul>
+      <div class="fixed-top">
+        <div class="collapse" id="navbarToggleExternalContent">
+          <div class="bg-dark p-4">
+            <h5 class="text-white h4">Collapsed content</h5>
+            <span class="text-muted">Toggleable via the navbar brand.</span>
+          </div>
         </div>
-      */}
-      </>
+        <nav class="navbar navbar-dark bg-dark">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </nav>
+      </div>
     )
   }
 }
