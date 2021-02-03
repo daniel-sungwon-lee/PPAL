@@ -109,7 +109,7 @@ export default class ExerciseDetail extends React.Component{
                       {
                         exercise.images !==undefined && exercise.images.length !==0
                           ? <Carousel images={exercise.images} />
-                          : <div className="placeholder-img"><img src="https://www.acendas.com/wp-content/uploads/2015/01/200x200-white-placeholder.png" alt="Placeholder Image" width="200"/></div>
+                          : <div className="placeholder-img-div"><i className="fas fa-images"></i></div>
                       }
                     </div>
                     <i className="fas fa-star star-icon"></i>

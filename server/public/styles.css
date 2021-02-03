@@ -51,6 +51,7 @@
 }
 .exercises-container{
   margin-top: 56px;
+  transition: all 0.3s ease-out;
 }
 .header{
   text-transform: uppercase;
@@ -102,9 +103,13 @@
   margin: auto;
   transition: 0.3s ease-out;
 }
-.placeholder-img{
+.placeholder-img-div{
   width: 200px;
   margin: auto;
+}
+.fas.fa-images{
+  font-size: 200px;
+  cursor: default;
 }
 .description{
   font-size: 18px;
@@ -119,8 +124,8 @@
 }
 .star-icon{
   position: absolute;
-  left: 10px;
-  top: 10px;
+  left: 1rem;
+  top: 1rem;
 }
 .star-icon:hover{
   color: #FFEE59;
