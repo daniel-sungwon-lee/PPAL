@@ -84,7 +84,7 @@
 
 .container.single-exercise{
   width: 93%;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 .row.row-exercise-single{
   border: solid 5px black;
@@ -134,4 +134,20 @@
 }
 .link:hover{
   color: #47C26A;
+}
+.reps, .sets{
+  padding: 10px 30px;
+  border: solid;
+  border-radius: 13px;
+  background-color: #FFF9C5;
+  text-align: left;
+}
+.fas.fa-caret-up, .fas.fa-caret-down{
+  margin: -7px 0;
+}
+.fas.fa-caret-up:hover{
+  color: #47C26A;
+}
+.fas.fa-caret-down:hover{
+  color: #EF233C;
 }
