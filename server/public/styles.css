@@ -51,6 +51,7 @@
 }
 .exercises-container{
   margin-top: 56px;
+  transition: all 0.3s ease-out;
 }
 .header{
   text-transform: uppercase;
@@ -84,7 +85,7 @@
 
 .container.single-exercise{
   width: 93%;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 .row.row-exercise-single{
   border: solid 5px black;
@@ -97,9 +98,18 @@
   margin: 3rem 2rem 2rem;
   width: 80% !important;
 }
-.ex-img{
+.exercise-img{
   width: 400px;
   margin: auto;
+  transition: 0.3s ease-out;
+}
+.placeholder-img-div{
+  width: 200px;
+  margin: auto;
+}
+.fas.fa-images{
+  font-size: 200px;
+  cursor: default;
 }
 .description{
   font-size: 18px;
@@ -110,12 +120,12 @@
 .fas{
   font-size: 40px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease-out;
 }
 .star-icon{
   position: absolute;
-  left: 10px;
-  top: 10px;
+  left: 1rem;
+  top: 1rem;
 }
 .star-icon:hover{
   color: #FFEE59;
@@ -129,4 +139,20 @@
 }
 .link:hover{
   color: #47C26A;
+}
+.reps, .sets{
+  padding: 10px 30px;
+  border: solid;
+  border-radius: 13px;
+  background-color: #FFF9C5;
+  text-align: left;
+}
+.fas.fa-caret-up, .fas.fa-caret-down{
+  margin: -7px 0;
+}
+.fas.fa-caret-up:hover{
+  color: #47C26A;
+}
+.fas.fa-caret-down:hover{
+  color: #EF233C;
 }

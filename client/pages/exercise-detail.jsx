@@ -13,21 +13,6 @@ function Spinner(props) {
 function Carousel(props){
   return (
     <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
-      {/*
-        <ol className="carousel-indicators">
-          {
-            props.images.map(img=>{
-              let classN = "bg-dark"
-              if(props.images.indexOf(img)===0){
-                classN= "active bg-dark"
-              }
-              return (
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" className={classN} key={img.id}></li>
-              )
-            })
-          }
-        </ol>*/
-      }
       <div className="carousel-inner">
         {
           props.images.map(img=>{
@@ -37,7 +22,7 @@ function Carousel(props){
             }
             return (
               <div className={classN}>
-                <img src={img.image} className="d-block ex-img" key={img.id} alt="Exercise Image" />
+                <img src={img.image} className="d-block exercise-img" key={img.id} alt="Exercise Image" />
               </div>
             )
           })
@@ -60,11 +45,17 @@ export default class ExerciseDetail extends React.Component{
     super(props)
     this.state={
       exercise: null,
-      loading:true
+      loading:true,
+      reps: 0,
+      sets: 0
     }
     this.data={
       exerciseId: this.props.exerciseId
     }
+    this.handleRepsUp=this.handleRepsUp.bind(this)
+    this.handleSetsUp=this.handleSetsUp.bind(this)
+    this.handleRepsDown=this.handleRepsDown.bind(this)
+    this.handleSetsDown=this.handleSetsDown.bind(this)
   }
 
   componentDidMount(){
@@ -83,6 +74,26 @@ export default class ExerciseDetail extends React.Component{
       })
   }
 
+  handleRepsUp(event){
+    this.setState({reps: this.state.reps +1})
+  }
+
+  handleSetsUp(event){
+    this.setState({sets: this.state.sets +1})
+  }
+
+  handleRepsDown(event){
+    if(this.state.reps>0){
+      this.setState({reps: this.state.reps -1})
+    }
+  }
+
+  handleSetsDown(event){
+    if (this.state.sets > 0) {
+      this.setState({ sets: this.state.sets - 1 })
+    }
+  }
+
   render(){
     return (
       <>
@@ -98,7 +109,7 @@ export default class ExerciseDetail extends React.Component{
                       {
                         exercise.images !==undefined && exercise.images.length !==0
                           ? <Carousel images={exercise.images} />
-                          : <img src="https://www.acendas.com/wp-content/uploads/2015/01/200x200-white-placeholder.png" alt="Placeholder Image" width="200"/>
+                          : <div className="placeholder-img-div"><i className="fas fa-images"></i></div>
                       }
                     </div>
                     <i className="fas fa-star star-icon"></i>
@@ -111,6 +122,26 @@ export default class ExerciseDetail extends React.Component{
                       <a href={`https://www.google.com/search?q=${exercise.name}`} target="_blank" className="text-decoration-none link">{`Click here to search for ${exercise.name}`}</a>
                     </div>
                   </div>
+                  <div className="row justify-content-around">
+                    <div className="reps d-flex align-items-center">
+                      <h4 className="m-0">Reps</h4>
+                      <div className="sort d-flex flex-column ml-4">
+                        <i className="fas fa-caret-up" onClick={this.handleRepsUp}></i>
+                        <i className="fas fa-caret-down" onClick={this.handleRepsDown}></i>
+                      </div>
+                    </div>
+                    <div className="sets d-flex align-items-center">
+                      <h4 className="m-0">Sets</h4>
+                      <div className="sort d-flex flex-column ml-4">
+                        <i className="fas fa-caret-up" onClick={this.handleSetsUp}></i>
+                        <i className="fas fa-caret-down" onClick={this.handleSetsDown}></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row justify-content-around">
+                    <h4 className="num">{this.state.reps}</h4>
+                    <h4 className="num">{this.state.sets}</h4>
+                  </div>
                 </div>
               )
             })
@@ -119,20 +150,3 @@ export default class ExerciseDetail extends React.Component{
     )
   }
 }
-
-<div className="reps-sets">
-  <div className="reps">
-    <h4>Reps</h4>
-    <div className="sort">
-      <i className="fas fa-caret-up"></i>
-      <i className="fas fa-caret-down"></i>
-    </div>
-  </div>
-  <div className="sets">
-    <h4>Sets</h4>
-    <div className="sort">
-      <i className="fas fa-caret-up"></i>
-      <i className="fas fa-caret-down"></i>
-    </div>
-  </div>
-</div>
