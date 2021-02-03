@@ -8,7 +8,7 @@ export default class Home extends React.Component{
   render(){
     return (
       <>
-      <div className="container home-container">
+      <div className="container">
       <h2 className="text-center header">HOME</h2>
         {
           this.props.types.map(type=>{

@@ -92,7 +92,7 @@ export default class Exercises extends React.Component{
                     return (
                       <a className="text-decoration-none text-dark"
                       key={exercise.id}
-                      href={`#exercise?exerciseName=${exercise.name}&exerciseId=${exercise.id}`}>
+                      href={`#exercise?exerciseId=${exercise.id}`}>
                         <div className="row row-exercise w-100">
                           <button className="h4 exercise-name">{exercise.name}</button>
                         </div>

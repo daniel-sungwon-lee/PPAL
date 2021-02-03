@@ -44,12 +44,11 @@ export default class ExerciseDetail extends React.Component{
   constructor(props){
     super(props)
     this.state={
-      exercise:null,
+      exercise: null,
       loading:true
     }
     this.data={
-      exerciseId: this.props.exerciseData.exerciseId,
-      exerciseName: this.props.exerciseData.exerciseName
+      exerciseId: this.props.exerciseId
     }
   }
 
@@ -65,7 +64,7 @@ export default class ExerciseDetail extends React.Component{
     fetch(`https://wger.de/api/v2/exerciseinfo/${this.data.exerciseId}`, init)
       .then(res=>res.json())
       .then(data=>{
-        this.setState({exercise: data, loading: false})
+        this.setState({exercise: new Array(data), loading: false})
       })
   }
 
@@ -75,11 +74,11 @@ export default class ExerciseDetail extends React.Component{
         {
           this.state.loading
             ? <Spinner />
-            : ()=>{
+            : this.state.exercise.map(exercise=>{
               return (
-                <div className="container">
-                  <h2 className="header">{this.data.exerciseName}</h2>
-                  <div className="row row-exercise">
+                <div className="container single-exercise" key={exercise.id}>
+                  <h2 className="header text-center">{exercise.name}</h2>
+                  <div className="row row-exercise-single">
                     <div className="imgDiv">
                       {/*
                         this.state.exercise.images !==undefined && this.state.exercise.images.length !==0
@@ -87,37 +86,38 @@ export default class ExerciseDetail extends React.Component{
                           : <img src="/placeholder.png" alt="Placeholder Image" width="200"/>
                       */}
                     </div>
-                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star star-icon"></i>
                     <div className="description">
-                      <p>{this.state.exercise.description.replace(/(<([^>]+)>)/gi, "")}</p>
+                      <p>{exercise.description.replace(/(<([^>]+)>)/gi, "")}</p>
                     </div>
                   </div>
                   <div className="row">
                     <div className="link">
-                      <a href={`https://www.google.com/search?q=${this.state.exercise.name}`} target="_blank">{`Click here to search for ${this.state.exercise.name}`}</a>
-                    </div>
-                    <div className="reps-sets">
-                      <div className="reps">
-                        <h4>Reps</h4>
-                        <div className="sort">
-                          <i className="fas fa-caret-up"></i>
-                          <i className="fas fa-caret-down"></i>
-                        </div>
-                      </div>
-                      <div className="sets">
-                        <h4>Sets</h4>
-                        <div className="sort">
-                          <i className="fas fa-caret-up"></i>
-                          <i className="fas fa-caret-down"></i>
-                        </div>
-                      </div>
+                      <a href={`https://www.google.com/search?q=${exercise.name}`} target="_blank" className="text-decoration-none link">{`Click here to search for ${exercise.name}`}</a>
                     </div>
                   </div>
                 </div>
               )
-            }
+            })
         }
       </>
     )
   }
 }
+
+<div className="reps-sets">
+  <div className="reps">
+    <h4>Reps</h4>
+    <div className="sort">
+      <i className="fas fa-caret-up"></i>
+      <i className="fas fa-caret-down"></i>
+    </div>
+  </div>
+  <div className="sets">
+    <h4>Sets</h4>
+    <div className="sort">
+      <i className="fas fa-caret-up"></i>
+      <i className="fas fa-caret-down"></i>
+    </div>
+  </div>
+</div>

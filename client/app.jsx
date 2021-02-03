@@ -32,10 +32,8 @@ export default class App extends React.Component {
 
     if(route.path==="exercise"){
       const exerciseId = route.params.get("exerciseId")
-      const exerciseName = route.params.get("exerciseName")
-      const exerciseData = { exerciseName, exerciseId }
 
-      return <ExerciseDetail exerciseData={exerciseData}/>
+      return <ExerciseDetail exerciseId={exerciseId}/>
     }
   }
 
