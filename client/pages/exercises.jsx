@@ -33,6 +33,16 @@ const apiURLParts = {
   }
 }
 
+function Spinner(props) {
+  return (
+    <div className="spinnerDiv">
+      <div className="spinner-border" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+    </div>
+  )
+}
+
 export default class Exercises extends React.Component{
   constructor(props){
     super(props)
@@ -62,45 +72,36 @@ export default class Exercises extends React.Component{
         .then(data => {
           let { results } = data
           this.setState({ exercises: results })
-
-          const spinner = document.querySelector(".spinnerDiv")
-          if (spinner) {
-            spinner.remove()
-            this.setState({ loading: false })
-          }
+          this.setState({ loading: false })
         })
         .catch(err => console.error(err))
     }
   }
 
   render(){
-    if(this.state.loading){
-      return (
-        <div className="spinnerDiv">
-          <div className="spinner-border" role="status">
-            <span className="sr-only">Loading...</span>
-          </div>
-        </div>
-      )
-    }
-
     return (
-      <div className="container exercises-container d-flex flex-column">
-        <h2 className="text-center exercises-header">{this.props.exercise}</h2>
-        <div className="m-auto w-75">
-          {
-            this.state.exercises.map(exercise=>{
-              return (
-                <a className="text-decoration-none text-dark" key={exercise.id} href="">
-                  <div className="row row-exercise w-100">
-                    <button className="h4 exercise-name">{exercise.name}</button>
-                  </div>
-                </a>
-              )
-            })
-          }
-        </div>
-      </div>
+      <>
+      {
+        this.state.loading
+          ? <Spinner />
+          : <div className="container exercises-container d-flex flex-column">
+              <h2 className="text-center exercises-header">{this.props.exercise}</h2>
+              <div className="m-auto w-75">
+                {
+                  this.state.exercises.map(exercise => {
+                    return (
+                      <a className="text-decoration-none text-dark" key={exercise.id} href="">
+                        <div className="row row-exercise w-100">
+                          <button className="h4 exercise-name">{exercise.name}</button>
+                        </div>
+                      </a>
+                    )
+                  })
+                }
+              </div>
+            </div>
+      }
+      </>
     )
   }
 }
