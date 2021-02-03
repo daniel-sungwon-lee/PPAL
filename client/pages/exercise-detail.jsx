@@ -123,24 +123,26 @@ export default class ExerciseDetail extends React.Component{
                     </div>
                   </div>
                   <div className="row justify-content-around">
-                    <div className="reps d-flex align-items-center">
-                      <h4 className="m-0">Reps</h4>
-                      <div className="sort d-flex flex-column ml-4">
-                        <i className="fas fa-caret-up" onClick={this.handleRepsUp}></i>
-                        <i className="fas fa-caret-down" onClick={this.handleRepsDown}></i>
+                    <div className="d-flex flex-column align-items-center">
+                      <div className="reps d-flex align-items-center">
+                        <h4 className="m-0">Reps</h4>
+                        <div className="sort d-flex flex-column ml-4">
+                          <i className="fas fa-caret-up" onClick={this.handleRepsUp}></i>
+                          <i className="fas fa-caret-down" onClick={this.handleRepsDown}></i>
+                        </div>
                       </div>
+                      <h4 className="num">{this.state.reps}</h4>
                     </div>
-                    <div className="sets d-flex align-items-center">
-                      <h4 className="m-0">Sets</h4>
-                      <div className="sort d-flex flex-column ml-4">
-                        <i className="fas fa-caret-up" onClick={this.handleSetsUp}></i>
-                        <i className="fas fa-caret-down" onClick={this.handleSetsDown}></i>
+                    <div className="d-flex flex-column align-items-center">
+                      <div className="sets d-flex align-items-center">
+                        <h4 className="m-0">Sets</h4>
+                        <div className="sort d-flex flex-column ml-4">
+                          <i className="fas fa-caret-up" onClick={this.handleSetsUp}></i>
+                          <i className="fas fa-caret-down" onClick={this.handleSetsDown}></i>
+                        </div>
                       </div>
+                      <h4 className="num">{this.state.sets}</h4>
                     </div>
-                  </div>
-                  <div className="row justify-content-around">
-                    <h4 className="num">{this.state.reps}</h4>
-                    <h4 className="num">{this.state.sets}</h4>
                   </div>
                 </div>
               )
