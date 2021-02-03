@@ -2,4 +2,11 @@
   .exercise-name{
     padding: 1.3rem
   }
+  .imgDiv{
+    max-width: 200px;
+  }
+  .ex-img{
+    width: 200px;
+    margin: auto;
+  }
 }

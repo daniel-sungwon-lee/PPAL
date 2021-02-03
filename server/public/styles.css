@@ -84,25 +84,28 @@
 
 .container.single-exercise{
   width: 93%;
+  margin-bottom: 3rem;
 }
 .row.row-exercise-single{
   border: solid 5px black;
   border-radius: 33px;
   position: relative;
+  flex-direction: column;
+  align-items: center;
+}
+.img-div{
+  margin: 3rem 2rem 2rem;
+  max-width: 400px;
+}
+.ex-img{
+  width: 400px;
+  margin: auto;
 }
 .description{
   font-size: 18px;
-  margin: 2rem 3rem;
-}
-.link{
-  color: #008BF5;
-  transition: all 0.3s ease-out;
-  font-size: 18px;
-  text-align: center;
-  width: 60%;
-}
-.link:hover{
-  color: #47C26A;
+  margin: 0 3rem 2rem;
+  max-height: 8rem;
+  overflow: auto;
 }
 .fas{
   font-size: 40px;
@@ -116,4 +119,14 @@
 }
 .star-icon:hover{
   color: #FFEE59;
+}
+.link{
+  color: #008BF5;
+  transition: all 0.3s ease-out;
+  font-size: 18px;
+  text-align: center;
+  width: 60%;
+}
+.link:hover{
+  color: #47C26A;
 }

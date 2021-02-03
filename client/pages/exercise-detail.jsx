@@ -10,35 +10,48 @@ function Spinner(props) {
   )
 }
 
-/*function Carousel(props){
-  return(
+function Carousel(props){
+  return (
     <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
       <ol className="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        {
+          props.images.map(img=>{
+            let classN = "bg-dark"
+            if(props.images.indexOf(img)===0){
+              classN= "active bg-dark"
+            }
+            return (
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" className={classN} key={img.id}></li>
+            )
+          })
+        }
       </ol>
       <div className="carousel-inner">
         {
           props.images.map(img=>{
+            let classN = "carousel-item"
+            if(props.images.indexOf(img)===0){
+              classN= "carousel-item active"
+            }
             return (
-              <div className="carousel-item active">
-                <img src={img.image} className="d-block" alt="Exercise Image"/>
+              <div className={classN}>
+                <img src={img.image} className="d-block ex-img" key={img.id} alt="Exercise Image" />
               </div>
             )
           })
         }
       </div>
       <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+        <i className="fas fa-angle-left text-dark" aria-hidden="true"></i>
         <span className="sr-only">Previous</span>
       </a>
       <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+        <i className="fas fa-angle-right text-dark" aria-hidden="true"></i>
         <span className="sr-only">Next</span>
       </a>
     </div>
   )
-}*/
+}
 
 export default class ExerciseDetail extends React.Component{
   constructor(props){
@@ -79,12 +92,12 @@ export default class ExerciseDetail extends React.Component{
                 <div className="container single-exercise" key={exercise.id}>
                   <h2 className="header text-center">{exercise.name}</h2>
                   <div className="row row-exercise-single">
-                    <div className="imgDiv">
-                      {/*
-                        this.state.exercise.images !==undefined && this.state.exercise.images.length !==0
-                          ? <Carousel images={this.state.exercise.images} />
-                          : <img src="/placeholder.png" alt="Placeholder Image" width="200"/>
-                      */}
+                    <div className="img-div">
+                      {
+                        exercise.images !==undefined && exercise.images.length !==0
+                          ? <Carousel images={exercise.images} />
+                          : <img src="https://www.acendas.com/wp-content/uploads/2015/01/200x200-white-placeholder.png" alt="Placeholder Image" width="200"/>
+                      }
                     </div>
                     <i className="fas fa-star star-icon"></i>
                     <div className="description">
