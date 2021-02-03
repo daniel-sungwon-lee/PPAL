@@ -13,19 +13,21 @@ function Spinner(props) {
 function Carousel(props){
   return (
     <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
-      <ol className="carousel-indicators">
-        {
-          props.images.map(img=>{
-            let classN = "bg-dark"
-            if(props.images.indexOf(img)===0){
-              classN= "active bg-dark"
-            }
-            return (
-              <li data-target="#carouselExampleIndicators" data-slide-to="0" className={classN} key={img.id}></li>
-            )
-          })
-        }
-      </ol>
+      {/*
+        <ol className="carousel-indicators">
+          {
+            props.images.map(img=>{
+              let classN = "bg-dark"
+              if(props.images.indexOf(img)===0){
+                classN= "active bg-dark"
+              }
+              return (
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" className={classN} key={img.id}></li>
+              )
+            })
+          }
+        </ol>*/
+      }
       <div className="carousel-inner">
         {
           props.images.map(img=>{
