@@ -97,8 +97,13 @@
   margin: 3rem 2rem 2rem;
   width: 80% !important;
 }
-.ex-img{
+.exercise-img{
   width: 400px;
+  margin: auto;
+  transition: 0.3s ease-out;
+}
+.placeholder-img{
+  width: 200px;
   margin: auto;
 }
 .description{
@@ -110,7 +115,7 @@
 .fas{
   font-size: 40px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease-out;
 }
 .star-icon{
   position: absolute;

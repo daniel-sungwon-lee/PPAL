@@ -37,7 +37,7 @@ function Carousel(props){
             }
             return (
               <div className={classN}>
-                <img src={img.image} className="d-block ex-img" key={img.id} alt="Exercise Image" />
+                <img src={img.image} className="d-block exercise-img" key={img.id} alt="Exercise Image" />
               </div>
             )
           })
@@ -98,7 +98,7 @@ export default class ExerciseDetail extends React.Component{
                       {
                         exercise.images !==undefined && exercise.images.length !==0
                           ? <Carousel images={exercise.images} />
-                          : <img src="https://www.acendas.com/wp-content/uploads/2015/01/200x200-white-placeholder.png" alt="Placeholder Image" width="200"/>
+                          : <div className="placeholder-img"><img src="https://www.acendas.com/wp-content/uploads/2015/01/200x200-white-placeholder.png" alt="Placeholder Image" width="200"/></div>
                       }
                     </div>
                     <i className="fas fa-star star-icon"></i>
