@@ -1,139 +1,89 @@
 import React from "react"
 
-const chest = "https://wger.de/api/v2/exerciseinfo/?language=2&category=11&limit=29"
-const back = "https://wger.de/api/v2/exerciseinfo/?language=2&category=12&limit=38"
-const biceps = "https://wger.de/api/v2/exerciseinfo/?language=2&category=8&muscles=1&limit=15"
-const triceps = "https://wger.de/api/v2/exerciseinfo/?language=2&category=8&muscles=5&limit=21"
-const shoulders = "https://wger.de/api/v2/exerciseinfo/?language=2&category=13&limit=33"
-const legs = "https://wger.de/api/v2/exerciseinfo/?language=2&category=9&limit=50"
-const abs = "https://wger.de/api/v2/exerciseinfo/?language=2&category=10&limit=28"
+const apiURLParts = {
+  chest: {
+    category: 11,
+    limit: 29
+  },
+  back: {
+    category: 12,
+    limit: 38
+  },
+  biceps: {
+    category: 8,
+    limit: 15,
+    muscles: 1
+  },
+  triceps: {
+    category: 8,
+    limit: 21,
+    muscles: 5
+  },
+  shoulders: {
+    category: 13,
+    limit: 33
+  },
+  legs: {
+    category: 9,
+    limit: 50
+  },
+  abs: {
+    category: 10,
+    limit:28
+  }
+}
 
 export default class Exercises extends React.Component{
   constructor(props){
     super(props)
     this.state={
-      exercises:[], mounted: false
+      exercises:[], loading: true
     }
   }
 
   componentDidMount(){
-    const init = {
-      "method": "GET",
-      "headers": {
-        "Accept": "application/json",
-        "Authorization": " Token 18800a66e3917105259880660857894f85fbb0f3"
+    const {exercise} = this.props
+    const ex = exercise.toLowerCase()
+
+    if(apiURLParts[ex]){
+      const {category, limit, muscles} = apiURLParts[ex]
+      const apiURL = `https://wger.de/api/v2/exerciseinfo/?language=2&category=${category}&limit=${limit}${muscles ? `&muscles=${muscles}` : ""}`
+
+      const init = {
+        "method": "GET",
+        "headers": {
+          "Accept": "application/json",
+          "Authorization": " Token 18800a66e3917105259880660857894f85fbb0f3"
+        }
       }
+
+      fetch(apiURL, init)
+        .then(res => res.json())
+        .then(data => {
+          let { results } = data
+          this.setState({ exercises: results })
+
+          const spinner = document.querySelector(".spinnerDiv")
+          if (spinner) {
+            spinner.remove()
+            this.setState({ loading: false })
+          }
+        })
+        .catch(err => console.error(err))
     }
-
-    switch (this.props.exercise){
-      case "Chest":
-        fetch(chest, init)
-          .then(res => res.json())
-          .then(data => {
-            let { results } = data
-            this.setState({ exercises: results })
-          })
-          .catch(err => console.error(err))
-        break
-
-      case "Back":
-        fetch(back,init)
-          .then(res => res.json())
-          .then(data => {
-            let { results } = data
-            this.setState({ exercises: results })
-          })
-          .catch(err => console.error(err))
-        break
-
-      case "Biceps":
-        fetch(biceps, init)
-          .then(res => res.json())
-          .then(data => {
-            let { results } = data
-            this.setState({ exercises: results })
-          })
-          .catch(err => console.error(err))
-
-        setTimeout(() => {
-          fetch("https://wger.de/api/v2/exerciseinfo/?language=2&category=8&muscles=13", init)
-            .then(res => res.json())
-            .then(data => {
-              let { results } = data
-              const id = [275, 193]
-              const brachialis = results.filter(exercise => {
-                return id.includes(exercise.id)
-              })
-              this.setState({ exercises: [...this.state.exercises, ...brachialis] })
-            })
-            .catch(err => console.error(err))
-        }, 2000)
-        break
-
-      case "Triceps":
-        fetch(triceps, init)
-          .then(res => res.json())
-          .then(data => {
-            let { results } = data
-            this.setState({ exercises: results })
-          })
-          .catch(err => console.error(err))
-
-        setTimeout(() => {
-          fetch("https://wger.de/api/v2/exerciseinfo/361", init)
-            .then(res => res.json())
-            .then(result => {
-              this.setState({ exercises: [...this.state.exercises, result] })
-            })
-        }, 2000)
-        break
-
-      case "Shoulders":
-        fetch(shoulders, init)
-          .then(res => res.json())
-          .then(data => {
-            let { results } = data
-            this.setState({ exercises: results })
-          })
-          .catch(err => console.error(err))
-        break
-
-      case "Legs" :
-        fetch(legs, init)
-          .then(res => res.json())
-          .then(data => {
-            let { results } = data
-            this.setState({ exercises: results })
-          })
-          .catch(err => console.error(err))
-
-        setTimeout(() => {
-          fetch("https://wger.de/api/v2/exerciseinfo/?language=2&category=14", init)
-            .then(res => res.json())
-            .then(calves => {
-              let { results } = calves
-              this.setState({ exercises: [...this.state.exercises, ...results] })
-            })
-        }, 2000)
-        break
-
-      case "Abs":
-        fetch(abs, init)
-          .then(res => res.json())
-          .then(data => {
-            let { results } = data
-            this.setState({ exercises: results })
-          })
-          .catch(err => console.error(err))
-        break
-    }
-  }
-
-  componentWillUnmount(){
-    //this.setState({mounted: false})//
   }
 
   render(){
+    if(this.state.loading){
+      return (
+        <div className="spinnerDiv">
+          <div className="spinner-border" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        </div>
+      )
+    }
+
     return (
       <div className="container exercises-container d-flex flex-column">
         <h2 className="text-center exercises-header">{this.props.exercise}</h2>
@@ -154,10 +104,3 @@ export default class Exercises extends React.Component{
     )
   }
 }
-
-
-<div className="spinnerDiv">
-  <div className="spinner-border" role="status">
-    <span className="sr-only">Loading...</span>
-  </div>
-</div>
