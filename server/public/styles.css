@@ -5,13 +5,14 @@
   outline: none !important;
 }
 .nav-links{
-  transition: all 0.5s ease-out;
+  transition: all 0.3s ease-out;
 }
 .nav-links:hover{
-  transform: translate(20px,0)
+  transform: translate(20px,0);
+  color: #FFF9C5
 }
 .container{
-  margin-top: 8rem;
+  margin-top: 88px;
 }
 .row{
   justify-content: center;
@@ -40,4 +41,92 @@
 .type-button:hover{
   transform: translate(-3px, -3px);
   background-color: #FFF9C5;
+}
+
+.spinnerDiv{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.exercises-container{
+  margin-top: 56px;
+}
+.header{
+  text-transform: uppercase;
+  margin: 2rem;
+}
+.row.row-exercise{
+  border: solid black 1px;
+  border-radius: 16px;
+  margin: auto;
+  margin-bottom: 2.5rem;
+  transition: all 0.3s ease-out;
+}
+.exercise-name{
+  border: solid black 3px;
+  border-radius: 13px;
+  width: 100%;
+  transition: all 0.3s ease-out;
+  margin: 0;
+  text-align: left;
+  padding: 2rem;
+  background-color: white;
+  outline: none !important;
+}
+.exercise-name:hover{
+  transform: translate(0, -10px);
+  background-color: #FFF9C5;
+}
+.row.row-exercise:hover{
+  background-color: black;
+}
+
+.container.single-exercise{
+  width: 93%;
+  margin-bottom: 3rem;
+}
+.row.row-exercise-single{
+  border: solid 5px black;
+  border-radius: 33px;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+}
+.img-div{
+  margin: 3rem 2rem 2rem;
+  max-width: 400px;
+}
+.ex-img{
+  width: 400px;
+  margin: auto;
+}
+.description{
+  font-size: 18px;
+  margin: 0 3rem 2rem;
+  max-height: 8rem;
+  overflow: auto;
+}
+.fas{
+  font-size: 40px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.star-icon{
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+.star-icon:hover{
+  color: #FFEE59;
+}
+.link{
+  color: #008BF5;
+  transition: all 0.3s ease-out;
+  font-size: 18px;
+  text-align: center;
+  width: 60%;
+}
+.link:hover{
+  color: #47C26A;
 }

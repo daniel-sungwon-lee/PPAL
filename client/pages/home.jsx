@@ -1,20 +1,19 @@
 import React from "react"
 
-const types = ["Chest", "Back", "Biceps", "Triceps", "Shoulders", "Legs", "Abs"]
-
 export default class Home extends React.Component{
   constructor(props){
     super(props)
-    this.state={}
   }
 
   render(){
     return (
+      <>
       <div className="container">
+      <h2 className="text-center header">HOME</h2>
         {
-          types.map(type=>{
+          this.props.types.map(type=>{
             return (
-            <div className="row">
+            <div key={type} className="row">
               <div className="button-outline">
                 <a href={`#${type}`}><button className="type-button">{type}</button></a>
               </div>
@@ -23,6 +22,7 @@ export default class Home extends React.Component{
           })
         }
       </div>
+      </>
     )
   }
 }
