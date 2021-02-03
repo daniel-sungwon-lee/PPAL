@@ -85,12 +85,14 @@ export default class Exercises extends React.Component{
         this.state.loading
           ? <Spinner />
           : <div className="container exercises-container d-flex flex-column">
-              <h2 className="text-center exercises-header">{this.props.exercise}</h2>
+              <h2 className="text-center header">{this.props.exercise}</h2>
               <div className="m-auto w-75">
                 {
                   this.state.exercises.map(exercise => {
                     return (
-                      <a className="text-decoration-none text-dark" key={exercise.id} href="">
+                      <a className="text-decoration-none text-dark"
+                      key={exercise.id}
+                      href={`#exercise?exerciseName=${exercise.name}&exerciseId=${exercise.id}`}>
                         <div className="row row-exercise w-100">
                           <button className="h4 exercise-name">{exercise.name}</button>
                         </div>

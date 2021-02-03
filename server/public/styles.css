@@ -8,10 +8,11 @@
   transition: all 0.3s ease-out;
 }
 .nav-links:hover{
-  transform: translate(20px,0)
+  transform: translate(20px,0);
+  color: #FFF9C5
 }
-.container{
-  margin-top: 8rem;
+.home-container{
+  margin-top: 88px;
 }
 .row{
   justify-content: center;
@@ -51,7 +52,7 @@
 .exercises-container{
   margin-top: 56px;
 }
-.exercises-header{
+.header{
   text-transform: uppercase;
   margin: 2rem;
 }
@@ -68,7 +69,7 @@
   width: 100%;
   transition: all 0.3s ease-out;
   margin: 0;
-  text-align: center;
+  text-align: left;
   padding: 2rem;
   background-color: white;
   outline: none !important;
