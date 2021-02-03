@@ -95,7 +95,7 @@
 }
 .img-div{
   margin: 3rem 2rem 2rem;
-  max-width: 400px;
+  width: 80% !important;
 }
 .ex-img{
   width: 400px;
