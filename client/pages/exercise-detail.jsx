@@ -60,12 +60,15 @@ export default class ExerciseDetail extends React.Component{
     this.state={
       exercise: null,
       loading:true,
+      starClickCounter: 0,
       reps: 0,
       sets: 0
     }
     this.data={
-      exerciseId: this.props.exerciseId
+      exerciseId: this.props.exerciseId,
+      starColor: "black"
     }
+    this.handleStarClick=this.handleStarClick.bind(this)
     this.handleRepsUp=this.handleRepsUp.bind(this)
     this.handleSetsUp=this.handleSetsUp.bind(this)
     this.handleRepsDown=this.handleRepsDown.bind(this)
@@ -89,7 +92,15 @@ export default class ExerciseDetail extends React.Component{
   }
 
   handleStarClick(event){
-    event.target.style.color= "#FFEE59"
+    this.setState({starClickCounter: this.state.starClickCounter+1})
+
+    if(this.state.starClickCounter % 2===0){
+      this.data.starColor="#FFEE59"
+
+    }else{
+      this.data.starColor="black"
+    }
+
   }
 
   handleRepsUp(event){
@@ -130,7 +141,7 @@ export default class ExerciseDetail extends React.Component{
                           : <div className="placeholder-img-div"><i className="fas fa-images"></i></div>
                       }
                     </div>
-                    <i className="fas fa-star star-icon" data-toggle="modal" data-target="#saveModal" onClick={this.handleStarClick}></i>
+                    <i className="fas fa-star star-icon" data-toggle="modal" data-target="#saveModal" onClick={this.handleStarClick} style={{color: this.data.starColor}}></i>
                     <Modal />
                     <div className="description">
                       <p>{exercise.description.replace(/(<([^>]+)>)/gi, "")}</p>
