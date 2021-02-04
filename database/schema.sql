@@ -5,7 +5,7 @@ create table "users" (
     "username" text not null,
     "email" text not null,
     "password" text not null,
-    "createdAt" timestamp not null,
+    "createdAt" timestamp not null default now(),
     constraint "users_pk" primary key ("userId")
 ) with (
   oids=false
@@ -42,7 +42,7 @@ create table "workouts" (
     "exerciseId" integer not null,
     "routineId" integer not null,
     "isCompleted" boolean not null,
-    "completedAt" timestamp not null,
+    "completedAt" timestamp not null default now(),
     "userId" integer not null,
     constraint "workouts_pk" primary key ("workoutId")
 ) with (

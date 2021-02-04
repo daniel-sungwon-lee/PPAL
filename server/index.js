@@ -2,9 +2,11 @@ require('dotenv/config');
 const express = require('express');
 const staticMiddleware = require('./static-middleware');
 const pg = require("pg")
+const ClientError = require("./client-error")
+const errorMiddleware = require("./error-middleware")
 
 const db = new pg.Pool({
-  connectionString: "postgres://dev:lfz@localhost/ppal"
+  connectionString: process.env.DATABASE_URL
 })
 
 const app = express();
@@ -13,14 +15,46 @@ app.use(staticMiddleware);
 
 app.use(express.json())
 
-app.post("api/favorites", (req,res)=>{
+
+app.post("/api/favorites", (req,res)=>{
   const {exerciseId, name, type, reps, sets, userId} = req.body
 
   const sql = `
-  insert into "Favorites" ("exerciseId","name","type","reps","sets","userId")
-
+  insert into "favorites" ("exerciseId","name","type","reps","sets","userId")
+  values ($1, $2, $3, $4, $5, $6)
+  returning *
   `
+  const params = [exerciseId, name, type, reps, sets, userId]
+
+  db.query(sql,params)
+    .then(result=>{
+      res.status(201).json(result.rows[0])
+    })
+    .catch(err=>next(err))
 })
+
+app.delete("/api/favorites/:exerciseId", (req,res)=>{
+  const exerciseId = req.params.exerciseId
+
+  const sql = `
+  delete from "favorites"
+  where "exerciseId" = $1
+  returning *
+  `
+  const params = [exerciseId]
+
+  db.query(sql,params)
+    .then(result=>{
+      res.status(204).json(result.rows[0])
+    })
+    .catch(err=>next(err))
+})
+
+
+
+
+
+app.use(errorMiddleware)
 
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
