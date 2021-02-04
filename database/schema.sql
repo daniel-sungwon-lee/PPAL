@@ -1,82 +1,57 @@
 set client_min_messages to warning;
 
--- DANGER: this is NOT how to do it in the real world.
--- `drop schema` INSTANTLY ERASES EVERYTHING.
-drop schema "public" cascade;
-
-create schema "public";
-
-CREATE TABLE "users" (
-	"userId" serial NOT NULL,
-	"userName" TEXT NOT NULL,
-	"email" TEXT NOT NULL,
-	"password" TEXT NOT NULL,
-	"createdAt" DATETIME NOT NULL,
-	CONSTRAINT "users_pk" PRIMARY KEY ("userId")
-) WITH (
-  OIDS=FALSE
+create table "users" (
+    "userId" serial not null,
+    "username" text not null,
+    "email" text not null,
+    "password" text not null,
+    "createdAt" timestamp not null,
+    constraint "users_pk" primary key ("userId")
+) with (
+  oids=false
 );
-
-
-
-CREATE TABLE "favorites" (
-	"exerciseId" integer NOT NULL,
-	"exerciseName" TEXT NOT NULL,
-	"exerciseType" TEXT NOT NULL,
-	"exerciseReps" integer NOT NULL,
-	"exerciseSets" integer NOT NULL,
-	"addedBy" integer NOT NULL,
-	CONSTRAINT "favorites_pk" PRIMARY KEY ("exerciseId")
-) WITH (
-  OIDS=FALSE
+create table "favorites" (
+    "exerciseId" serial not null,
+    "name" text not null,
+    "type" text not null,
+    "reps" integer not null,
+    "sets" integer not null,
+    "userId" integer not null,
+    constraint "favorites_pk" primary key ("exerciseId")
+) with (
+  oids=false
 );
-
-
-
-CREATE TABLE "routines" (
-	"routineId" serial NOT NULL,
-	"routineName" TEXT NOT NULL,
-	"routineDescrip" TEXT NOT NULL,
-	"createdBy" integer NOT NULL,
-	CONSTRAINT "routines_pk" PRIMARY KEY ("routineId")
-) WITH (
-  OIDS=FALSE
+create table "routines" (
+    "routineId" serial not null,
+    "name" text not null,
+    "description" text not null,
+    "userId" integer not null,
+    constraint "routines_pk" primary key ("routineId")
+) with (
+  oids=false
 );
-
-
-
-CREATE TABLE "routineExercises" (
-	"routineId" BINARY NOT NULL,
-	"exerciseId" BINARY NOT NULL,
-	CONSTRAINT "routineExercises_pk" PRIMARY KEY ("routineId","exerciseId")
-) WITH (
-  OIDS=FALSE
+create table "routineExercises" (
+    "routineId" integer not null,
+    "exerciseId" integer not null,
+    constraint "routineExercises_pk" primary key ("routineId","exerciseId")
+) with (
+  oids=false
 );
-
-
-
-CREATE TABLE "workouts" (
-	"workoutId" integer NOT NULL,
-	"exerciseId" integer NOT NULL,
-	"routineId" integer NOT NULL,
-	"isCompleted" BOOLEAN NOT NULL,
-	"completedAt" DATETIME NOT NULL,
-	"userId" integer NOT NULL,
-	CONSTRAINT "workouts_pk" PRIMARY KEY ("workoutId")
-) WITH (
-  OIDS=FALSE
+create table "workouts" (
+    "workoutId" serial not null,
+    "exerciseId" integer not null,
+    "routineId" integer not null,
+    "isCompleted" boolean not null,
+    "completedAt" timestamp not null,
+    "userId" integer not null,
+    constraint "workouts_pk" primary key ("workoutId")
+) with (
+  oids=false
 );
-
-
-
-
-ALTER TABLE "favorites" ADD CONSTRAINT "favorites_fk0" FOREIGN KEY ("addedBy") REFERENCES "users"("userId");
-
-ALTER TABLE "routines" ADD CONSTRAINT "routines_fk0" FOREIGN KEY ("createdBy") REFERENCES "users"("userId");
-
-ALTER TABLE "routineExercises" ADD CONSTRAINT "routineExercises_fk0" FOREIGN KEY ("routineId") REFERENCES "routines"("routineId");
-ALTER TABLE "routineExercises" ADD CONSTRAINT "routineExercises_fk1" FOREIGN KEY ("exerciseId") REFERENCES "favorites"("exerciseId");
-
-ALTER TABLE "workouts" ADD CONSTRAINT "workouts_fk0" FOREIGN KEY ("exerciseId") REFERENCES "favorites"("exerciseId");
-ALTER TABLE "workouts" ADD CONSTRAINT "workouts_fk1" FOREIGN KEY ("routineId") REFERENCES "routines"("routineId");
-ALTER TABLE "workouts" ADD CONSTRAINT "workouts_fk2" FOREIGN KEY ("userId") REFERENCES "users"("userId");
+alter table "favorites" add constraint "favorites_fk0" foreign key ("userId") references "users"("userId");
+alter table "routines" add constraint "routines_fk0" foreign key ("userId") references "users"("userId");
+alter table "routineExercises" add constraint "routineExercises_fk0" foreign key ("routineId") references "routines"("routineId");
+alter table "routineExercises" add constraint "routineExercises_fk1" foreign key ("exerciseId") references "favorites"("exerciseId");
+alter table "workouts" add constraint "workouts_fk0" foreign key ("exerciseId") references "favorites"("exerciseId");
+alter table "workouts" add constraint "workouts_fk1" foreign key ("routineId") references "routines"("routineId");
+alter table "workouts" add constraint "workouts_fk2" foreign key ("userId") references "users"("userId");
