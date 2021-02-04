@@ -4,6 +4,7 @@ import Nav from "./components/nav"
 import {parseRoute} from "./lib"
 import Exercises from "./pages/exercises"
 import ExerciseDetail from "./pages/exercise-detail"
+import Favorites from "./pages/favorites"
 
 const types = ["Chest", "Back", "Biceps", "Triceps", "Shoulders", "Legs", "Abs"]
 
@@ -34,6 +35,10 @@ export default class App extends React.Component {
       const exerciseId = route.params.get("exerciseId")
 
       return <ExerciseDetail exerciseId={exerciseId}/>
+    }
+
+    if(route.path==="favorites"){
+      return <Favorites />
     }
   }
 

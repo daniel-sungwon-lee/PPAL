@@ -169,3 +169,8 @@
   border: none;
   margin: auto;
 }
+
+.fas.fa-plus:hover{
+  color: #47C26A;
+  transform: rotate(90deg);
+}
