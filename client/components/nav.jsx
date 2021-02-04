@@ -11,7 +11,7 @@ export default class Nav extends React.Component{
       <div className="fixed-top">
         <div className="collapse" id="navbarToggleExternalContent">
           <div className="bg-dark p-4">
-            <a href="#home" className="text-decoration-none"><h5 className="text-white h4 nav-links">Home</h5></a>
+            <a href="#" className="text-decoration-none"><h5 className="text-white h4 nav-links">Home</h5></a>
             <a href="#routines" className="text-decoration-none"><h5 className="text-white h4 nav-links">Routines</h5></a>
             <a href="#favorites" className="text-decoration-none"><h5 className="text-white h4 nav-links">Favorites</h5></a>
             <a href="#stopwatch" className="text-decoration-none"><h5 className="text-white h4 nav-links">Stopwatch</h5></a>

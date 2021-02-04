@@ -40,6 +40,20 @@ function Carousel(props){
   )
 }
 
+function Modal(props){
+  return (
+    <div className="modal fade" id="saveModal" role="dialog">
+      <div className="modal-dialog modal-lg">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h4 className="modal-title" id="exampleModalLabel">Saved to Favorites!</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default class ExerciseDetail extends React.Component{
   constructor(props){
     super(props)
@@ -72,6 +86,10 @@ export default class ExerciseDetail extends React.Component{
       .then(data=>{
         this.setState({exercise: new Array(data), loading: false})
       })
+  }
+
+  handleStarClick(event){
+    event.target.style.color= "#FFEE59"
   }
 
   handleRepsUp(event){
@@ -112,16 +130,8 @@ export default class ExerciseDetail extends React.Component{
                           : <div className="placeholder-img-div"><i className="fas fa-images"></i></div>
                       }
                     </div>
-                    <i className="fas fa-star star-icon" data-toggle="modal" data-target="#exampleModal"></i>
-                    <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div className="modal-dialog modal-lg">
-                        <div className="modal content">
-                          <div className="modal header">
-                            <h4 className="modal title" id="exampleModalLabel">Saved to Favorites!</h4>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <i className="fas fa-star star-icon" data-toggle="modal" data-target="#saveModal" onClick={this.handleStarClick}></i>
+                    <Modal />
                     <div className="description">
                       <p>{exercise.description.replace(/(<([^>]+)>)/gi, "")}</p>
                     </div>
