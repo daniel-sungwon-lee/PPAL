@@ -40,18 +40,37 @@ function Carousel(props){
   )
 }
 
+function Modal(props){
+  return (
+    <div className="modal fade" id="saveModal" role="dialog">
+      <div className="modal-dialog modal-lg">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h4 className="modal-title" id="exampleModalLabel">{props.message}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default class ExerciseDetail extends React.Component{
   constructor(props){
     super(props)
     this.state={
       exercise: null,
       loading:true,
+      starClickCounter: 0,
       reps: 0,
-      sets: 0
+      sets: 0,
+      isFavorites: false
     }
     this.data={
-      exerciseId: this.props.exerciseId
+      exerciseId: this.props.exerciseId,
+      starColor: "black",
+      message: "Saved to Favorites!"
     }
+    this.handleStarClick=this.handleStarClick.bind(this)
     this.handleRepsUp=this.handleRepsUp.bind(this)
     this.handleSetsUp=this.handleSetsUp.bind(this)
     this.handleRepsDown=this.handleRepsDown.bind(this)
@@ -72,6 +91,65 @@ export default class ExerciseDetail extends React.Component{
       .then(data=>{
         this.setState({exercise: new Array(data), loading: false})
       })
+  }
+
+  handleStarClick(event){
+    const [exercise] = this.state.exercise
+
+    const exerciseId = exercise.id
+    const name = exercise.name
+
+    const type = exercise.category.name
+    //below is me trying to attempt to get the specific muscle type
+    /*const muscleIdArr = exercise.muscles.map(muscle => {
+      return muscle.id
+    })
+    if (exercise.category.id === 8 && muscleIdArr.includes(1)) {
+      const type = "Biceps"
+    } else if (exercise.category.id === 8 && muscleIdArr.includes(5)) {
+      const type = "Triceps"
+    } else {
+      const type = exercise.category.name
+    }*/
+
+    let reps= this.state.reps
+    let sets = this.state.sets
+
+    //admin userId
+    const userId = 1
+
+    const favExercise = {
+      exerciseId, name, type, reps, sets, userId
+    }
+
+    if (!this.state.isFavorites){
+      fetch("http://localhost:3000/api/favorites", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(favExercise)
+      })
+        .then(exercise=>{
+          this.setState({isFavorites: true})
+        })
+    } else if (this.state.isFavorites){
+      fetch(`http://localhost:3000/api/favorites/${exerciseId}`, {
+        method: "DELETE",
+        headers: {"Content-Type": "application/json"}
+      })
+        .then(exercise=>{
+          this.setState({isFavorites: false})
+        })
+    }
+
+    this.setState({starClickCounter: this.state.starClickCounter+1})
+
+    if(this.state.starClickCounter % 2===0){
+      this.data.starColor="#FFEE59"
+      this.data.message="Saved to Favorites!"
+    }else{
+      this.data.starColor="black"
+      this.data.message="Removed from Favorites!"
+    }
   }
 
   handleRepsUp(event){
@@ -112,7 +190,8 @@ export default class ExerciseDetail extends React.Component{
                           : <div className="placeholder-img-div"><i className="fas fa-images"></i></div>
                       }
                     </div>
-                    <i className="fas fa-star star-icon"></i>
+                    <i className="fas fa-star star-icon" data-toggle="modal" data-target="#saveModal" onClick={this.handleStarClick} style={{color: this.data.starColor}}></i>
+                    <Modal message={this.data.message}/>
                     <div className="description">
                       <p>{exercise.description.replace(/(<([^>]+)>)/gi, "")}</p>
                     </div>
@@ -123,24 +202,26 @@ export default class ExerciseDetail extends React.Component{
                     </div>
                   </div>
                   <div className="row justify-content-around">
-                    <div className="reps d-flex align-items-center">
-                      <h4 className="m-0">Reps</h4>
-                      <div className="sort d-flex flex-column ml-4">
-                        <i className="fas fa-caret-up" onClick={this.handleRepsUp}></i>
-                        <i className="fas fa-caret-down" onClick={this.handleRepsDown}></i>
+                    <div className="d-flex flex-column align-items-center">
+                      <div className="reps d-flex align-items-center">
+                        <h4 className="m-0">Sets</h4>
+                        <div className="sort d-flex flex-column ml-4">
+                          <i className="fas fa-caret-up" onClick={this.handleSetsUp}></i>
+                          <i className="fas fa-caret-down" onClick={this.handleSetsDown}></i>
+                        </div>
                       </div>
+                      <h4 className="num">{this.state.sets}</h4>
                     </div>
-                    <div className="sets d-flex align-items-center">
-                      <h4 className="m-0">Sets</h4>
-                      <div className="sort d-flex flex-column ml-4">
-                        <i className="fas fa-caret-up" onClick={this.handleSetsUp}></i>
-                        <i className="fas fa-caret-down" onClick={this.handleSetsDown}></i>
+                    <div className="d-flex flex-column align-items-center">
+                      <div className="sets d-flex align-items-center">
+                        <h4 className="m-0">Reps</h4>
+                        <div className="sort d-flex flex-column ml-4">
+                          <i className="fas fa-caret-up" onClick={this.handleRepsUp}></i>
+                          <i className="fas fa-caret-down" onClick={this.handleRepsDown}></i>
+                        </div>
                       </div>
+                      <h4 className="num">{this.state.reps}</h4>
                     </div>
-                  </div>
-                  <div className="row justify-content-around">
-                    <h4 className="num">{this.state.reps}</h4>
-                    <h4 className="num">{this.state.sets}</h4>
                   </div>
                 </div>
               )

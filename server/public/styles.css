@@ -128,7 +128,7 @@
   top: 1rem;
 }
 .star-icon:hover{
-  color: #FFEE59;
+  color: #FFEE59 !important;
 }
 .link{
   color: #008BF5;
@@ -155,4 +155,22 @@
 }
 .fas.fa-caret-down:hover{
   color: #EF233C;
+}
+.num{
+  margin-top: 0.5rem;
+}
+.modal-content{
+  background-color: #FFF9C5;
+  border: solid black 4px;
+  border-radius: 13px;
+  padding: 1.5rem;
+}
+.modal-header{
+  border: none;
+  margin: auto;
+}
+
+.fas.fa-plus:hover{
+  color: #47C26A;
+  transform: rotate(90deg);
 }
