@@ -16,6 +16,7 @@ app.use(staticMiddleware);
 app.use(express.json())
 
 
+//adding to favorites
 app.post("/api/favorites", (req,res)=>{
   const {exerciseId, name, type, reps, sets, userId} = req.body
 
@@ -51,7 +52,35 @@ app.delete("/api/favorites/:exerciseId", (req,res)=>{
 })
 
 
+//favorites list
+app.get("/api/favorites", (req,res)=>{
+  const sql = `
+  select *
+    from "favorites"
+  `
+  db.query(sql)
+    .then(result=>{
+      res.status(200).json(result.rows)
+    })
+    .catch(err=>next(err))
+})
 
+app.get("/api/favorites/:exerciseId", (req,res)=>{
+  const exerciseId = req.params.exerciseId
+
+  const sql = `
+  select *
+  from "favorites"
+  where "exerciseId" = $1
+  `
+  const params = [exerciseId]
+
+  db.query(sql)
+    .then(result=>{
+      res.status(200).json(result.rows)
+    })
+    .catch(err=>next(err))
+})
 
 
 app.use(errorMiddleware)

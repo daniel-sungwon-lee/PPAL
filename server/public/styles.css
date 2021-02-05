@@ -174,3 +174,17 @@
   color: #47C26A;
   transform: rotate(90deg);
 }
+.type-header{
+  background-color: #FFF9C5;
+  border-radius: 13px;
+  width: 12rem;
+  height: 3.5rem;
+}
+.favorites-exercise-row{
+  width: 90%;
+  margin: auto;
+  transition: all 0.3s ease-out;
+}
+.fas.fa-trash:hover{
+  color:#EF233C;
+}
