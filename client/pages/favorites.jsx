@@ -4,6 +4,7 @@ export default class Favorites extends React.Component{
   constructor(props){
     super(props)
     this.state={favorites: []}
+    this.handleTrash=this.handleTrash.bind(this)
   }
 
   componentDidMount(){
@@ -13,6 +14,16 @@ export default class Favorites extends React.Component{
         this.setState({favorites: data})
       })
 
+  }
+
+  handleTrash(event){
+    fetch(`http://localhost:3000/api/favorites/${exerciseId}`, {
+        method: "DELETE",
+        headers: {"Content-Type": "application/json"}
+      })
+        .then(exercise=>{
+          this.setState({isFavorites: false})
+        })
   }
 
   render(){
@@ -33,14 +44,14 @@ export default class Favorites extends React.Component{
                   <h3 className="m-0">{exercise.type}</h3>
                 </div>
               </div>
-              <div id={exercise.exerciseId} className="favorites-exercise-row d-flex justify-content-between align-items-center mb-5">
+              <div key={exercise.exerciseId} className="favorites-exercise-row d-flex justify-content-between align-items-center mb-5">
                 <a className="w-75 text-decoration-none text-dark"
                    href={`#favoritesExercise?exerciseId=${exercise.exerciseId}`}>
                   <div className="row row-exercise m-0">
                     <button className="h4 exercise-name">{exercise.name}</button>
                   </div>
                 </a>
-                <i className="fas fa-trash"></i>
+                <i className="fas fa-trash" onClick={this.handleTrash}></i>
               </div>
               </>
             )

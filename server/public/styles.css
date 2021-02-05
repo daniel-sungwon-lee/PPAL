@@ -185,6 +185,9 @@
   margin: auto;
   transition: all 0.3s ease-out;
 }
+.fas.fa-trash{
+  font-size: 33px;
+}
 .fas.fa-trash:hover{
   color:#EF233C;
 }

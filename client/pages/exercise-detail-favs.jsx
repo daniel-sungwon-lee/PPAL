@@ -10,6 +10,36 @@ function Spinner(props) {
   )
 }
 
+function Carousel(props) {
+  return (
+    <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
+      <div className="carousel-inner">
+        {
+          props.images.map(img => {
+            let classN = "carousel-item"
+            if (props.images.indexOf(img) === 0) {
+              classN = "carousel-item active"
+            }
+            return (
+              <div className={classN}>
+                <img src={img.image} className="d-block exercise-img" key={img.id} alt="Exercise Image" />
+              </div>
+            )
+          })
+        }
+      </div>
+      <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <i className="fas fa-angle-left text-dark" aria-hidden="true"></i>
+        <span className="sr-only">Previous</span>
+      </a>
+      <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <i className="fas fa-angle-right text-dark" aria-hidden="true"></i>
+        <span className="sr-only">Next</span>
+      </a>
+    </div>
+  )
+}
+
 export default class ExerciseFav extends React.Component{
   constructor(props){
     super(props)
@@ -44,7 +74,7 @@ export default class ExerciseFav extends React.Component{
     fetch(`https://wger.de/api/v2/exerciseinfo/${this.data.exerciseId}`, init)
       .then(res => res.json())
       .then(data => {
-        this.setState({ exercise: Object.assign(this.state.exercise[0], data), loading: false })
+        this.setState({ exercise: new Array(Object.assign(this.state.exercise[0], data)), loading: false })
       })
   }
 
@@ -86,7 +116,7 @@ export default class ExerciseFav extends React.Component{
                           : <div className="placeholder-img-div"><i className="fas fa-images"></i></div>
                       }
                     </div>
-                    <i className="fas fa-star star-icon" style="color: #FFEE59"></i>
+                    <i className="fas fa-star star-icon" style={{color: "#FFEE59"}}></i>
                     <div className="description">
                       <p>{exercise.description.replace(/(<([^>]+)>)/gi, "")}</p>
                     </div>

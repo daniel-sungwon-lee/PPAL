@@ -60,14 +60,14 @@ export default class ExerciseDetail extends React.Component{
     this.state={
       exercise: null,
       loading:true,
-      starClickCounter: 0,
+      //starClickCounter: 0,
       reps: 0,
-      sets: 0,
-      isFavorites: false
+      sets: 0
+      //isFavorites: false
     }
     this.data={
       exerciseId: this.props.exerciseId,
-      starColor: "black",
+      //starColor: "black",
       message: "Saved to Favorites!"
     }
     this.handleStarClick=this.handleStarClick.bind(this)
@@ -122,7 +122,7 @@ export default class ExerciseDetail extends React.Component{
       exerciseId, name, type, reps, sets, userId
     }
 
-    if (!this.state.isFavorites){
+    //if (!this.state.isFavorites){
       fetch("http://localhost:3000/api/favorites", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
@@ -131,7 +131,10 @@ export default class ExerciseDetail extends React.Component{
         .then(exercise=>{
           this.setState({isFavorites: true})
         })
-    } else if (this.state.isFavorites){
+
+    //star icon changes color depending on if it saved or not,
+    //and can be removed (do later)
+    /*} else if (this.state.isFavorites){
       fetch(`http://localhost:3000/api/favorites/${exerciseId}`, {
         method: "DELETE",
         headers: {"Content-Type": "application/json"}
@@ -149,7 +152,7 @@ export default class ExerciseDetail extends React.Component{
     }else{
       this.data.starColor="black"
       this.data.message="Removed from Favorites!"
-    }
+    }*/
   }
 
   handleRepsUp(event){

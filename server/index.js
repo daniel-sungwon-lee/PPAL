@@ -17,7 +17,7 @@ app.use(express.json())
 
 
 //adding to favorites
-app.post("/api/favorites", (req,res)=>{
+app.post("/api/favorites", (req,res,next)=>{
   const {exerciseId, name, type, reps, sets, userId} = req.body
 
   const sql = `
@@ -34,7 +34,7 @@ app.post("/api/favorites", (req,res)=>{
     .catch(err=>next(err))
 })
 
-app.delete("/api/favorites/:exerciseId", (req,res)=>{
+app.delete("/api/favorites/:exerciseId", (req,res,next)=>{
   const exerciseId = req.params.exerciseId
 
   const sql = `
@@ -53,7 +53,7 @@ app.delete("/api/favorites/:exerciseId", (req,res)=>{
 
 
 //favorites list
-app.get("/api/favorites", (req,res)=>{
+app.get("/api/favorites", (req,res,next)=>{
   const sql = `
   select *
     from "favorites"
@@ -65,7 +65,7 @@ app.get("/api/favorites", (req,res)=>{
     .catch(err=>next(err))
 })
 
-app.get("/api/favorites/:exerciseId", (req,res)=>{
+app.get("/api/favorites/:exerciseId", (req,res,next)=>{
   const exerciseId = req.params.exerciseId
 
   const sql = `
@@ -75,7 +75,7 @@ app.get("/api/favorites/:exerciseId", (req,res)=>{
   `
   const params = [exerciseId]
 
-  db.query(sql)
+  db.query(sql,params)
     .then(result=>{
       res.status(200).json(result.rows)
     })
