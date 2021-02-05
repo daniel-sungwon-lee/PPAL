@@ -16,7 +16,7 @@ app.use(staticMiddleware);
 app.use(express.json())
 
 
-//adding to favorites
+//exercise-detail page
 app.post("/api/favorites", (req,res,next)=>{
   const {exerciseId, name, type, reps, sets, userId} = req.body
 
@@ -34,6 +34,7 @@ app.post("/api/favorites", (req,res,next)=>{
     .catch(err=>next(err))
 })
 
+//below was attempted but will do later (used in favorites page)
 app.delete("/api/favorites/:exerciseId", (req,res,next)=>{
   const exerciseId = req.params.exerciseId
 
@@ -52,7 +53,7 @@ app.delete("/api/favorites/:exerciseId", (req,res,next)=>{
 })
 
 
-//favorites list
+//favorites page
 app.get("/api/favorites", (req,res,next)=>{
   const sql = `
   select *
@@ -82,6 +83,26 @@ app.get("/api/favorites/:exerciseId", (req,res,next)=>{
     .catch(err=>next(err))
 })
 
+
+//exercise-detail-fav page
+app.patch("/api/favorites/:exerciseId", (req,res,next)=>{
+  const exerciseId = req.params.exerciseId
+  const {sets, reps} = req.body
+
+  const sql = `
+  update "favorites"
+  set "sets" = $1,
+      "reps" = $2
+  where "exerciseId" = $3
+  `
+  const params = [sets, reps, exerciseId]
+
+  db.query(sql,params)
+    .then(result=>{
+      res.status(200).json(result.rows[0])
+    })
+    .catch(err=>next(err))
+})
 
 app.use(errorMiddleware)
 

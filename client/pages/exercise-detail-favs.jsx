@@ -45,14 +45,19 @@ export default class ExerciseFav extends React.Component{
     super(props)
     this.state={
        exercise: [],
-       loading: true
+       loading: true,
+       reps:0,
+       sets:0
       }
-    this.data={exerciseId: this.props.exerciseId}
+    this.data={
+      exerciseId: this.props.exerciseId
+    }
 
     this.handleRepsUp = this.handleRepsUp.bind(this)
     this.handleSetsUp = this.handleSetsUp.bind(this)
     this.handleRepsDown = this.handleRepsDown.bind(this)
     this.handleSetsDown = this.handleSetsDown.bind(this)
+    this.saveRepsAndSets=this.saveRepsAndSets.bind(this)
 
   }
 
@@ -75,27 +80,43 @@ export default class ExerciseFav extends React.Component{
       .then(res => res.json())
       .then(data => {
         this.setState({ exercise: new Array(Object.assign(this.state.exercise[0], data)), loading: false })
+        this.state.reps = this.state.exercise[0].reps
+        this.state.sets = this.state.exercise[0].sets
       })
   }
 
   handleRepsUp(event) {
-    this.setState({ exercise: this.state.exercise[0].reps + 1 })
+    this.setState({reps: this.state.reps +1})
   }
 
   handleSetsUp(event) {
-    this.setState({ exercise: this.state.exercise[0].sets + 1 })
+    this.setState({ sets: this.state.sets + 1 })
   }
 
   handleRepsDown(event) {
-    if (this.state.exercise[0].reps > 0) {
-      this.setState({ exercise: this.state.exercise[0].reps - 1 })
+    if (this.state.reps > 0) {
+      this.setState({ reps: this.state.reps - 1 })
     }
   }
 
   handleSetsDown(event) {
-    if (this.state.exercise[0].sets > 0) {
-      this.setState({ exercise: this.state.exercise[0].sets - 1 })
+    if (this.state.sets > 0) {
+      this.setState({ sets: this.state.sets - 1 })
     }
+  }
+
+  saveRepsAndSets(event){
+    const reqBody ={
+      reps: this.state.reps,
+      sets: this.state.sets
+    }
+
+    fetch(`http://localhost:3000/api/favorites/${this.data.exerciseId}`,{
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(reqBody)
+    })
+
   }
 
   render(){
@@ -110,7 +131,7 @@ export default class ExerciseFav extends React.Component{
                   <div className="header d-flex justify-content-between align-items-center">
                     <i className="fas fa-plus invisible"></i>
                     <h2 className="text-uppercase m-0">{exercise.name}</h2>
-                    <a className="text-dark" href="#favorites"><i className="fas fa-times"></i></a>
+                    <a className="text-dark" href="#favorites" onClick={this.saveRepsAndSets}><i className="fas fa-times"></i></a>
                   </div>
                   <div className="row row-exercise-single">
                     <div className="img-div">
@@ -139,7 +160,7 @@ export default class ExerciseFav extends React.Component{
                           <i className="fas fa-caret-down" onClick={this.handleSetsDown}></i>
                         </div>
                       </div>
-                      <h4 className="num">{exercise.sets}</h4>
+                      <h4 className="num">{this.state.sets}</h4>
                     </div>
                     <div className="d-flex flex-column align-items-center">
                       <div className="sets d-flex align-items-center">
@@ -149,7 +170,7 @@ export default class ExerciseFav extends React.Component{
                           <i className="fas fa-caret-down" onClick={this.handleRepsDown}></i>
                         </div>
                       </div>
-                      <h4 className="num">{exercise.reps}</h4>
+                      <h4 className="num">{this.state.reps}</h4>
                     </div>
                   </div>
                 </div>
