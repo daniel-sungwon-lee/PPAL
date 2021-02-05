@@ -10,11 +10,32 @@ function Spinner(props) {
   )
 }
 
+function ModalStatic(props){
+  return (
+    <div className="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div className="modal-dialog modal-lg">
+        <div className="modal-content">
+          <div className="modal-header m-0 align-items-center">
+            <div className="modal-title" id="staticBackdropLabel">
+              <h4 className="">Delete?</h4>
+              <h4 className="">There is no going back...</h4>
+            </div>
+            <div className="modal-icons d-flex align-items-center">
+              <i className="fas fa-hand-point-left" data-dismiss="modal" aria-label="Close"></i>
+              <i className="fas fa-thumbs-up" data-dismiss="modal" aria-label="Close" onClick={()=>props.deleteExercise(props.exerciseId)}></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default class Favorites extends React.Component{
   constructor(props){
     super(props)
     this.state={favorites: [], loading: true}
-    this.handleTrash=this.handleTrash.bind(this)
+    this.deleteExercise=this.deleteExercise.bind(this)
   }
 
   componentDidMount(){
@@ -26,14 +47,31 @@ export default class Favorites extends React.Component{
 
   }
 
-  handleTrash(event){
+  deleteExercise(exerciseId){
+    console.log(exerciseId)
+    const favortiesNew = [...this.state.favorites]
+
+    for (let i =0; i<favortiesNew.length; i++){
+      if(favortiesNew[i].exerciseId===exerciseId){
+        const idIndex = i
+      }
+
+      favortiesNew.splice(i,1)
+
+      this.setState({favorites: favortiesNew})
+
+    }
+
     fetch(`http://localhost:3000/api/favorites/${exerciseId}`, {
-        method: "DELETE",
-        headers: {"Content-Type": "application/json"}
-      })
-        .then(exercise=>{
-          this.setState({isFavorites: false})
-        })
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" }
+    })
+
+    /*fetch(`http://localhost:3000/api/favorites`)
+      .then(res=>res.json())
+      .then(data=>{
+        this.setState({favorites: data})
+      })*/
   }
 
   render(){
@@ -53,24 +91,9 @@ export default class Favorites extends React.Component{
           {
             this.state.favorites.map(exercise=>{
               return (
-                <>
-                <div className="d-flex justify-content-start mb-3">
-                  <div className="type-header d-flex align-items-center justify-content-center">
-                    <div className="w-100">
-                      <h3 className="m-0 pl-4">{exercise.type}</h3>
-                    </div>
-                  </div>
-                </div>
-                <div key={exercise.exerciseId} className="favorites-exercise-row d-flex justify-content-between align-items-center mb-5">
-                  <a className="w-75 text-decoration-none text-dark"
-                     href={`#favoritesExercise?exerciseId=${exercise.exerciseId}`}>
-                    <div className="row row-exercise m-0">
-                      <button className="h4 exercise-name">{exercise.name}</button>
-                    </div>
-                  </a>
-                  <i className="fas fa-trash" onClick={this.handleTrash}></i>
-                </div>
-                </>
+                <Exercise key={exercise.exerciseId}
+                  exercise={exercise}
+                  deleteExercise={this.deleteExercise}/>
               )
             })
           }
@@ -79,4 +102,30 @@ export default class Favorites extends React.Component{
       )
     }
   }
+}
+
+function Exercise(props){
+  const {exerciseId, type, name} = props.exercise
+
+  return (
+    <>
+      <div className="d-flex justify-content-start m-4">
+        <div className="type-header d-flex align-items-center justify-content-center">
+          <div className="w-100">
+            <h3 className="m-0 pl-4">{type}</h3>
+          </div>
+        </div>
+      </div>
+      <div id={exerciseId} className="favorites-exercise-row d-flex justify-content-between align-items-center mb-5">
+        <a className="w-75 text-decoration-none text-dark"
+          href={`#favoritesExercise?exerciseId=${exerciseId}`}>
+          <div className="row row-exercise m-0">
+            <button className="h4 exercise-name">{name}</button>
+          </div>
+        </a>
+        <i className="fas fa-trash" data-toggle="modal" data-target="#staticBackdrop"></i>
+        <ModalStatic key={exerciseId} deleteExercise={props.deleteExercise} exerciseId={exerciseId}/>
+      </div>
+    </>
+  )
 }
