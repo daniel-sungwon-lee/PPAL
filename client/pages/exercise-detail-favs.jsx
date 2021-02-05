@@ -127,13 +127,14 @@ export default class ExerciseFav extends React.Component{
             ? <Spinner />
             : this.state.exercise.map(exercise => {
               return (
-                <SingleExercise key={exercise.id}
+                <SingleExerciseFav key={exercise.id}
                 exercise={exercise}
                 saveRepsAndSets={this.saveRepsAndSets}
                 handleRepsUp={this.handleRepsUp}
                 handleRepsDown={this.handleRepsDown}
                 handleSetsUp={this.handleSetsUp}
-                handleSetsDown={this.handleSetsDown}/>
+                handleSetsDown={this.handleSetsDown}
+                state={this.state}/>
               )
             })
         }
@@ -142,7 +143,7 @@ export default class ExerciseFav extends React.Component{
   }
 }
 
-function SingleExercise(props){
+function SingleExerciseFav(props){
   const {id, name, images, description, sets, reps} = props.exercise
 
   return (
@@ -180,7 +181,7 @@ function SingleExercise(props){
               <i className="fas fa-caret-down" onClick={props.handleSetsDown}></i>
             </div>
           </div>
-          <h4 className="num">{sets}</h4>
+          <h4 className="num">{props.state.sets}</h4>
         </div>
         <div className="d-flex flex-column align-items-center">
           <div className="sets d-flex align-items-center">
@@ -190,7 +191,7 @@ function SingleExercise(props){
               <i className="fas fa-caret-down" onClick={props.handleRepsDown}></i>
             </div>
           </div>
-          <h4 className="num">{reps}</h4>
+          <h4 className="num">{props.state.reps}</h4>
         </div>
       </div>
     </div>
