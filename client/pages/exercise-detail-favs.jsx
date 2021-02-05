@@ -127,57 +127,72 @@ export default class ExerciseFav extends React.Component{
             ? <Spinner />
             : this.state.exercise.map(exercise => {
               return (
-                <div className="container single-exercise" key={exercise.id}>
-                  <div className="header d-flex justify-content-between align-items-center">
-                    <i className="fas fa-plus invisible"></i>
-                    <h2 className="text-uppercase m-0">{exercise.name}</h2>
-                    <a className="text-dark" href="#favorites" onClick={this.saveRepsAndSets}><i className="fas fa-times"></i></a>
-                  </div>
-                  <div className="row row-exercise-single">
-                    <div className="img-div">
-                      {
-                        exercise.images !== undefined && exercise.images.length !== 0
-                          ? <Carousel images={exercise.images} />
-                          : <div className="placeholder-img-div"><i className="fas fa-images"></i></div>
-                      }
-                    </div>
-                    <i className="fas fa-star star-icon" style={{color: "#FFEE59"}}></i>
-                    <div className="description">
-                      <p>{exercise.description.replace(/(<([^>]+)>)/gi, "")}</p>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="link">
-                      <a href={`https://www.google.com/search?q=${exercise.name}`} target="_blank" className="text-decoration-none link">{`Click here to search for ${exercise.name}`}</a>
-                    </div>
-                  </div>
-                  <div className="row justify-content-around">
-                    <div className="d-flex flex-column align-items-center">
-                      <div className="reps d-flex align-items-center">
-                        <h4 className="m-0">Sets</h4>
-                        <div className="sort d-flex flex-column ml-4">
-                          <i className="fas fa-caret-up" onClick={this.handleSetsUp}></i>
-                          <i className="fas fa-caret-down" onClick={this.handleSetsDown}></i>
-                        </div>
-                      </div>
-                      <h4 className="num">{this.state.sets}</h4>
-                    </div>
-                    <div className="d-flex flex-column align-items-center">
-                      <div className="sets d-flex align-items-center">
-                        <h4 className="m-0">Reps</h4>
-                        <div className="sort d-flex flex-column ml-4">
-                          <i className="fas fa-caret-up" onClick={this.handleRepsUp}></i>
-                          <i className="fas fa-caret-down" onClick={this.handleRepsDown}></i>
-                        </div>
-                      </div>
-                      <h4 className="num">{this.state.reps}</h4>
-                    </div>
-                  </div>
-                </div>
+                <SingleExercise key={exercise.id}
+                exercise={exercise}
+                saveRepsAndSets={this.saveRepsAndSets}
+                handleRepsUp={this.handleRepsUp}
+                handleRepsDown={this.handleRepsDown}
+                handleSetsUp={this.handleSetsUp}
+                handleSetsDown={this.handleSetsDown}/>
               )
             })
         }
       </>
     )
   }
+}
+
+function SingleExercise(props){
+  const {id, name, images, description, sets, reps} = props.exercise
+
+  return (
+    <div className="container single-exercise">
+      <div className="header d-flex justify-content-between align-items-center">
+        <i className="fas fa-plus invisible"></i>
+        <h2 className="text-uppercase m-0">{name}</h2>
+        <a className="text-dark" href="#favorites" onClick={props.saveRepsAndSets}><i className="fas fa-times"></i></a>
+      </div>
+      <div className="row row-exercise-single">
+        <div className="img-div">
+          {
+            images !== undefined && images.length !== 0
+              ? <Carousel key={id} images={images} />
+              : <div className="placeholder-img-div"><i className="fas fa-images"></i></div>
+          }
+        </div>
+        <i className="fas fa-star star-icon" style={{ color: "#FFEE59" }}></i>
+        <div className="description">
+          <p>{description.replace(/(<([^>]+)>)/gi, "")}</p>
+        </div>
+      </div>
+      <div className="row">
+        <div className="link">
+          <a href={`https://www.google.com/search?q=${name}`} target="_blank"
+          className="text-decoration-none link">{`Click here to search for ${name}`}</a>
+        </div>
+      </div>
+      <div className="row justify-content-around">
+        <div className="d-flex flex-column align-items-center">
+          <div className="reps d-flex align-items-center">
+            <h4 className="m-0">Sets</h4>
+            <div className="sort d-flex flex-column ml-4">
+              <i className="fas fa-caret-up" onClick={props.handleSetsUp}></i>
+              <i className="fas fa-caret-down" onClick={props.handleSetsDown}></i>
+            </div>
+          </div>
+          <h4 className="num">{sets}</h4>
+        </div>
+        <div className="d-flex flex-column align-items-center">
+          <div className="sets d-flex align-items-center">
+            <h4 className="m-0">Reps</h4>
+            <div className="sort d-flex flex-column ml-4">
+              <i className="fas fa-caret-up" onClick={props.handleRepsUp}></i>
+              <i className="fas fa-caret-down" onClick={props.handleRepsDown}></i>
+            </div>
+          </div>
+          <h4 className="num">{reps}</h4>
+        </div>
+      </div>
+    </div>
+  )
 }
