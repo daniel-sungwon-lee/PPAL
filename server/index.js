@@ -106,7 +106,7 @@ app.patch("/api/favorites/:exerciseId", (req,res,next)=>{
 })
 
 
-//routine-form
+//routine-form page
 app.post("/api/routines", (req,res,next)=>{
   const {name, description, day, userId} = req.body
 
@@ -119,8 +119,23 @@ app.post("/api/routines", (req,res,next)=>{
 
   db.query(sql,params)
     .then(result=>{
-      res.status(201).json(result.rows)
+      res.status(201).json(result.rows[0])
     })
+    .catch(err=>next(err))
+})
+
+
+//routines page
+app.get("/api/routines", (req,res,next)=>{
+  const sql = `
+  select *
+  from "routines"
+  `
+  db.query(sql)
+    .then(result=>{
+      res.status(200).json(result.rows)
+    })
+    .catch(err=>next(err))
 })
 
 

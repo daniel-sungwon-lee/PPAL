@@ -71,6 +71,10 @@ export default class RoutineForm extends React.Component{
       headers: {"Content-Type" : "application/json"},
       body: JSON.stringify(reqBody)
     })
+      .then(res=>res.json())
+      .then(result=>{
+        window.location.hash="#routines"
+      })
   }
 
   render(){
