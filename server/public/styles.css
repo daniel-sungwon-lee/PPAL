@@ -191,3 +191,8 @@
 .fas.fa-trash:hover{
   color:#EF233C;
 }
+
+.fas.fa-times:hover{
+  transform: rotate(180deg);
+  color: #EF233C;
+}

@@ -107,7 +107,11 @@ export default class ExerciseFav extends React.Component{
             : this.state.exercise.map(exercise => {
               return (
                 <div className="container single-exercise" key={exercise.id}>
-                  <h2 className="header text-center">{exercise.name}</h2>
+                  <div className="header d-flex justify-content-between align-items-center">
+                    <i className="fas fa-plus invisible"></i>
+                    <h2 className="text-uppercase m-0">{exercise.name}</h2>
+                    <a className="text-dark" href="#favorites"><i className="fas fa-times"></i></a>
+                  </div>
                   <div className="row row-exercise-single">
                     <div className="img-div">
                       {
