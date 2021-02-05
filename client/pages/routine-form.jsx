@@ -54,7 +54,7 @@ export default class RoutineForm extends React.Component{
         <form className="form" onSubmit={this.handleSubmit}>
           <div className="form-group d-flex flex-column">
             <label htmlFor="routineName">Routine name</label>
-            <input type="text" className="text-input" id="routineName" required placeholder="Chest and Triceps" />
+            <input type="text" className="text-input" id="routineName" required placeholder="Push" />
           </div>
           <div className="form-group d-flex flex-column">
             <label htmlFor="routineDay">Day of the week</label>
@@ -70,7 +70,7 @@ export default class RoutineForm extends React.Component{
           </div>
           <div className="form-group d-flex flex-column">
             <label htmlFor="routineDescription">Routine description</label>
-            <textarea className="textarea" id="routineDescription"></textarea>
+            <textarea className="textarea" id="routineDescription" placeholder="Chest and Triceps"></textarea>
           </div>
           <div className="button-outline form-submit">
             <button className="type-button submit" type="submit">Save</button>

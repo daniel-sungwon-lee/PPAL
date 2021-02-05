@@ -25,6 +25,7 @@ create table "routines" (
     "routineId" serial not null,
     "name" text not null,
     "description" text not null,
+    "day" text not null,
     "userId" integer not null,
     constraint "routines_pk" primary key ("routineId")
 ) with (

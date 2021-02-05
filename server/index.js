@@ -104,6 +104,14 @@ app.patch("/api/favorites/:exerciseId", (req,res,next)=>{
     .catch(err=>next(err))
 })
 
+
+//routine-form
+app.post("/api/routines", (req,res,next)=>{
+  const {name, description, day} = req.body
+})
+
+
+
 app.use(errorMiddleware)
 
 app.listen(process.env.PORT, () => {
