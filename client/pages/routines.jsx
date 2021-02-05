@@ -48,6 +48,9 @@ export default class Routines extends React.Component{
               <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                 <div className="card-body">
                   {
+                    this.state.routines.filter(routine=>{
+                      routine.day==="Sunday"
+                    })
 
                   }
                 </div>

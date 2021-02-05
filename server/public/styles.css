@@ -260,6 +260,10 @@
   background-color: white;
   margin-bottom: 2rem;
 }
+.type-button:focus{
+  transform: translate(-3px, -3px);
+  background-color: #FFF9C5;
+}
 .text-input:focus, .select:focus, .textarea:focus{
   box-shadow: 0px 4px 5px 1px rgba(0,0,0,0.3);;
 }

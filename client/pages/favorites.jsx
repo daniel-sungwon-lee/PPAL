@@ -49,29 +49,17 @@ export default class Favorites extends React.Component{
 
   deleteExercise(exerciseId){
     console.log(exerciseId)
-    const favortiesNew = [...this.state.favorites]
 
-    for (let i =0; i<favortiesNew.length; i++){
-      if(favortiesNew[i].exerciseId===exerciseId){
-        const idIndex = i
-      }
+    const newFavorites = this.state.favorites.filter(exercise=>{
+      return exercise.exerciseId !== exerciseId
+    })
 
-      favortiesNew.splice(i,1)
-
-      this.setState({favorites: favortiesNew})
-
-    }
+    this.setState({favorites: newFavorites})
 
     fetch(`http://localhost:3000/api/favorites/${exerciseId}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" }
     })
-
-    /*fetch(`http://localhost:3000/api/favorites`)
-      .then(res=>res.json())
-      .then(data=>{
-        this.setState({favorites: data})
-      })*/
   }
 
   render(){
