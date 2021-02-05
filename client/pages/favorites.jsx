@@ -10,6 +10,27 @@ function Spinner(props) {
   )
 }
 
+function ModalStatic(props){
+  return (
+    <div className="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div className="modal-dialog modal-lg">
+        <div className="modal-content">
+          <div className="modal-header m-0 align-items-center">
+            <div className="modal-title" id="staticBackdropLabel">
+              <h4 className="">Delete?</h4>
+              <h4 className="">There is no going back...</h4>
+            </div>
+            <div className="d-flex align-items-center">
+              <i className="fas fa-hand-point-left" data-dismiss="modal" aria-label="Close"></i>
+              <i className="fas fa-thumbs-up" data-dismiss="modal" aria-label="Close"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default class Favorites extends React.Component{
   constructor(props){
     super(props)
@@ -61,14 +82,15 @@ export default class Favorites extends React.Component{
                     </div>
                   </div>
                 </div>
-                <div key={exercise.exerciseId} className="favorites-exercise-row d-flex justify-content-between align-items-center mb-5">
+                <div id={exercise.exerciseId} className="favorites-exercise-row d-flex justify-content-between align-items-center mb-5">
                   <a className="w-75 text-decoration-none text-dark"
                      href={`#favoritesExercise?exerciseId=${exercise.exerciseId}`}>
                     <div className="row row-exercise m-0">
                       <button className="h4 exercise-name">{exercise.name}</button>
                     </div>
                   </a>
-                  <i className="fas fa-trash" onClick={this.handleTrash}></i>
+                  <i className="fas fa-trash" onClick={this.handleTrash} data-toggle="modal" data-target="#staticBackdrop"></i>
+                  <ModalStatic />
                 </div>
                 </>
               )

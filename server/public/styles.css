@@ -191,6 +191,17 @@
 .fas.fa-trash:hover{
   color:#EF233C;
 }
+.fas.fa-hand-point-left{
+  margin-right: 4rem;
+  font-size: 50px;
+  margin-top: 7px;
+}
+.fas.fa-hand-point-left:hover{
+  color: #47C26A;
+}
+.fas.fa-thumbs-up:hover{
+  color: #EF233C;
+}
 
 .fas.fa-times:hover{
   transform: rotate(180deg);
