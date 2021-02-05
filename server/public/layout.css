@@ -13,6 +13,20 @@
     width: 100%;
     justify-content: flex-end;
   }
+  .form{
+    padding-bottom: 1rem;
+    margin: 1rem;
+  }
+  .form-group{
+    margin: 2rem;
+  }
+  .button-outline.form-submit{
+    width: 50%;
+  }
+  .type-button.submit{
+    width: 103%;
+  }
+
 }
 
 @media screen and (max-width:991px){

@@ -16,7 +16,7 @@ export default class Routines extends React.Component{
         <div className="header d-flex justify-content-between align-items-center">
           <i className="fas fa-plus invisible"></i>
           <h2 className="text-uppercase m-0">Routines</h2>
-          <a className="text-dark" href="#"><i className="fas fa-plus"></i></a>
+          <a className="text-dark" href={`#routineForm?formType=new`}><i className="fas fa-plus"></i></a>
         </div>
 
         <div className="accordion" id="accordionExample">

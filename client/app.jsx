@@ -7,6 +7,7 @@ import ExerciseDetail from "./pages/exercise-detail"
 import Favorites from "./pages/favorites"
 import ExerciseFav from "./pages/exercise-detail-favs"
 import Routines from "./pages/routines"
+import RoutineForm from "./pages/routine-form"
 
 const types = ["Chest", "Back", "Biceps", "Triceps", "Shoulders", "Legs", "Abs"]
 
@@ -51,6 +52,12 @@ export default class App extends React.Component {
 
     if(route.path==="routines"){
       return <Routines />
+    }
+
+    if(route.path==="routineForm"){
+      const type = route.params.get("formType")
+
+      return <RoutineForm type={type}/>
     }
   }
 
