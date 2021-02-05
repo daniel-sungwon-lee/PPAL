@@ -16,7 +16,8 @@ app.use(staticMiddleware);
 app.use(express.json())
 
 
-app.post("/api/favorites", (req,res)=>{
+//exercise-detail page
+app.post("/api/favorites", (req,res,next)=>{
   const {exerciseId, name, type, reps, sets, userId} = req.body
 
   const sql = `
@@ -33,7 +34,8 @@ app.post("/api/favorites", (req,res)=>{
     .catch(err=>next(err))
 })
 
-app.delete("/api/favorites/:exerciseId", (req,res)=>{
+//below was attempted but will do later (used in favorites page)
+app.delete("/api/favorites/:exerciseId", (req,res,next)=>{
   const exerciseId = req.params.exerciseId
 
   const sql = `
@@ -51,8 +53,56 @@ app.delete("/api/favorites/:exerciseId", (req,res)=>{
 })
 
 
+//favorites page
+app.get("/api/favorites", (req,res,next)=>{
+  const sql = `
+  select *
+    from "favorites"
+  `
+  db.query(sql)
+    .then(result=>{
+      res.status(200).json(result.rows)
+    })
+    .catch(err=>next(err))
+})
+
+app.get("/api/favorites/:exerciseId", (req,res,next)=>{
+  const exerciseId = req.params.exerciseId
+
+  const sql = `
+  select *
+  from "favorites"
+  where "exerciseId" = $1
+  `
+  const params = [exerciseId]
+
+  db.query(sql,params)
+    .then(result=>{
+      res.status(200).json(result.rows)
+    })
+    .catch(err=>next(err))
+})
 
 
+//exercise-detail-fav page
+app.patch("/api/favorites/:exerciseId", (req,res,next)=>{
+  const exerciseId = req.params.exerciseId
+  const {sets, reps} = req.body
+
+  const sql = `
+  update "favorites"
+  set "sets" = $1,
+      "reps" = $2
+  where "exerciseId" = $3
+  `
+  const params = [sets, reps, exerciseId]
+
+  db.query(sql,params)
+    .then(result=>{
+      res.status(200).json(result.rows[0])
+    })
+    .catch(err=>next(err))
+})
 
 app.use(errorMiddleware)
 

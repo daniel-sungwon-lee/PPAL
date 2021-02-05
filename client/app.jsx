@@ -5,6 +5,7 @@ import {parseRoute} from "./lib"
 import Exercises from "./pages/exercises"
 import ExerciseDetail from "./pages/exercise-detail"
 import Favorites from "./pages/favorites"
+import ExerciseFav from "./pages/exercise-detail-favs"
 
 const types = ["Chest", "Back", "Biceps", "Triceps", "Shoulders", "Legs", "Abs"]
 
@@ -39,6 +40,12 @@ export default class App extends React.Component {
 
     if(route.path==="favorites"){
       return <Favorites />
+    }
+
+    if(route.path==="favoritesExercise"){
+      const exerciseId= route.params.get("exerciseId")
+
+      return <ExerciseFav exerciseId={exerciseId}/>
     }
   }
 

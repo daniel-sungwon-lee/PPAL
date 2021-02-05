@@ -10,15 +10,15 @@ function Spinner(props) {
   )
 }
 
-function Carousel(props){
+function Carousel(props) {
   return (
     <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
       <div className="carousel-inner">
         {
-          props.images.map(img=>{
+          props.images.map(img => {
             let classN = "carousel-item"
-            if(props.images.indexOf(img)===0){
-              classN= "carousel-item active"
+            if (props.images.indexOf(img) === 0) {
+              classN = "carousel-item active"
             }
             return (
               <div className={classN}>
@@ -40,44 +40,34 @@ function Carousel(props){
   )
 }
 
-function Modal(props){
-  return (
-    <div className="modal fade" id="saveModal" role="dialog">
-      <div className="modal-dialog modal-lg">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h4 className="modal-title" id="exampleModalLabel">{props.message}</h4>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-export default class ExerciseDetail extends React.Component{
+export default class ExerciseFav extends React.Component{
   constructor(props){
     super(props)
     this.state={
-      exercise: null,
-      loading:true,
-      //starClickCounter: 0,
-      reps: 0,
-      sets: 0
-      //isFavorites: false
-    }
+       exercise: [],
+       loading: true,
+       reps:0,
+       sets:0
+      }
     this.data={
-      exerciseId: this.props.exerciseId,
-      //starColor: "black",
-      message: "Saved to Favorites!"
+      exerciseId: this.props.exerciseId
     }
-    this.handleStarClick=this.handleStarClick.bind(this)
-    this.handleRepsUp=this.handleRepsUp.bind(this)
-    this.handleSetsUp=this.handleSetsUp.bind(this)
-    this.handleRepsDown=this.handleRepsDown.bind(this)
-    this.handleSetsDown=this.handleSetsDown.bind(this)
+
+    this.handleRepsUp = this.handleRepsUp.bind(this)
+    this.handleSetsUp = this.handleSetsUp.bind(this)
+    this.handleRepsDown = this.handleRepsDown.bind(this)
+    this.handleSetsDown = this.handleSetsDown.bind(this)
+    this.saveRepsAndSets=this.saveRepsAndSets.bind(this)
+
   }
 
   componentDidMount(){
+    fetch(`http://localhost:3000/api/favorites/${this.data.exerciseId}`)
+      .then(res=>res.json())
+      .then(data=>{
+        this.setState({exercise : data})
+      })
+
     const init = {
       "method": "GET",
       "headers": {
@@ -87,92 +77,46 @@ export default class ExerciseDetail extends React.Component{
     }
 
     fetch(`https://wger.de/api/v2/exerciseinfo/${this.data.exerciseId}`, init)
-      .then(res=>res.json())
-      .then(data=>{
-        this.setState({exercise: new Array(data), loading: false})
+      .then(res => res.json())
+      .then(data => {
+        this.setState({ exercise: new Array(Object.assign(this.state.exercise[0], data)), loading: false })
+        this.state.reps = this.state.exercise[0].reps
+        this.state.sets = this.state.exercise[0].sets
       })
   }
 
-  handleStarClick(event){
-    const [exercise] = this.state.exercise
-
-    const exerciseId = exercise.id
-    const name = exercise.name
-
-    const type = exercise.category.name
-    //below is me trying to attempt to get the specific muscle type
-    /*const muscleIdArr = exercise.muscles.map(muscle => {
-      return muscle.id
-    })
-    if (exercise.category.id === 8 && muscleIdArr.includes(1)) {
-      const type = "Biceps"
-    } else if (exercise.category.id === 8 && muscleIdArr.includes(5)) {
-      const type = "Triceps"
-    } else {
-      const type = exercise.category.name
-    }*/
-
-    let reps= this.state.reps
-    let sets = this.state.sets
-
-    //admin userId
-    const userId = 1
-
-    const favExercise = {
-      exerciseId, name, type, reps, sets, userId
-    }
-
-    //if (!this.state.isFavorites){
-      fetch("http://localhost:3000/api/favorites", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(favExercise)
-      })
-        .then(exercise=>{
-          this.setState({isFavorites: true})
-        })
-
-    //star icon changes color depending on if it saved or not,
-    //and can be removed (do later)
-    /*} else if (this.state.isFavorites){
-      fetch(`http://localhost:3000/api/favorites/${exerciseId}`, {
-        method: "DELETE",
-        headers: {"Content-Type": "application/json"}
-      })
-        .then(exercise=>{
-          this.setState({isFavorites: false})
-        })
-    }
-
-    this.setState({starClickCounter: this.state.starClickCounter+1})
-
-    if(this.state.starClickCounter % 2===0){
-      this.data.starColor="#FFEE59"
-      this.data.message="Saved to Favorites!"
-    }else{
-      this.data.starColor="black"
-      this.data.message="Removed from Favorites!"
-    }*/
-  }
-
-  handleRepsUp(event){
+  handleRepsUp(event) {
     this.setState({reps: this.state.reps +1})
   }
 
-  handleSetsUp(event){
-    this.setState({sets: this.state.sets +1})
+  handleSetsUp(event) {
+    this.setState({ sets: this.state.sets + 1 })
   }
 
-  handleRepsDown(event){
-    if(this.state.reps>0){
-      this.setState({reps: this.state.reps -1})
+  handleRepsDown(event) {
+    if (this.state.reps > 0) {
+      this.setState({ reps: this.state.reps - 1 })
     }
   }
 
-  handleSetsDown(event){
+  handleSetsDown(event) {
     if (this.state.sets > 0) {
       this.setState({ sets: this.state.sets - 1 })
     }
+  }
+
+  saveRepsAndSets(event){
+    const reqBody ={
+      reps: this.state.reps,
+      sets: this.state.sets
+    }
+
+    fetch(`http://localhost:3000/api/favorites/${this.data.exerciseId}`,{
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(reqBody)
+    })
+
   }
 
   render(){
@@ -181,20 +125,23 @@ export default class ExerciseDetail extends React.Component{
         {
           this.state.loading
             ? <Spinner />
-            : this.state.exercise.map(exercise=>{
+            : this.state.exercise.map(exercise => {
               return (
                 <div className="container single-exercise" key={exercise.id}>
-                  <h2 className="header text-center">{exercise.name}</h2>
+                  <div className="header d-flex justify-content-between align-items-center">
+                    <i className="fas fa-plus invisible"></i>
+                    <h2 className="text-uppercase m-0">{exercise.name}</h2>
+                    <a className="text-dark" href="#favorites" onClick={this.saveRepsAndSets}><i className="fas fa-times"></i></a>
+                  </div>
                   <div className="row row-exercise-single">
                     <div className="img-div">
                       {
-                        exercise.images !==undefined && exercise.images.length !==0
+                        exercise.images !== undefined && exercise.images.length !== 0
                           ? <Carousel images={exercise.images} />
                           : <div className="placeholder-img-div"><i className="fas fa-images"></i></div>
                       }
                     </div>
-                    <i className="fas fa-star star-icon" data-toggle="modal" data-target="#saveModal" onClick={this.handleStarClick} style={{color: this.data.starColor}}></i>
-                    <Modal message={this.data.message}/>
+                    <i className="fas fa-star star-icon" style={{color: "#FFEE59"}}></i>
                     <div className="description">
                       <p>{exercise.description.replace(/(<([^>]+)>)/gi, "")}</p>
                     </div>
