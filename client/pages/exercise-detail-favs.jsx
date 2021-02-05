@@ -21,9 +21,7 @@ function Carousel(props) {
               classN = "carousel-item active"
             }
             return (
-              <div className={classN}>
-                <img src={img.image} className="d-block exercise-img" key={img.id} alt="Exercise Image" />
-              </div>
+              <CarouselImg key={img.id} img={img.image} classN={classN}/>
             )
           })
         }
@@ -36,6 +34,14 @@ function Carousel(props) {
         <i className="fas fa-angle-right text-dark" aria-hidden="true"></i>
         <span className="sr-only">Next</span>
       </a>
+    </div>
+  )
+}
+
+function CarouselImg(props){
+  return (
+    <div className={props.classN}>
+      <img src={props.img} className="d-block exercise-img" alt="Exercise Image" />
     </div>
   )
 }
