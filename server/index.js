@@ -3,7 +3,8 @@ const express = require('express');
 const staticMiddleware = require('./static-middleware');
 const pg = require("pg")
 const ClientError = require("./client-error")
-const errorMiddleware = require("./error-middleware")
+const errorMiddleware = require("./error-middleware");
+const { user } = require('pg/lib/defaults');
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL
@@ -107,7 +108,19 @@ app.patch("/api/favorites/:exerciseId", (req,res,next)=>{
 
 //routine-form
 app.post("/api/routines", (req,res,next)=>{
-  const {name, description, day} = req.body
+  const {name, description, day, userId} = req.body
+
+  const sql=`
+  insert into "routines" ("name","description","day","userId")
+  values ($1, $2, $3, $4)
+  returning *
+  `
+  const params = [name, description, day, userId]
+
+  db.query(sql,params)
+    .then(result=>{
+      res.status(201).json(result.rows)
+    })
 })
 
 
