@@ -6,4 +6,17 @@
     width: 200px;
     margin: auto;
   }
+  .modal-header{
+    flex-wrap: wrap;
+  }
+  .modal-icons{
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+@media screen and (max-width:991px){
+  .fas.fa-hand-point-left{
+    margin-right: 2rem;
+  }
 }

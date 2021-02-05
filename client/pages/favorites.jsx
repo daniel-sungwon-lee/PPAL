@@ -20,7 +20,7 @@ function ModalStatic(props){
               <h4 className="">Delete?</h4>
               <h4 className="">There is no going back...</h4>
             </div>
-            <div className="d-flex align-items-center">
+            <div className="modal-icons d-flex align-items-center">
               <i className="fas fa-hand-point-left" data-dismiss="modal" aria-label="Close"></i>
               <i className="fas fa-thumbs-up" data-dismiss="modal" aria-label="Close" onClick={()=>props.deleteExercise(props.exerciseId)}></i>
             </div>
