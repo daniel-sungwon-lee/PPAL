@@ -6,6 +6,7 @@ import Exercises from "./pages/exercises"
 import ExerciseDetail from "./pages/exercise-detail"
 import Favorites from "./pages/favorites"
 import ExerciseFav from "./pages/exercise-detail-favs"
+import Routines from "./pages/routines"
 
 const types = ["Chest", "Back", "Biceps", "Triceps", "Shoulders", "Legs", "Abs"]
 
@@ -46,6 +47,10 @@ export default class App extends React.Component {
       const exerciseId= route.params.get("exerciseId")
 
       return <ExerciseFav exerciseId={exerciseId}/>
+    }
+
+    if(route.path==="routines"){
+      return <Routines />
     }
   }
 

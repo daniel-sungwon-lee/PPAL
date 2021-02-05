@@ -206,3 +206,19 @@
   transform: rotate(180deg);
   color: #EF233C;
 }
+
+.accordion{
+  font-size: 18px;
+}
+.card{
+  border: 4px black solid;
+  border-radius: 16px;
+}
+.card-header{
+  background-color: white;
+  border: none;
+}
+.accordion-button{
+  font-size: 28px;
+  background-color: white;
+}
