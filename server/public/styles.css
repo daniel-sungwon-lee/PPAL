@@ -222,3 +222,6 @@
   font-size: 28px;
   background-color: white;
 }
+.btn.focus, .btn:focus {
+  box-shadow: none;
+}
