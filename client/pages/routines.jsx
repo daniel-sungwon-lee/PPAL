@@ -26,7 +26,16 @@ export default class Routines extends React.Component{
   }
 
   deleteRoutine(routineId){
+    const newRoutines = this.state.routines.filter(routine => {
+      return routine.routineId !== routineId
+    })
 
+    this.setState({ routines: newRoutines })
+
+    fetch(`/api/routines/${routineId}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" }
+    })
   }
 
   render(){
