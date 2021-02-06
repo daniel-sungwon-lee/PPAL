@@ -155,7 +155,7 @@ function SingleExerciseFav(props){
   return (
     <div className="container single-exercise">
       <div className="header d-flex justify-content-between align-items-center">
-        <i className="fas fa-plus invisible"></i>
+        <i className="fas fa-times invisible"></i>
         <h2 className="text-uppercase m-0">{name}</h2>
         <a className="text-dark" href="#favorites" onClick={props.saveRepsAndSets}><i className="fas fa-times"></i></a>
       </div>

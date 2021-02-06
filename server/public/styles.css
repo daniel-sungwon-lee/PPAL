@@ -24,6 +24,7 @@
   border-radius: 13px;
   width: 249px;
   height: 56px;
+  transition: all 0.3s ease-out;
 }
 .type-button{
   background-color: white;
@@ -221,4 +222,48 @@
 .accordion-button{
   font-size: 28px;
   background-color: white;
+}
+.btn.focus, .btn:focus {
+  box-shadow: none;
+}
+
+.fas.fa-ban:hover{
+  color: #EF233C;
+}
+.form{
+  margin: 2.2rem;
+  font-size: 18px;
+  background-color: #FFF9C5;
+  border-radius: 33px;
+  border: solid black 5px;
+  transition: all 0.3s ease-out;
+  padding-bottom: 2rem;
+}
+.form-group{
+  margin: 3rem;
+}
+.text-input, .select, .textarea{
+  outline: none;
+  border-radius: 13px;
+  border: none;
+  transition: all 0.3s ease-out;
+}
+.text-input, .select{
+  height: 2.5rem;
+}
+.textarea{
+  height: 7rem;
+  margin-bottom: 1rem;
+}
+.button-outline.form-submit{
+  margin: auto;
+  background-color: white;
+  margin-bottom: 2rem;
+}
+.type-button:focus{
+  transform: translate(-3px, -3px);
+  background-color: #FFF9C5;
+}
+.text-input:focus, .select:focus, .textarea:focus{
+  box-shadow: 0px 4px 5px 1px rgba(0,0,0,0.3);;
 }

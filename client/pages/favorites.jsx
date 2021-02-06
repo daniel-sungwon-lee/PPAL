@@ -12,17 +12,17 @@ function Spinner(props) {
 
 function ModalStatic(props){
   return (
-    <div className="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div className="modal fade" id={`staticBackdrop${props.id}`} data-backdrop="static" data-keyboard="false" aria-labelledby={`staticBackdrop${props.id}Label`} aria-hidden="true">
       <div className="modal-dialog modal-lg">
         <div className="modal-content">
           <div className="modal-header m-0 align-items-center">
-            <div className="modal-title" id="staticBackdropLabel">
+            <div className="modal-title" id={`staticBackdrop${props.id}Label`}>
               <h4 className="">Delete?</h4>
               <h4 className="">There is no going back...</h4>
             </div>
             <div className="modal-icons d-flex align-items-center">
               <i className="fas fa-hand-point-left" data-dismiss="modal" aria-label="Close"></i>
-              <i className="fas fa-thumbs-up" data-dismiss="modal" aria-label="Close" onClick={()=>props.deleteExercise(props.exerciseId)}></i>
+              <i className="fas fa-thumbs-up" data-dismiss="modal" aria-label="Close" onClick={props.deleteExercise}></i>
             </div>
           </div>
         </div>
@@ -48,30 +48,16 @@ export default class Favorites extends React.Component{
   }
 
   deleteExercise(exerciseId){
-    console.log(exerciseId)
-    const favortiesNew = [...this.state.favorites]
+    const newFavorites = this.state.favorites.filter(exercise=>{
+      return exercise.exerciseId !== exerciseId
+    })
 
-    for (let i =0; i<favortiesNew.length; i++){
-      if(favortiesNew[i].exerciseId===exerciseId){
-        const idIndex = i
-      }
+    this.setState({favorites: newFavorites})
 
-      favortiesNew.splice(i,1)
-
-      this.setState({favorites: favortiesNew})
-
-    }
-
-    fetch(`http://localhost:3000/api/favorites/${exerciseId}`, {
+    fetch(`/api/favorites/${exerciseId}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" }
     })
-
-    /*fetch(`http://localhost:3000/api/favorites`)
-      .then(res=>res.json())
-      .then(data=>{
-        this.setState({favorites: data})
-      })*/
   }
 
   render(){
@@ -93,7 +79,7 @@ export default class Favorites extends React.Component{
               return (
                 <Exercise key={exercise.exerciseId}
                   exercise={exercise}
-                  deleteExercise={this.deleteExercise}/>
+                  deleteExercise={()=>this.deleteExercise(exercise.exerciseId)}/>
               )
             })
           }
@@ -123,8 +109,8 @@ function Exercise(props){
             <button className="h4 exercise-name">{name}</button>
           </div>
         </a>
-        <i className="fas fa-trash" data-toggle="modal" data-target="#staticBackdrop"></i>
-        <ModalStatic key={exerciseId} deleteExercise={props.deleteExercise} exerciseId={exerciseId}/>
+        <i className="fas fa-trash" data-toggle="modal" data-target={`#staticBackdrop${exerciseId}`}></i>
+        <ModalStatic key={exerciseId} deleteExercise={props.deleteExercise} id={exerciseId}/>
       </div>
     </>
   )
