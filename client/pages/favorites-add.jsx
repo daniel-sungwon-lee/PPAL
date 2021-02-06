@@ -57,6 +57,7 @@ export default class AddFavorites extends React.Component{
                 return (
                   <Exercise key={exercise.exerciseId}
                     exercise={exercise}
+                    previousHash={this.props.previousHash}
                     handleClickPlus={()=>this.handleClickPlus(exercise.exerciseId)}
                     handleClickTimes={()=>this.handleClickTimes(exercise.exerciseId)} />
                 )
@@ -82,7 +83,8 @@ function Exercise(props) {
       </div>
       <div id={exerciseId} className="favorites-exercise-row d-flex justify-content-between align-items-center mb-5">
         <a className="w-75 text-decoration-none text-dark"
-          href={`#favoritesExercise?exerciseId=${exerciseId}`}>
+          href={`#favoritesExercise?exerciseId=${exerciseId}`}
+          onClick={()=>props.previousHash(window.location.hash)}>
           <div className="row row-exercise m-0">
             <button className="h4 exercise-name">{name}</button>
           </div>

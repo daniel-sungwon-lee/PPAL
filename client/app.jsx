@@ -80,7 +80,7 @@ export default class App extends React.Component {
       const routineId = route.params.get("routineId")
       const routineName = route.params.get("routineName")
 
-      return <AddFavorites routineId={routineId} routineName={routineName} />
+      return <AddFavorites routineId={routineId} routineName={routineName} previousHash={this.previousHash} />
     }
   }
 
