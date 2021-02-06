@@ -203,6 +203,7 @@ app.get("/api/routineExercises/:routineId", (req,res,next)=>{
   const sql = `
   select *
   from "routineExercises"
+  join "favorites" using ("exerciseId")
   where "routineId" = $1
   `
   const params = [routineId]
