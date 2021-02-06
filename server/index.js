@@ -138,6 +138,23 @@ app.get("/api/routines", (req,res,next)=>{
     .catch(err=>next(err))
 })
 
+app.delete("/api/routines/:routineId", (req,res,next)=>{
+  const routineId = req.params.routineId
+
+  const sql = `
+  delete from "routines"
+  where "routineId" = $1
+  returning *
+  `
+  const params = [routineId]
+
+  db.query(sql,params)
+    .then(result=>{
+      res.status(204).json(result.rows[0])
+    })
+    .catch(err=>next(err))
+})
+
 
 
 app.use(errorMiddleware)
