@@ -215,7 +215,7 @@ export default class Routines extends React.Component{
 function Routine(props){
   const {name, routineId} = props.routine
   return (
-    <div id={routineId} className="favorites-exercise-row d-flex justify-content-between align-items-center mb-5">
+    <div id={routineId} className="routines-exercise-row d-flex justify-content-between align-items-center mb-5">
       <a className="w-75 text-decoration-none text-dark"
         href={`#routine?routineId=${routineId}`}>
         <div className="row row-exercise m-0">

@@ -93,7 +93,8 @@ export default class RoutineForm extends React.Component{
           </div>
           <div className="form-group d-flex flex-column">
             <label htmlFor="routineDay">Day of the week</label>
-            <select className="select" id="routineDay" required onChange={this.handleDayChange}>
+            <select required className="select" id="routineDay" onChange={this.handleDayChange}>
+              <option disabled selected value="">Pick a day</option>
               <option>Sunday</option>
               <option>Monday</option>
               <option>Tuesday</option>
@@ -105,7 +106,7 @@ export default class RoutineForm extends React.Component{
           </div>
           <div className="form-group d-flex flex-column">
             <label htmlFor="routineDescription">Routine description</label>
-            <textarea className="textarea" id="routineDescription" placeholder="Chest and Triceps" onChange={this.handleDescription}></textarea>
+            <textarea className="textarea" id="routineDescription" required placeholder="Chest and Triceps" onChange={this.handleDescription}></textarea>
           </div>
           <div className="button-outline form-submit">
             <button className="type-button submit" type="submit">Save</button>
