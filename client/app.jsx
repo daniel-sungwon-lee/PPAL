@@ -9,6 +9,7 @@ import ExerciseFav from "./pages/exercise-detail-favs"
 import Routines from "./pages/routines"
 import RoutineForm from "./pages/routine-form"
 import RoutineDetail from "./pages/routine-detail"
+import AddFavorites from "./pages/favorites-add"
 
 const types = ["Chest", "Back", "Biceps", "Triceps", "Shoulders", "Legs", "Abs"]
 
@@ -65,6 +66,13 @@ export default class App extends React.Component {
       const routineId = route.params.get("routineId")
 
       return <RoutineDetail routineId={routineId} />
+    }
+
+    if(route.path==="favoritesAdd"){
+      const routineId = route.params.get("routineId")
+      const routineName = route.params.get("routineName")
+
+      return <AddFavorites routineId={routineId} routineName={routineName} />
     }
   }
 

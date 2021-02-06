@@ -212,7 +212,7 @@
 
 /*exercise-detail-favs page*/
 .fas.fa-times:hover{
-  transform: rotate(180deg);
+  transform: rotate(-180deg);
   color: #EF233C;
 }
 
