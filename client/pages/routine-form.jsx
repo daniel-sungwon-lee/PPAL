@@ -37,10 +37,6 @@ export default class RoutineForm extends React.Component{
     this.handleDescription=this.handleDescription.bind(this)
   }
 
-  componentDidMount(){
-
-  }
-
   handleNameChange(event){
     this.setState({name: event.target.value})
   }

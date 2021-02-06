@@ -130,7 +130,7 @@ export default class ExerciseDetail extends React.Component{
     }
 
     //if (!this.state.isFavorites){
-      fetch("http://localhost:3000/api/favorites", {
+      fetch("/api/favorites", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(favExercise)
@@ -142,7 +142,7 @@ export default class ExerciseDetail extends React.Component{
     //star icon changes color depending on if it saved or not,
     //and can be removed (do later)
     /*} else if (this.state.isFavorites){
-      fetch(`http://localhost:3000/api/favorites/${exerciseId}`, {
+      fetch(`/api/favorites/${exerciseId}`, {
         method: "DELETE",
         headers: {"Content-Type": "application/json"}
       })

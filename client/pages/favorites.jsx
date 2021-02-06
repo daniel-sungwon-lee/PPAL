@@ -39,7 +39,7 @@ export default class Favorites extends React.Component{
   }
 
   componentDidMount(){
-    fetch("http://localhost:3000/api/favorites")
+    fetch("/api/favorites")
       .then(res=>res.json())
       .then(data=>{
         this.setState({favorites: data, loading: false})

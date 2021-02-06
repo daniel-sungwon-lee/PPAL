@@ -156,6 +156,25 @@ app.delete("/api/routines/:routineId", (req,res,next)=>{
 })
 
 
+//routine-detail page
+app.get("/api/routines/:routineId", (req,res,next)=>{
+  const routineId = req.params.routineId
+
+  const sql = `
+  select *
+  from "routines"
+  where "routineId"=$1
+  `
+  const params = [routineId]
+
+  db.query(sql,params)
+    .then(result=>{
+      res.status(200).json(result.rows[0])
+    })
+    .catch(err=>next(err))
+})
+
+
 
 app.use(errorMiddleware)
 
