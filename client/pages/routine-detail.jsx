@@ -19,13 +19,12 @@ export default class RoutineDetail extends React.Component{
       .then(res=>res.json())
       .then(routine=>{
         this.data.routine=routine
-        this.setState({loading: false})
       })
 
     fetch(`/api/routineExercises/${this.data.routineId}`)
       .then(res=>res.json())
       .then(data=>{
-        this.data.routineExercises=data
+        this.setState({exercises: data, loading: false})
       })
 
   }
@@ -40,6 +39,21 @@ export default class RoutineDetail extends React.Component{
               <i className="fas fa-plus invisible"></i>
               <h2 className="text-uppercase m-0" role="button" data-toggle="modal" data-target="#saveModal">{this.data.routine.name}</h2>
               <a className="text-dark" href={`#favoritesAdd?routineId=${this.data.routineId}&routineName=${this.data.routine.name}`}><i className="fas fa-plus"></i></a>
+            </div>
+            <div className="m-auto w-75">
+              {
+                this.state.exercises.map(exercise => {
+                  return (
+                    <a className="text-decoration-none text-dark"
+                      key={exercise.exerciseId}
+                      href={`#favoritesExercise?exerciseId=${exercise.exerciseId}`}>
+                      <div className="row row-exercise w-100">
+                        <button className="h4 exercise-name">{exercise.name}</button>
+                      </div>
+                    </a>
+                  )
+                })
+              }
             </div>
           </div>
     )
