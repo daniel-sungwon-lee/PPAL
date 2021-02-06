@@ -25,7 +25,7 @@ export default class Routines extends React.Component{
       })
   }
 
-  deleteRoutine(){
+  deleteRoutine(routineId){
 
   }
 
@@ -55,7 +55,7 @@ export default class Routines extends React.Component{
                   {
                     this.state.routines.map(routine=>{
                       if(routine.day==="Sunday"){
-                        return <Routine key={routine.routineId} deleteRoutine={this.deleteRoutine} routine={routine}/>
+                        return <Routine key={routine.routineId} deleteRoutine={()=>this.deleteRoutine(routine.routineId)} routine={routine}/>
                       } else if(routine.day!=="Sunday"){
                         return ""
                       }
@@ -75,7 +75,13 @@ export default class Routines extends React.Component{
               <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                 <div className="card-body">
                   {
-
+                    this.state.routines.map(routine => {
+                      if (routine.day === "Monday") {
+                        return <Routine key={routine.routineId} deleteRoutine={() => this.deleteRoutine(routine.routineId)} routine={routine} />
+                      } else if (routine.day !== "Monday") {
+                        return ""
+                      }
+                    })
                   }
                 </div>
               </div>
@@ -91,7 +97,13 @@ export default class Routines extends React.Component{
               <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                 <div className="card-body">
                   {
-
+                    this.state.routines.map(routine => {
+                      if (routine.day === "Tuesday") {
+                        return <Routine key={routine.routineId} deleteRoutine={() => this.deleteRoutine(routine.routineId)} routine={routine} />
+                      } else if (routine.day !== "Tuesday") {
+                        return ""
+                      }
+                    })
                   }
                 </div>
               </div>
@@ -107,7 +119,13 @@ export default class Routines extends React.Component{
               <div id="collapseFour" className="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                 <div className="card-body">
                   {
-
+                    this.state.routines.map(routine => {
+                      if (routine.day === "Wednesday") {
+                        return <Routine key={routine.routineId} deleteRoutine={() => this.deleteRoutine(routine.routineId)} routine={routine} />
+                      } else if (routine.day !== "Wednesday") {
+                        return ""
+                      }
+                    })
                   }
                 </div>
               </div>
@@ -123,7 +141,13 @@ export default class Routines extends React.Component{
               <div id="collapseFive" className="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
                 <div className="card-body">
                   {
-
+                    this.state.routines.map(routine => {
+                      if (routine.day === "Thursday") {
+                        return <Routine key={routine.routineId} deleteRoutine={() => this.deleteRoutine(routine.routineId)} routine={routine} />
+                      } else if (routine.day !== "Thursday") {
+                        return ""
+                      }
+                    })
                   }
                 </div>
               </div>
@@ -139,7 +163,13 @@ export default class Routines extends React.Component{
               <div id="collapseSix" className="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
                 <div className="card-body">
                   {
-
+                    this.state.routines.map(routine => {
+                      if (routine.day === "Friday") {
+                        return <Routine key={routine.routineId} deleteRoutine={() => this.deleteRoutine(routine.routineId)} routine={routine} />
+                      } else if (routine.day !== "Friday") {
+                        return ""
+                      }
+                    })
                   }
                 </div>
               </div>
@@ -155,7 +185,13 @@ export default class Routines extends React.Component{
               <div id="collapseSeven" className="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
                 <div className="card-body">
                   {
-
+                    this.state.routines.map(routine => {
+                      if (routine.day === "Saturday") {
+                        return <Routine key={routine.routineId} deleteRoutine={() => this.deleteRoutine(routine.routineId)} routine={routine} />
+                      } else if (routine.day !== "Saturday") {
+                        return ""
+                      }
+                    })
                   }
                 </div>
               </div>
@@ -177,7 +213,7 @@ function Routine(props){
           <button className="h4 exercise-name">{name}</button>
         </div>
       </a>
-      <i className="fas fa-trash" data-toggle="modal" data-target="#staticBackdrop"></i>
+      <i className="fas fa-trash" data-toggle="modal" data-target={`#staticBackdrop${routineId}`}></i>
       <ModalStatic key={routineId} deleteRoutine={props.deleteRoutine} routineId={routineId} />
     </div>
   )
@@ -185,17 +221,17 @@ function Routine(props){
 
 function ModalStatic(props) {
   return (
-    <div className="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div className="modal fade" id={`staticBackdrop${props.routineId}`} data-backdrop="static" data-keyboard="false" aria-labelledby={`staticBackdrop${props.routineId}Label`} aria-hidden="true">
       <div className="modal-dialog modal-lg">
         <div className="modal-content">
           <div className="modal-header m-0 align-items-center">
-            <div className="modal-title" id="staticBackdropLabel">
+            <div className="modal-title" id={`staticBackdrop${props.routineId}Label`}>
               <h4 className="">Delete?</h4>
               <h4 className="">There is no going back...</h4>
             </div>
             <div className="modal-icons d-flex align-items-center">
               <i className="fas fa-hand-point-left" data-dismiss="modal" aria-label="Close"></i>
-              <i className="fas fa-thumbs-up" data-dismiss="modal" aria-label="Close" onClick={() => props.deleteRoutine(props.routineId)}></i>
+              <i className="fas fa-thumbs-up" data-dismiss="modal" aria-label="Close" onClick={props.deleteRoutine}></i>
             </div>
           </div>
         </div>
