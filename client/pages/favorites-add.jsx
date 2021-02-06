@@ -6,17 +6,17 @@ export default class AddFavorites extends React.Component{
     this.state={
       favorites: [],
       loading: true,
-      classN: "fas fa-ban invisible",
-      modalNum: 1
+      selected: null,
+      classN: "fas fa-ban invisible"
     }
     this.data={
       routineId: this.props.routineId,
-      routineName: this.props.routineName,
-      message: "Cancel?",
+      routineName: this.props.routineName
     }
-    this.handleCancel=this.handleCancel.bind(this)
-    this.handleClickPlus=this.handleClickPlus.bind(this)
-    this.handleClickTimes=this.handleClickTimes.bind(this)
+    this.handlePreviousPage=this.handlePreviousPage.bind(this)
+    this.handleClick=this.handleClick.bind(this)
+    this.handleChange=this.handleChange.bind(this)
+    this.handleValidation=this.handleValidation.bind(this)
   }
 
   componentDidMount(){
@@ -27,17 +27,21 @@ export default class AddFavorites extends React.Component{
       })
   }
 
-  handleCancel(){
+  handlePreviousPage(){
     window.location.hash=`#routine?routineId=${this.data.routineId}`
   }
 
-  handleClickPlus(exerciseId){
-    this.setState({classN: "fas fa-check"})
+  handleClick(exerciseId){
     console.log(exerciseId)
+    this.setState({classN:"fas fa-check"})
   }
 
-  handleClickTimes(){
-    this.setState({classN: "fas fa-ban invisible"})
+  handleChange(event){
+    this.setState({selected: event.target.checked})
+  }
+
+  handleValidation(){
+
   }
 
   render(){
@@ -45,7 +49,8 @@ export default class AddFavorites extends React.Component{
       this.state.loading
         ? <Spinner />
         : <div className="container">
-            <ModalStatic handleCancel={this.handleCancel} modalNum={this.state.modalNum} message={this.data.message} />
+            <ModalStatic handlePreviousPage={this.handlePreviousPage} />
+            <ModalStaticValidate handlePreviousPage={this.handlePreviousPage} />
             <div className="header d-flex justify-content-between align-items-center">
               <i className="fas fa-ban" data-toggle="modal" data-target={`#staticBackdrop1`}></i>
               <h2 className="text-uppercase m-0 favs-add-header">{`Add to ${this.data.routineName}`}</h2>
@@ -58,8 +63,8 @@ export default class AddFavorites extends React.Component{
                   <Exercise key={exercise.exerciseId}
                     exercise={exercise}
                     previousHash={this.props.previousHash}
-                    handleClickPlus={()=>this.handleClickPlus(exercise.exerciseId)}
-                    handleClickTimes={()=>this.handleClickTimes(exercise.exerciseId)} />
+                    handleClick={()=>this.handleClick(exercise.exerciseId)}
+                    handleChange={this.handleChange} />
                 )
               })
             }
@@ -89,7 +94,12 @@ function Exercise(props) {
             <button className="h4 exercise-name">{name}</button>
           </div>
         </a>
-        <i className="fas fa-plus favs-add" onClick={props.handleClickPlus}></i>
+        <label className="fas fa-plus favs-add" htmlFor={`check${exerciseId}`}></label>
+        <input id={`check${exerciseId}`}
+           className="d-none"
+           type="checkbox"
+           onClick={props.handleClick}
+           onChange={props.handleChange} />
       </div>
     </>
   )
@@ -108,16 +118,37 @@ function Spinner(props) {
 
 function ModalStatic(props) {
   return (
-    <div className="modal fade" id={`staticBackdrop${props.modalNum}`} data-backdrop="static" data-keyboard="false" aria-labelledby={`staticBackdrop${props.modalNum}Label`} aria-hidden="true">
+    <div className="modal fade" id={`staticBackdrop1`} data-backdrop="static" data-keyboard="false" aria-labelledby={`staticBackdrop1Label`} aria-hidden="true">
       <div className="modal-dialog modal-lg">
         <div className="modal-content">
           <div className="modal-header m-0 align-items-center">
-            <div className="modal-title" id={`staticBackdrop${props.modalNum}Label`}>
-              <h4 className="">{props.message}</h4>
+            <div className="modal-title" id={`staticBackdrop1Label`}>
+              <h4 className="">Cancel?</h4>
             </div>
             <div className="modal-icons d-flex align-items-center">
               <i className="fas fa-hand-point-left" data-dismiss="modal" aria-label="Close"></i>
-              <i className="fas fa-thumbs-up" data-dismiss="modal" aria-label="Close" onClick={props.handleCancel}></i>
+              <i className="fas fa-thumbs-up" data-dismiss="modal" aria-label="Close" onClick={props.handlePreviousPage}></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ModalStaticValidate(props) {
+  return (
+    <div className="modal fade" id={`staticBackdrop2`} data-backdrop="static" data-keyboard="false" aria-labelledby={`staticBackdrop2Label`} aria-hidden="true">
+      <div className="modal-dialog modal-lg">
+        <div className="modal-content">
+          <div className="modal-header m-0 align-items-center">
+            <div className="modal-title" id={`staticBackdrop2Label`}>
+              <h4 className="">Finalize</h4>
+              <h4 className="">Selections?</h4>
+            </div>
+            <div className="modal-icons d-flex align-items-center">
+              <i className="fas fa-hand-point-left validate-modal" data-dismiss="modal" aria-label="Close"></i>
+              <i className="fas fa-thumbs-up validate-modal" data-dismiss="modal" aria-label="Close" onClick={props.handlePreviousPage}></i>
             </div>
           </div>
         </div>
