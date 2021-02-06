@@ -140,7 +140,8 @@ export default class ExerciseFav extends React.Component{
                 handleRepsDown={this.handleRepsDown}
                 handleSetsUp={this.handleSetsUp}
                 handleSetsDown={this.handleSetsDown}
-                state={this.state}/>
+                state={this.state}
+                previousHash={this.props.previousHash} />
               )
             })
         }
@@ -157,7 +158,7 @@ function SingleExerciseFav(props){
       <div className="header d-flex justify-content-between align-items-center">
         <i className="fas fa-times invisible"></i>
         <h2 className="text-uppercase m-0">{name}</h2>
-        <a className="text-dark" href="#favorites" onClick={props.saveRepsAndSets}><i className="fas fa-times"></i></a>
+        <a className="text-dark" href={props.previousHash} onClick={props.saveRepsAndSets}><i className="fas fa-times"></i></a>
       </div>
       <div className="row row-exercise-single">
         <div className="img-div">

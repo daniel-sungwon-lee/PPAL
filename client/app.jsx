@@ -16,13 +16,21 @@ const types = ["Chest", "Back", "Biceps", "Triceps", "Shoulders", "Legs", "Abs"]
 export default class App extends React.Component {
   constructor(props){
     super(props)
-    this.state=({route: parseRoute(window.location.hash)})
+    this.state={
+      route: parseRoute(window.location.hash),
+      previousHash: null
+    }
+    this.previousHash=this.previousHash.bind(this)
   }
 
   componentDidMount(){
     window.addEventListener("hashchange",()=>{
       this.setState({route: parseRoute(window.location.hash)})
     })
+  }
+
+  previousHash(hash){
+    this.setState({previousHash: hash})
   }
 
   renderPage(){
@@ -43,13 +51,13 @@ export default class App extends React.Component {
     }
 
     if(route.path==="favorites"){
-      return <Favorites />
+      return <Favorites previousHash={this.previousHash} />
     }
 
     if(route.path==="favoritesExercise"){
       const exerciseId= route.params.get("exerciseId")
 
-      return <ExerciseFav exerciseId={exerciseId}/>
+      return <ExerciseFav exerciseId={exerciseId} previousHash={this.state.previousHash}/>
     }
 
     if(route.path==="routines"){
@@ -65,7 +73,7 @@ export default class App extends React.Component {
     if(route.path==="routine"){
       const routineId = route.params.get("routineId")
 
-      return <RoutineDetail routineId={routineId} />
+      return <RoutineDetail routineId={routineId} previousHash={this.previousHash} />
     }
 
     if(route.path==="favoritesAdd"){

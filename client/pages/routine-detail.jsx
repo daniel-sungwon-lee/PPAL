@@ -46,7 +46,8 @@ export default class RoutineDetail extends React.Component{
                   return (
                     <a className="text-decoration-none text-dark"
                       key={exercise.exerciseId}
-                      href={`#favoritesExercise?exerciseId=${exercise.exerciseId}`}>
+                      href={`#favoritesExercise?exerciseId=${exercise.exerciseId}`}
+                      onClick={()=>this.props.previousHash(window.location.hash)}>
                       <div className="row row-exercise w-100">
                         <button className="h4 exercise-name">{exercise.name}</button>
                       </div>
