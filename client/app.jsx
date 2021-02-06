@@ -41,13 +41,13 @@ export default class App extends React.Component {
     }
 
     if(types.includes(route.path)){
-      return <Exercises exercise={route.path} />
+      return <Exercises exercise={route.path} previousHash={this.previousHash} />
     }
 
     if(route.path==="exercise"){
       const exerciseId = route.params.get("exerciseId")
 
-      return <ExerciseDetail exerciseId={exerciseId}/>
+      return <ExerciseDetail exerciseId={exerciseId} previousHash={this.state.previousHash}/>
     }
 
     if(route.path==="favorites"){

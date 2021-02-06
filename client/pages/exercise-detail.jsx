@@ -67,14 +67,11 @@ export default class ExerciseDetail extends React.Component{
     this.state={
       exercise: null,
       loading:true,
-      //starClickCounter: 0,
       reps: 0,
       sets: 0
-      //isFavorites: false
     }
     this.data={
       exerciseId: this.props.exerciseId,
-      //starColor: "black",
       message: "Saved to Favorites!"
     }
     this.handleStarClick=this.handleStarClick.bind(this)
@@ -129,37 +126,17 @@ export default class ExerciseDetail extends React.Component{
       exerciseId, name, type, reps, sets, userId
     }
 
-    //if (!this.state.isFavorites){
-      fetch("/api/favorites", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(favExercise)
+    fetch("/api/favorites", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(favExercise)
+    })
+      .then(exercise=>{
+        this.setState({isFavorites: true})
       })
-        .then(exercise=>{
-          this.setState({isFavorites: true})
-        })
 
     //star icon changes color depending on if it saved or not,
     //and can be removed (do later)
-    /*} else if (this.state.isFavorites){
-      fetch(`/api/favorites/${exerciseId}`, {
-        method: "DELETE",
-        headers: {"Content-Type": "application/json"}
-      })
-        .then(exercise=>{
-          this.setState({isFavorites: false})
-        })
-    }
-
-    this.setState({starClickCounter: this.state.starClickCounter+1})
-
-    if(this.state.starClickCounter % 2===0){
-      this.data.starColor="#FFEE59"
-      this.data.message="Saved to Favorites!"
-    }else{
-      this.data.starColor="black"
-      this.data.message="Removed from Favorites!"
-    }*/
   }
 
   handleRepsUp(event){
@@ -198,7 +175,8 @@ export default class ExerciseDetail extends React.Component{
                 handleSetsUp={this.handleSetsUp}
                 handleSetsDown={this.handleSetsDown}
                 state={this.state}
-                data={this.data} />
+                data={this.data}
+                previousHash={this.props.previousHash} />
               )
             })
         }
@@ -212,7 +190,11 @@ function SingleExercise(props){
 
   return (
     <div className="container single-exercise">
-      <h2 className="header text-center">{name}</h2>
+      <div className="header d-flex justify-content-between align-items-center">
+        <i className="fas fa-times invisible"></i>
+        <h2 className="text-uppercase m-0">{name}</h2>
+        <a className="text-dark" href={props.previousHash}><i className="fas fa-times"></i></a>
+      </div>
       <div className="row row-exercise-single">
         <div className="img-div">
           {

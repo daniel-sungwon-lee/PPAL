@@ -10,6 +10,10 @@ function Spinner(props) {
   )
 }
 
+function Accordion(props){
+
+}
+
 export default class Routines extends React.Component{
   constructor(props){
     super(props)
