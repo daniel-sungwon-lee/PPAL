@@ -9,7 +9,8 @@ export default class RoutineDetail extends React.Component{
     }
     this.data={
       routineId: this.props.routineId,
-      routine: {}
+      routine: {},
+      routineExercises: []
     }
   }
 
@@ -20,6 +21,13 @@ export default class RoutineDetail extends React.Component{
         this.data.routine=routine
         this.setState({loading: false})
       })
+
+    fetch(`/api/routineExercises/${this.data.routineId}`)
+      .then(res=>res.json())
+      .then(data=>{
+        this.data.routineExercises=data
+      })
+
   }
 
   render(){

@@ -179,7 +179,7 @@ app.get("/api/routines/:routineId", (req,res,next)=>{
 app.post("/api/routineExercises", (req,res,next)=>{
   const {routineId, exerciseIds} =req.body
 
-  for(let i = 0; i<exerciseIds; i++){
+  for(let i = 0; i<exerciseIds.length; i++){
     const sql = `
     insert into "routineExercises" ("routineId", "exerciseId")
     values ($1, $2)
@@ -194,6 +194,26 @@ app.post("/api/routineExercises", (req,res,next)=>{
       .catch(err=>next(err))
   }
 })
+
+
+//routine-detail page
+app.get("/api/routineExercises/:routineId", (req,res,next)=>{
+  const routineId = req.params.routineId
+
+  const sql = `
+  select *
+  from "routineExercises"
+  where "routineId" = $1
+  `
+  const params = [routineId]
+
+  db.query(sql,params)
+    .then(result=>{
+      res.status(200).json(result.rows)
+    })
+    .catch(err=>next(err))
+})
+
 
 
 
