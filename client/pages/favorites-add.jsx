@@ -61,7 +61,6 @@ export default class AddFavorites extends React.Component{
         headers: {"Content-Type": "application/json"}
       })
     }
-    console.log(exerciseId)
   }
 
   render(){
