@@ -226,6 +226,10 @@
 .btn.focus, .btn:focus {
   box-shadow: none;
 }
+.routines-exercise-row{
+  transition: all 0.3s ease-out;
+  margin: 0 1rem;
+}
 
 .fas.fa-ban:hover{
   color: #EF233C;
