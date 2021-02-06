@@ -6,7 +6,6 @@ export default class AddFavorites extends React.Component{
     this.state={
       favorites: [],
       loading: true,
-      selected: null,
       classN: "fas fa-ban invisible"
     }
     this.data={
@@ -16,7 +15,6 @@ export default class AddFavorites extends React.Component{
     this.handlePreviousPage=this.handlePreviousPage.bind(this)
     this.handleClick=this.handleClick.bind(this)
     this.handleChange=this.handleChange.bind(this)
-    this.handleValidation=this.handleValidation.bind(this)
   }
 
   componentDidMount(){
@@ -31,17 +29,39 @@ export default class AddFavorites extends React.Component{
     window.location.hash=`#routine?routineId=${this.data.routineId}`
   }
 
-  handleClick(exerciseId){
-    console.log(exerciseId)
+  handleClick(event){
     this.setState({classN:"fas fa-check"})
+
+    if(event.target.checked){
+      event.target.previousSibling.style.transform = "rotate(45deg)"
+      event.target.previousSibling.style.color ="#E12121"
+
+    }else {
+      event.target.previousSibling.style.transform = "rotate(0deg)"
+      event.target.previousSibling.style.color = "#28B351"
+    }
   }
 
-  handleChange(event){
-    this.setState({selected: event.target.checked})
-  }
+  handleChange(exerciseId){
+    const reqBody={
+      routineId: this.data.routineId,
+      exerciseId: exerciseId
+    }
 
-  handleValidation(){
+    if(event.target.checked){
+      fetch("/api/routineExercises", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(reqBody)
+      })
 
+    } else {
+      fetch(`/api/routineExercises/${exerciseId}`, {
+        method: "DELETE",
+        headers: {"Content-Type": "application/json"}
+      })
+    }
+    console.log(exerciseId)
   }
 
   render(){
@@ -63,8 +83,8 @@ export default class AddFavorites extends React.Component{
                   <Exercise key={exercise.exerciseId}
                     exercise={exercise}
                     previousHash={this.props.previousHash}
-                    handleClick={()=>this.handleClick(exercise.exerciseId)}
-                    handleChange={this.handleChange} />
+                    handleClick={this.handleClick}
+                    handleChange={()=>this.handleChange(exercise.exerciseId)} />
                 )
               })
             }
@@ -94,7 +114,7 @@ function Exercise(props) {
             <button className="h4 exercise-name">{name}</button>
           </div>
         </a>
-        <label className="fas fa-plus favs-add" htmlFor={`check${exerciseId}`}></label>
+        <label className="fas fa-plus favs-add" htmlFor={`check${exerciseId}`} style={{transform: "rotate(0deg)"}}></label>
         <input id={`check${exerciseId}`}
            className="d-none"
            type="checkbox"

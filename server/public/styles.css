@@ -291,10 +291,6 @@
 .favs-add{
   color: #28B351;
 }
-.favs-add:hover{
-  color: #47C26A;
-  transform: none !important;
-}
 .fas.fa-check{
   color: #28B351;
 }
