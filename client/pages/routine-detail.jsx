@@ -27,10 +27,10 @@ export default class RoutineDetail extends React.Component{
       this.state.loading
         ? <Spinner />
         : <div className="container">
+            <Modal description={this.data.routine.description}/>
             <div className="header d-flex justify-content-between align-items-center">
               <i className="fas fa-plus invisible"></i>
-              <h2 className="text-uppercase m-0" role="button" data-toggle="modal" data-target="#saveModal">Routine</h2>
-              <Modal />
+              <h2 className="text-uppercase m-0" role="button" data-toggle="modal" data-target="#saveModal">{this.data.routine.name}</h2>
               <a className="text-dark" href={`#favoritesAdd`}><i className="fas fa-plus"></i></a>
             </div>
           </div>
@@ -53,8 +53,8 @@ function Modal(props) {
     <div className="modal fade" id="saveModal" role="dialog">
       <div className="modal-dialog modal-lg">
         <div className="modal-content">
-          <div className="modal-header">
-            <h4 className="modal-title" id="exampleModalLabel">{props.message}</h4>
+          <div className="modal-header m-0">
+            <h4 className="modal-title" id="exampleModalLabel">{props.description}</h4>
           </div>
         </div>
       </div>

@@ -1,6 +1,8 @@
 *{
   font-family: Product Sans, sans-serif;
 }
+
+/*nav*/
 .nav-button{
   outline: none !important;
 }
@@ -11,6 +13,8 @@
   transform: translate(20px,0);
   color: #FFF9C5
 }
+
+/*home page*/
 .container{
   margin-top: 88px;
 }
@@ -44,6 +48,7 @@
   background-color: #FFF9C5;
 }
 
+/*exercises page*/
 .spinnerDiv{
   position: absolute;
   left: 50%;
@@ -84,6 +89,7 @@
   background-color: black;
 }
 
+/*exercise-detail page*/
 .container.single-exercise{
   width: 93%;
   margin-bottom: 4rem;
@@ -171,6 +177,7 @@
   margin: auto;
 }
 
+/*favorites page*/
 .fas.fa-plus:hover{
   color: #47C26A;
   transform: rotate(90deg);
@@ -203,11 +210,13 @@
   color: #EF233C;
 }
 
+/*exercise-detail-favs page*/
 .fas.fa-times:hover{
   transform: rotate(180deg);
   color: #EF233C;
 }
 
+/*routines page*/
 .accordion{
   margin: 2rem 2rem 4rem;
 }
@@ -231,6 +240,7 @@
   margin: 0 1rem;
 }
 
+/*routine-form page*/
 .fas.fa-ban:hover{
   color: #EF233C;
 }
