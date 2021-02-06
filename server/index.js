@@ -175,6 +175,27 @@ app.get("/api/routines/:routineId", (req,res,next)=>{
 })
 
 
+//favorites-add page (to routine-detail)
+app.post("/api/routineExercises", (req,res,next)=>{
+  const {routineId, exerciseIds} =req.body
+
+  for(let i = 0; i<exerciseIds; i++){
+    const sql = `
+    insert into "routineExercises" ("routineId", "exerciseId")
+    values ($1, $2)
+    returning *
+    `
+    let params=[routineId, exerciseIds[i]]
+
+    db.query(sql,params)
+      .then(result=>{
+        res.status(201).json(result.rows[0])
+      })
+      .catch(err=>next(err))
+  }
+})
+
+
 
 app.use(errorMiddleware)
 

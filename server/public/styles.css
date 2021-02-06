@@ -17,6 +17,7 @@
 /*home page*/
 .container{
   margin-top: 88px;
+  margin-bottom: 6rem;
 }
 .row{
   justify-content: center;
@@ -58,6 +59,7 @@
 .exercises-container{
   margin-top: 56px;
   transition: all 0.3s ease-out;
+  margin-bottom: 2rem;
 }
 .header{
   text-transform: uppercase;
@@ -189,7 +191,7 @@
   height: 3.5rem;
 }
 .favorites-exercise-row{
-  margin: 2.2rem;
+  margin: 0 2.2rem;
   transition: all 0.3s ease-out;
 }
 .fas.fa-trash{
@@ -241,6 +243,9 @@
 }
 
 /*routine-form page*/
+.fas.fa-ban{
+  color: #E12121;
+}
 .fas.fa-ban:hover{
   color: #EF233C;
 }
@@ -280,4 +285,19 @@
 }
 .text-input:focus, .select:focus, .textarea:focus{
   box-shadow: 0px 4px 5px 1px rgba(0,0,0,0.3);;
+}
+
+/*favorites-add page*/
+.favs-add{
+  color: #28B351;
+}
+.favs-add:hover{
+  color: #47C26A;
+  transform: none !important;
+}
+.fas.fa-check{
+  color: #28B351;
+}
+.fas.fa-check:hover{
+  color: #47C26A;
 }

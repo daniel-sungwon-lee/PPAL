@@ -6,16 +6,17 @@ export default class AddFavorites extends React.Component{
     this.state={
       favorites: [],
       loading: true,
+      classN: "fas fa-ban invisible",
       modalNum: 1
     }
     this.data={
       routineId: this.props.routineId,
       routineName: this.props.routineName,
       message: "Cancel?",
-      classN: "fas fa-ban invisible"
     }
     this.handleCancel=this.handleCancel.bind(this)
     this.handleClickPlus=this.handleClickPlus.bind(this)
+    this.handleClickTimes=this.handleClickTimes.bind(this)
   }
 
   componentDidMount(){
@@ -31,7 +32,12 @@ export default class AddFavorites extends React.Component{
   }
 
   handleClickPlus(exerciseId){
+    this.setState({classN: "fas fa-check"})
+    console.log(exerciseId)
+  }
 
+  handleClickTimes(){
+    this.setState({classN: "fas fa-ban invisible"})
   }
 
   render(){
@@ -42,8 +48,8 @@ export default class AddFavorites extends React.Component{
             <ModalStatic handleCancel={this.handleCancel} modalNum={this.state.modalNum} message={this.data.message} />
             <div className="header d-flex justify-content-between align-items-center">
               <i className="fas fa-ban" data-toggle="modal" data-target={`#staticBackdrop1`}></i>
-              <h2 className="text-uppercase m-0">{`Add to ${this.data.routineName}`}</h2>
-              <i className={this.data.classN} data-toggle="modal" data-target={`#staticBackdrop2`}></i>
+              <h2 className="text-uppercase m-0 favs-add-header">{`Add to ${this.data.routineName}`}</h2>
+              <i className={this.state.classN} data-toggle="modal" data-target={`#staticBackdrop2`}></i>
             </div>
             <>
             {
@@ -51,8 +57,8 @@ export default class AddFavorites extends React.Component{
                 return (
                   <Exercise key={exercise.exerciseId}
                     exercise={exercise}
-                    handleCancel={this.handleCancel}
-                    handleClickPlus={()=>this.handleClickPlus(exercise.exerciseId)} />
+                    handleClickPlus={()=>this.handleClickPlus(exercise.exerciseId)}
+                    handleClickTimes={()=>this.handleClickTimes(exercise.exerciseId)} />
                 )
               })
             }
@@ -81,7 +87,7 @@ function Exercise(props) {
             <button className="h4 exercise-name">{name}</button>
           </div>
         </a>
-        <i className="fas fa-plus" onClick={props.handleClickPlus}></i>
+        <i className="fas fa-plus favs-add" onClick={props.handleClickPlus}></i>
       </div>
     </>
   )
