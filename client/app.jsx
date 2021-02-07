@@ -11,7 +11,15 @@ import RoutineForm from "./pages/routine-form"
 import RoutineDetail from "./pages/routine-detail"
 import AddFavorites from "./pages/favorites-add"
 
-const types = ["Chest", "Back", "Biceps", "Triceps", "Shoulders", "Legs", "Abs"]
+const types = [
+  {name: "Chest", id: 1},
+  {name: "Back", id:2},
+  {name: "Biceps", id:3},
+  {name: "Triceps", id:4},
+  {name: "Shoulders", id:5},
+  {name: "Legs", id:6},
+  {name: "Abs", id:7}
+]
 
 export default class App extends React.Component {
   constructor(props){
@@ -40,7 +48,10 @@ export default class App extends React.Component {
       return <Home types={types} />
     }
 
-    if(types.includes(route.path)){
+    const typeNames=types.map(type=>{
+      return type.name
+    })
+    if(typeNames.includes(route.path)){
       return <Exercises exercise={route.path} previousHash={this.previousHash} />
     }
 
@@ -51,7 +62,7 @@ export default class App extends React.Component {
     }
 
     if(route.path==="favorites"){
-      return <Favorites previousHash={this.previousHash} />
+      return <Favorites types={types} previousHash={this.previousHash} />
     }
 
     if(route.path==="favoritesExercise"){
