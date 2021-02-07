@@ -66,8 +66,9 @@ export default class App extends React.Component {
 
     if(route.path==="routineForm"){
       const type = route.params.get("formType")
+      const routineId = route.params.get("routineId")
 
-      return <RoutineForm type={type}/>
+      return <RoutineForm type={type} routineId={routineId} />
     }
 
     if(route.path==="routine"){

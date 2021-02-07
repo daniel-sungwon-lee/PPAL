@@ -124,6 +124,43 @@ app.post("/api/routines", (req,res,next)=>{
     .catch(err=>next(err))
 })
 
+app.get("api/routines/:routineId", (req, res, next) => {
+  const routineId = req.params.routineId
+
+  const sql = `
+  select *
+  from "routines"
+  where routineId = $1
+  `
+  const params = [routineId]
+
+  db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows[0])
+    })
+    .catch(err => next(err))
+})
+
+app.patch("api/routines/:routineId", (req, res, next) => {
+  const { name, description, day } = req.body
+  const routineId = req.params.routineId
+
+  const sql = `
+  update "routines"
+  set "name" = $1,
+      "description" = $2,
+      "day" = $3,
+  where "routineId" = $4
+  `
+  const params = [name, description, day, routineId]
+
+  db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows[0])
+    })
+    .catch(err => next(err))
+})
+
 
 //routines page
 app.get("/api/routines", (req,res,next)=>{
@@ -151,43 +188,6 @@ app.delete("/api/routines/:routineId", (req,res,next)=>{
   db.query(sql,params)
     .then(result=>{
       res.status(204).json(result.rows[0])
-    })
-    .catch(err=>next(err))
-})
-
-app.get("api/routines/:routineId", (req,res,next)=>{
-  const routineId = req.params.routineId
-
-  const sql = `
-  select *
-  from "routines"
-  where routineId = $1
-  `
-  const params = [routineId]
-
-  db.query(sql,params)
-    .then(result=>{
-      res.status(200).json(result.rows[0])
-    })
-    .catch(err=>next(err))
-})
-
-app.patch("api/routines/:routineId", (req,res,next)=>{
-  const {name, description, day} = req.body
-  const routineId = req.params.routineId
-
-  const sql =`
-  update "routines"
-  set "name" = $1,
-      "description" = $2,
-      "day" = $3
-  where "routineId" = $4
-  `
-  const params = [name, description, day, routineId]
-
-  db.query(sql,params)
-    .then(result=>{
-      res.status(200).json(result.rows[0])
     })
     .catch(err=>next(err))
 })
