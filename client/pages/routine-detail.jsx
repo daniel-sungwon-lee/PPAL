@@ -37,7 +37,7 @@ export default class RoutineDetail extends React.Component{
 
     this.setState({ exercises: newExercises })
 
-    fetch(`/api/routineExercises/${exerciseId}`, {
+    fetch(`/api/routineExercises/${this.data.routineId}/${exerciseId}`, {
       method: "DELETE",
       headers: {"Content-Type": "application/json"}
     })

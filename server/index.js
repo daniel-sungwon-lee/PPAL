@@ -213,15 +213,17 @@ app.post("/api/routineExercises", (req,res,next)=>{
     .catch(err=>next(err))
 })
 
-app.delete("/api/routineExercises/:exerciseId", (req,res,next)=>{
+app.delete("/api/routineExercises/:routineId/:exerciseId", (req,res,next)=>{
+  const routineId = req.params.routineId
   const exerciseId = req.params.exerciseId
 
   const sql = `
   delete from "routineExercises"
-  where "exerciseId" = $1
+  where "routineId" = $1
+  and "exerciseId" = $2
   returning *
   `
-  const params = [exerciseId]
+  const params = [routineId, exerciseId]
 
   db.query(sql,params)
     .then(result=>{
