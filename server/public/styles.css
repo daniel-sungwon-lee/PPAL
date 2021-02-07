@@ -241,6 +241,13 @@
   transition: all 0.3s ease-out;
   margin: 0 1rem;
 }
+.fas.fa-pen{
+  font-size: 33px;
+  margin-right: 2rem;
+}
+.fas.fa-pen:hover{
+  color: #008BF5;
+}
 
 /*routine-form page*/
 .fas.fa-ban{

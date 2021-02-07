@@ -85,9 +85,12 @@ export default class ExerciseFav extends React.Component{
     fetch(`https://wger.de/api/v2/exerciseinfo/${this.data.exerciseId}`, init)
       .then(res => res.json())
       .then(data => {
-        this.setState({ exercise: new Array(Object.assign(this.state.exercise[0], data)), loading: false })
-        this.state.reps = this.state.exercise[0].reps
-        this.state.sets = this.state.exercise[0].sets
+        this.setState({
+          exercise: new Array(Object.assign(this.state.exercise[0], data)),
+          reps: this.state.exercise[0].reps,
+          sets: this.state.exercise[0].sets,
+          loading: false
+        })
       })
   }
 

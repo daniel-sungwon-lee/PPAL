@@ -131,9 +131,6 @@ export default class ExerciseDetail extends React.Component{
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(favExercise)
     })
-      .then(exercise=>{
-        this.setState({isFavorites: true})
-      })
 
     //star icon changes color depending on if it saved or not,
     //and can be removed (do later)

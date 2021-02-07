@@ -46,6 +46,7 @@ export default class Routines extends React.Component{
     super(props)
     this.state={routines: [], loading: true}
     this.deleteRoutine=this.deleteRoutine.bind(this)
+    this.editRoutine=this.editRoutine.bind(this)
   }
 
   componentDidMount(){
@@ -69,6 +70,10 @@ export default class Routines extends React.Component{
     })
   }
 
+  editRoutine(routineId){
+    console.log(routineId)
+  }
+
   render(){
     if (this.state.loading){
       return <Spinner />
@@ -85,7 +90,8 @@ export default class Routines extends React.Component{
             {
               days.map(obj=>{
                 return (
-                  <Accordion key={obj.num} obj={obj} routines={this.state.routines} deleteRoutine={this.deleteRoutine} />
+                  <Accordion key={obj.num} obj={obj} routines={this.state.routines}
+                    deleteRoutine={this.deleteRoutine} editRoutine={this.editRoutine} />
                 )
               })
             }
@@ -112,7 +118,10 @@ function Accordion(props) {
           {
             props.routines.map(routine => {
               if (routine.day === day) {
-                return <Routine key={routine.routineId} deleteRoutine={() => props.deleteRoutine(routine.routineId)} routine={routine} />
+                return <Routine key={routine.routineId} deleteRoutine={() => props.deleteRoutine(routine.routineId)}
+                        routine={routine}
+                        editRoutine={()=>props.editRoutine(routine.routineId)} />
+
               } else if (routine.day !== day) {
                 return ""
               }
@@ -134,7 +143,10 @@ function Routine(props){
           <button className="h4 exercise-name">{name}</button>
         </div>
       </a>
-      <i className="fas fa-trash" data-toggle="modal" data-target={`#staticBackdrop${routineId}`}></i>
+      <div className="icons-div">
+        <i className="fas fa-pen" onClick={props.editRoutine}></i>
+        <i className="fas fa-trash" data-toggle="modal" data-target={`#staticBackdrop${routineId}`}></i>
+      </div>
       <ModalStatic key={routineId} deleteRoutine={props.deleteRoutine} routineId={routineId} />
     </div>
   )
