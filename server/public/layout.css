@@ -41,6 +41,9 @@
   .fas.fa-trash{
     margin-top: 1rem;
   }
+  .routines-exercise-row{
+    margin: 0;
+  }
 }
 
 @media screen and (max-width:991px){

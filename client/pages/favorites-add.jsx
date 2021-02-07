@@ -1,5 +1,10 @@
 import React from "react"
 
+const modalTypes = [
+  { id: 1, message: "Cancel?", message2: "" },
+  { id: 2, message: "Finalize", message2: "Selections?" }
+]
+
 export default class AddFavorites extends React.Component{
   constructor(props){
     super(props)
@@ -68,8 +73,13 @@ export default class AddFavorites extends React.Component{
       this.state.loading
         ? <Spinner />
         : <div className="container">
-            <ModalStatic handlePreviousPage={this.handlePreviousPage} />
-            <ModalStaticValidate handlePreviousPage={this.handlePreviousPage} />
+            {
+              modalTypes.map(modal=>{
+                return (
+                  <ModalStatic key={modal.id} modal={modal} handlePreviousPage={this.handlePreviousPage} />
+                )
+              })
+            }
             <div className="header d-flex justify-content-between align-items-center">
               <i className="fas fa-ban" data-toggle="modal" data-target={`#staticBackdrop1`}></i>
               <h2 className="text-uppercase m-0 favs-add-header">{`Add to ${this.data.routineName}`}</h2>
@@ -136,38 +146,19 @@ function Spinner(props) {
 }
 
 function ModalStatic(props) {
+  const {id, message, message2} = props.modal
   return (
-    <div className="modal fade" id={`staticBackdrop1`} data-backdrop="static" data-keyboard="false" aria-labelledby={`staticBackdrop1Label`} aria-hidden="true">
+    <div className="modal fade" id={`staticBackdrop${id}`} data-backdrop="static" data-keyboard="false" aria-labelledby={`staticBackdrop${id}Label`} aria-hidden="true">
       <div className="modal-dialog modal-lg">
         <div className="modal-content">
           <div className="modal-header m-0 align-items-center">
-            <div className="modal-title" id={`staticBackdrop1Label`}>
-              <h4 className="">Cancel?</h4>
+            <div className="modal-title" id={`staticBackdrop${id}Label`}>
+              <h4 className="m-0">{message}</h4>
+              <h4 className="m-0">{message2}</h4>
             </div>
             <div className="modal-icons d-flex align-items-center">
               <i className="fas fa-hand-point-left" data-dismiss="modal" aria-label="Close"></i>
               <i className="fas fa-thumbs-up" data-dismiss="modal" aria-label="Close" onClick={props.handlePreviousPage}></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function ModalStaticValidate(props) {
-  return (
-    <div className="modal fade" id={`staticBackdrop2`} data-backdrop="static" data-keyboard="false" aria-labelledby={`staticBackdrop2Label`} aria-hidden="true">
-      <div className="modal-dialog modal-lg">
-        <div className="modal-content">
-          <div className="modal-header m-0 align-items-center">
-            <div className="modal-title" id={`staticBackdrop2Label`}>
-              <h4 className="">Finalize</h4>
-              <h4 className="">Selections?</h4>
-            </div>
-            <div className="modal-icons d-flex align-items-center">
-              <i className="fas fa-hand-point-left validate-modal" data-dismiss="modal" aria-label="Close"></i>
-              <i className="fas fa-thumbs-up validate-modal" data-dismiss="modal" aria-label="Close" onClick={props.handlePreviousPage}></i>
             </div>
           </div>
         </div>
