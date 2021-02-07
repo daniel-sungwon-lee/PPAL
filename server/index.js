@@ -195,7 +195,7 @@ app.get("/api/routines/:routineId", (req,res,next)=>{
 })
 
 
-//favorites-add page (to routine-detail)
+//favorites-add page (to routine-detail; delete endpoint also used in routine-detail page)
 app.post("/api/routineExercises", (req,res,next)=>{
   const {routineId, exerciseId} =req.body
 
