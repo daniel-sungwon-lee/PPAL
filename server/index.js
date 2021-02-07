@@ -173,7 +173,23 @@ app.get("api/routines/:routineId", (req,res,next)=>{
 })
 
 app.patch("api/routines/:routineId", (req,res,next)=>{
+  const {name, description, day} = req.body
+  const routineId = req.params.routineId
 
+  const sql =`
+  update "routines"
+  set "name" = $1,
+      "description" = $2,
+      "day" = $3
+  where "routineId" = $4
+  `
+  const params = [name, description, day, routineId]
+
+  db.query(sql,params)
+    .then(result=>{
+      res.status(200).json(result.rows[0])
+    })
+    .catch(err=>next(err))
 })
 
 
