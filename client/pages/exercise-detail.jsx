@@ -103,18 +103,17 @@ export default class ExerciseDetail extends React.Component{
     const exerciseId = exercise.id
     const name = exercise.name
 
-    const type = exercise.category.name
-    //below is me trying to attempt to get the specific muscle type
-    /*const muscleIdArr = exercise.muscles.map(muscle => {
+    let type = null
+    const muscleIdArr = exercise.muscles.map(muscle => {
       return muscle.id
     })
     if (exercise.category.id === 8 && muscleIdArr.includes(1)) {
-      const type = "Biceps"
+      type = "Biceps"
     } else if (exercise.category.id === 8 && muscleIdArr.includes(5)) {
-      const type = "Triceps"
+      type = "Triceps"
     } else {
-      const type = exercise.category.name
-    }*/
+      type = exercise.category.name
+    }
 
     let reps= this.state.reps
     let sets = this.state.sets
