@@ -208,7 +208,7 @@ function SingleExercise(props){
       </div>
       <div className="row">
         <div className="link">
-          <a href={`https://www.google.com/search?q=${name}`} target="_blank"
+          <a href={`https://www.google.com/search?q=${name} Exercise`} target="_blank"
           className="text-decoration-none link">{`Click here to search for ${name}`}</a>
         </div>
       </div>

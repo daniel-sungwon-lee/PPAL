@@ -121,7 +121,7 @@ export default class RoutineForm extends React.Component{
               <div className="form-group d-flex flex-column">
                 <label htmlFor="routineDay">Day of the week</label>
                 <select required className="select" id="routineDay" onChange={this.handleDayChange}>
-                  <option disabled selected value="">Pick a day</option>
+                  <option disabled selected hidden value="">Pick a day</option>
                   <option>Sunday</option>
                   <option>Monday</option>
                   <option>Tuesday</option>

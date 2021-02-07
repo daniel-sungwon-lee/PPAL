@@ -5,6 +5,7 @@
 /*nav*/
 .nav-button{
   outline: none !important;
+  border-radius: 7px;
 }
 .nav-links{
   transition: all 0.3s ease-out;
