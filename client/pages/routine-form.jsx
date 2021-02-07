@@ -78,15 +78,27 @@ export default class RoutineForm extends React.Component{
     const userId = 1
     const reqBody={name, day, description, userId}
 
-    fetch("http://localhost:3000/api/routines", {
-      method: "POST",
-      headers: {"Content-Type" : "application/json"},
-      body: JSON.stringify(reqBody)
-    })
-      .then(res=>res.json())
-      .then(result=>{
-        window.location.hash="#routines"
+    if(this.data.type ==="new Routine"){
+      fetch("/api/routines", {
+        method: "POST",
+        headers: {"Content-Type" : "application/json"},
+        body: JSON.stringify(reqBody)
       })
+        .then(res=>res.json())
+        .then(result=>{
+          window.location.hash="#routines"
+        })
+
+    } else if(this.data.type==="edit Routine"){
+      fetch(`/api/routines/${this.data.routineId}`, {
+        method: "PATCH",
+        headers: {"Content-Type" : "application/json"},
+        body: JSON.stringify(reqBody)
+      })
+        .then(result=>{
+          window.location.hash = "#routines"
+        })
+    }
   }
 
   render(){
@@ -103,7 +115,8 @@ export default class RoutineForm extends React.Component{
             <form className="form" onSubmit={this.handleSubmit}>
               <div className="form-group d-flex flex-column">
                 <label htmlFor="routineName">Routine name</label>
-                <input type="text" className="text-input" id="routineName" required placeholder="Push" onChange={this.handleNameChange}/>
+                <input type="text" className="text-input" id="routineName" required
+                 placeholder="Push" onChange={this.handleNameChange} value={this.state.name}/>
               </div>
               <div className="form-group d-flex flex-column">
                 <label htmlFor="routineDay">Day of the week</label>
@@ -120,7 +133,8 @@ export default class RoutineForm extends React.Component{
               </div>
               <div className="form-group d-flex flex-column">
                 <label htmlFor="routineDescription">Routine description</label>
-                <textarea className="textarea" id="routineDescription" required placeholder="Chest and Triceps" onChange={this.handleDescription}></textarea>
+                <textarea className="textarea" id="routineDescription" required placeholder="Chest and triceps"
+                 onChange={this.handleDescription} value={this.state.description}></textarea>
               </div>
               <div className="button-outline form-submit">
                 <button className="type-button submit" type="submit">Save</button>
