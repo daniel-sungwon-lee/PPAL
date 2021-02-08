@@ -39,7 +39,8 @@ export default class AddFavorites extends React.Component{
       for(let i=0; i<exercisesToAdd.length; i++){
         const reqBody = {
           routineId: this.data.routineId,
-          exerciseId: exercisesToAdd[i]
+          exerciseId: exercisesToAdd[i],
+          isCompleted: false
         }
 
         fetch("/api/routineExercises", {

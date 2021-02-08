@@ -47,8 +47,38 @@ export default class RoutineDetail extends React.Component{
   handleChange(exerciseId){
     if (event.target.checked){
       event.target.previousSibling.className="fas fa-check-square mr-4 mb-0"
+
+      const reqBody = {isCompleted: true}
+      fetch(`/api/routineExercises/${this.data.routineId}/${exerciseId}`, {
+        method: "PATCH",
+        headers: {"Content-Type" : "application/json"},
+        body: JSON.stringify(reqBody)
+      })
+        .then(res=>res.json())
+        .then(updatedExercise=>{
+          fetch(`/api/routineExercises/${updatedExercise.routineId}`)
+            .then(res=>res.json())
+            .then(data=>{
+              this.setState({exercises : data})
+            })
+        })
     } else {
       event.target.previousSibling.className= "far fa-square mr-4 mb-0"
+
+      const reqBody = { isCompleted: false }
+      fetch(`/api/routineExercises/${this.data.routineId}/${exerciseId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(reqBody)
+      })
+        .then(res=>res.json())
+        .then(updatedExercise => {
+          fetch(`/api/routineExercises/${updatedExercise.routineId}`)
+            .then(res => res.json())
+            .then(data => {
+              this.setState({ exercises: data })
+            })
+        })
     }
   }
 
@@ -80,12 +110,12 @@ export default class RoutineDetail extends React.Component{
 }
 
 function Exercise(props){
-  const {exerciseId, name} = props.exercise
+  const {exerciseId, name, isCompleted} = props.exercise
   return (
     <div className="d-flex mb-5 align-items-center">
       <label className="far fa-square mr-4 mb-0" htmlFor={`check${exerciseId}`}></label>
       <input type="checkbox" id={`check${exerciseId}`}
-        className="d-none" onChange={props.handleChange}/>
+        className="d-none" checked={isCompleted} onChange={props.handleChange}/>
       <a className="text-decoration-none text-dark w-100"
         href={`#favoritesExercise?exerciseId=${exerciseId}`}
         onClick={() => props.previousHash(window.location.hash)}>
