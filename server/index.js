@@ -195,7 +195,7 @@ app.get("/api/routines/:routineId", (req,res,next)=>{
 })
 
 
-//favorites-add page (to routine-detail; delete endpoint also used in routine-detail page)
+//favorites-add page
 app.post("/api/routineExercises", (req,res,next)=>{
   const {routineId, exerciseId} =req.body
 
@@ -209,25 +209,6 @@ app.post("/api/routineExercises", (req,res,next)=>{
   db.query(sql,params)
     .then(result=>{
       res.status(201).json(result.rows[0])
-    })
-    .catch(err=>next(err))
-})
-
-app.delete("/api/routineExercises/:routineId/:exerciseId", (req,res,next)=>{
-  const routineId = req.params.routineId
-  const exerciseId = req.params.exerciseId
-
-  const sql = `
-  delete from "routineExercises"
-  where "routineId" = $1
-  and "exerciseId" = $2
-  returning *
-  `
-  const params = [routineId, exerciseId]
-
-  db.query(sql,params)
-    .then(result=>{
-      res.status(204).json(result.rows[0])
     })
     .catch(err=>next(err))
 })
@@ -252,7 +233,24 @@ app.get("/api/routineExercises/:routineId", (req,res,next)=>{
     .catch(err=>next(err))
 })
 
+app.delete("/api/routineExercises/:routineId/:exerciseId", (req, res, next) => {
+  const routineId = req.params.routineId
+  const exerciseId = req.params.exerciseId
 
+  const sql = `
+  delete from "routineExercises"
+  where "routineId" = $1
+  and "exerciseId" = $2
+  returning *
+  `
+  const params = [routineId, exerciseId]
+
+  db.query(sql, params)
+    .then(result => {
+      res.status(204).json(result.rows[0])
+    })
+    .catch(err => next(err))
+})
 
 
 app.use(errorMiddleware)
