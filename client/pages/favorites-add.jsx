@@ -11,6 +11,7 @@ export default class AddFavorites extends React.Component{
     this.state={
       favorites: [],
       loading: true,
+      addedExercises: [],
       classN: "fas fa-ban invisible"
     }
     this.data={
@@ -30,7 +31,25 @@ export default class AddFavorites extends React.Component{
       })
   }
 
-  handlePreviousPage(){
+  handlePreviousPage(event){
+    const clickedModal = parseInt(event.target.getAttribute("id"))
+    const exercisesToAdd = this.state.addedExercises
+
+    if(exercisesToAdd.length>0 && clickedModal===2){
+      for(let i=0; i<exercisesToAdd.length; i++){
+        const reqBody = {
+          routineId: this.data.routineId,
+          exerciseId: exercisesToAdd[i]
+        }
+
+        fetch("/api/routineExercises", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(reqBody)
+        })
+      }
+    }
+
     window.location.hash=`#routine?routineId=${this.data.routineId}`
   }
 
@@ -48,23 +67,14 @@ export default class AddFavorites extends React.Component{
   }
 
   handleChange(exerciseId){
-    const reqBody={
-      routineId: this.data.routineId,
-      exerciseId: exerciseId
-    }
-
     if(event.target.checked){
-      fetch("/api/routineExercises", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(reqBody)
-      })
+      this.state.addedExercises.push(exerciseId)
 
     } else {
-      fetch(`/api/routineExercises/${this.data.routineId}/${exerciseId}`, {
-        method: "DELETE",
-        headers: {"Content-Type": "application/json"}
+      const newAddedExercises =this.state.addedExercises.filter(id=>{
+        return id !== exerciseId
       })
+      this.setState({addedExercises : newAddedExercises})
     }
   }
 
@@ -181,7 +191,7 @@ function ModalStatic(props) {
             </div>
             <div className="modal-icons d-flex align-items-center">
               <i className="fas fa-hand-point-left" data-dismiss="modal" aria-label="Close"></i>
-              <i className="fas fa-thumbs-up" data-dismiss="modal" aria-label="Close" onClick={props.handlePreviousPage}></i>
+              <i className="fas fa-thumbs-up" id={id} data-dismiss="modal" aria-label="Close" onClick={props.handlePreviousPage}></i>
             </div>
           </div>
         </div>
