@@ -87,13 +87,13 @@ export default class AddFavorites extends React.Component{
             </div>
             <>
             {
-              this.state.favorites.map(exercise => {
+              this.props.types.map(type => {
                 return (
-                  <Exercise key={exercise.exerciseId}
-                    exercise={exercise}
+                  <ExerciseTypeHeader key={type.id} name={type.name}
+                    favorites={this.state.favorites}
                     previousHash={this.props.previousHash}
                     handleClick={this.handleClick}
-                    handleChange={()=>this.handleChange(exercise.exerciseId)} />
+                    handleChange={this.handleChange} />
                 )
               })
             }
@@ -103,18 +103,41 @@ export default class AddFavorites extends React.Component{
   }
 }
 
-function Exercise(props) {
-  const { exerciseId, type, name } = props.exercise
-
+function ExerciseTypeHeader(props) {
   return (
     <>
       <div className="d-flex justify-content-start m-4">
         <div className="type-header d-flex align-items-center justify-content-center">
           <div className="w-100">
-            <h3 className="m-0 pl-4">{type}</h3>
+            <h3 className="m-0 pl-4">{props.name}</h3>
           </div>
         </div>
       </div>
+      <>
+        {
+          props.favorites.map(exercise => {
+            if (exercise.type === props.name) {
+              return (
+                <Exercise key={exercise.exerciseId}
+                  exercise={exercise}
+                  handleChange={() => props.handleChange(exercise.exerciseId)}
+                  handleClick={props.handleClick}
+                  previousHash={props.previousHash} />
+              )
+            } else if (exercise.type !== props.name) {
+              return ""
+            }
+          })
+        }
+      </>
+    </>
+  )
+}
+
+function Exercise(props) {
+  const { exerciseId, type, name } = props.exercise
+  return (
+    <>
       <div id={exerciseId} className="favorites-exercise-row d-flex justify-content-between align-items-center mb-5">
         <a className="w-75 text-decoration-none text-dark"
           href={`#favoritesExercise?exerciseId=${exerciseId}`}
