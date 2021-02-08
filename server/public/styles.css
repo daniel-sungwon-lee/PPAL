@@ -1,8 +1,11 @@
 *{
   font-family: Product Sans, sans-serif;
 }
+
+/*nav*/
 .nav-button{
   outline: none !important;
+  border-radius: 7px;
 }
 .nav-links{
   transition: all 0.3s ease-out;
@@ -11,8 +14,11 @@
   transform: translate(20px,0);
   color: #FFF9C5
 }
+
+/*home page*/
 .container{
   margin-top: 88px;
+  margin-bottom: 6rem;
 }
 .row{
   justify-content: center;
@@ -44,6 +50,7 @@
   background-color: #FFF9C5;
 }
 
+/*exercises page*/
 .spinnerDiv{
   position: absolute;
   left: 50%;
@@ -53,6 +60,7 @@
 .exercises-container{
   margin-top: 56px;
   transition: all 0.3s ease-out;
+  margin-bottom: 2rem;
 }
 .header{
   text-transform: uppercase;
@@ -84,6 +92,7 @@
   background-color: black;
 }
 
+/*exercise-detail page*/
 .container.single-exercise{
   width: 93%;
   margin-bottom: 4rem;
@@ -96,7 +105,7 @@
   align-items: center;
 }
 .img-div{
-  margin: 3rem 2rem 2rem;
+  margin: 3rem 0rem 2rem;
   width: 80% !important;
 }
 .exercise-img{
@@ -171,6 +180,7 @@
   margin: auto;
 }
 
+/*favorites page*/
 .fas.fa-plus:hover{
   color: #47C26A;
   transform: rotate(90deg);
@@ -182,7 +192,7 @@
   height: 3.5rem;
 }
 .favorites-exercise-row{
-  margin: 2.2rem;
+  margin: 0 2.2rem;
   transition: all 0.3s ease-out;
 }
 .fas.fa-trash{
@@ -203,11 +213,13 @@
   color: #EF233C;
 }
 
+/*exercise-detail-favs page*/
 .fas.fa-times:hover{
-  transform: rotate(180deg);
+  transform: rotate(-180deg);
   color: #EF233C;
 }
 
+/*routines page*/
 .accordion{
   margin: 2rem 2rem 4rem;
 }
@@ -230,7 +242,18 @@
   transition: all 0.3s ease-out;
   margin: 0 1rem;
 }
+.fas.fa-pen{
+  font-size: 33px;
+  margin-right: 2rem;
+}
+.fas.fa-pen:hover{
+  color: #008BF5;
+}
 
+/*routine-form page*/
+.fas.fa-ban{
+  color: #E12121;
+}
 .fas.fa-ban:hover{
   color: #EF233C;
 }
@@ -270,4 +293,21 @@
 }
 .text-input:focus, .select:focus, .textarea:focus{
   box-shadow: 0px 4px 5px 1px rgba(0,0,0,0.3);;
+}
+
+/*favorites-add page*/
+.favs-add{
+  color: #28B351;
+}
+.fas.fa-check{
+  color: #28B351;
+}
+.fas.fa-check:hover{
+  color: #47C26A;
+}
+.fas.fa-hand-point-left.validate-modal:hover{
+  color: #EF233C;
+}
+.fas.fa-thumbs-up.validate-modal:hover{
+  color: #47C26A;
 }

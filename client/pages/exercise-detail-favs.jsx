@@ -68,7 +68,7 @@ export default class ExerciseFav extends React.Component{
   }
 
   componentDidMount(){
-    fetch(`http://localhost:3000/api/favorites/${this.data.exerciseId}`)
+    fetch(`/api/favorites/${this.data.exerciseId}`)
       .then(res=>res.json())
       .then(data=>{
         this.setState({exercise : data})
@@ -85,9 +85,12 @@ export default class ExerciseFav extends React.Component{
     fetch(`https://wger.de/api/v2/exerciseinfo/${this.data.exerciseId}`, init)
       .then(res => res.json())
       .then(data => {
-        this.setState({ exercise: new Array(Object.assign(this.state.exercise[0], data)), loading: false })
-        this.state.reps = this.state.exercise[0].reps
-        this.state.sets = this.state.exercise[0].sets
+        this.setState({
+          exercise: new Array(Object.assign(this.state.exercise[0], data)),
+          reps: this.state.exercise[0].reps,
+          sets: this.state.exercise[0].sets,
+          loading: false
+        })
       })
   }
 
@@ -117,7 +120,7 @@ export default class ExerciseFav extends React.Component{
       sets: this.state.sets
     }
 
-    fetch(`http://localhost:3000/api/favorites/${this.data.exerciseId}`,{
+    fetch(`/api/favorites/${this.data.exerciseId}`,{
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(reqBody)
@@ -140,7 +143,8 @@ export default class ExerciseFav extends React.Component{
                 handleRepsDown={this.handleRepsDown}
                 handleSetsUp={this.handleSetsUp}
                 handleSetsDown={this.handleSetsDown}
-                state={this.state}/>
+                state={this.state}
+                previousHash={this.props.previousHash} />
               )
             })
         }
@@ -157,7 +161,7 @@ function SingleExerciseFav(props){
       <div className="header d-flex justify-content-between align-items-center">
         <i className="fas fa-times invisible"></i>
         <h2 className="text-uppercase m-0">{name}</h2>
-        <a className="text-dark" href="#favorites" onClick={props.saveRepsAndSets}><i className="fas fa-times"></i></a>
+        <a className="text-dark" href={props.previousHash} onClick={props.saveRepsAndSets}><i className="fas fa-times"></i></a>
       </div>
       <div className="row row-exercise-single">
         <div className="img-div">
@@ -174,7 +178,7 @@ function SingleExerciseFav(props){
       </div>
       <div className="row">
         <div className="link">
-          <a href={`https://www.google.com/search?q=${name}`} target="_blank"
+          <a href={`https://www.google.com/search?q=${name} Exercise`} target="_blank"
           className="text-decoration-none link">{`Click here to search for ${name}`}</a>
         </div>
       </div>

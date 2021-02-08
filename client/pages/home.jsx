@@ -13,11 +13,7 @@ export default class Home extends React.Component{
         {
           this.props.types.map(type=>{
             return (
-            <div key={type} className="row">
-              <div className="button-outline">
-                <a href={`#${type}`}><button className="type-button">{type}</button></a>
-              </div>
-            </div>
+            <HomeButton key={type.id} type={type} />
             )
           })
         }
@@ -25,4 +21,15 @@ export default class Home extends React.Component{
       </>
     )
   }
+}
+
+function HomeButton(props){
+  const {name} = props.type
+  return (
+    <div className="row">
+      <div className="button-outline">
+        <a href={`#${name}`}><button className="type-button">{name}</button></a>
+      </div>
+    </div>
+  )
 }

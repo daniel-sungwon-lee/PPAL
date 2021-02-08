@@ -124,6 +124,26 @@ app.post("/api/routines", (req,res,next)=>{
     .catch(err=>next(err))
 })
 
+app.patch("/api/routines/:routineId", (req, res, next) => {
+  const { name, description, day } = req.body
+  const routineId = req.params.routineId
+
+  const sql = `
+  update "routines"
+  set "name" = $1,
+      "description" = $2,
+      "day" = $3
+  where "routineId" = $4
+  `
+  const params = [name, description, day, routineId]
+
+  db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows[0])
+    })
+    .catch(err => next(err))
+})
+
 
 //routines page
 app.get("/api/routines", (req,res,next)=>{
@@ -154,6 +174,84 @@ app.delete("/api/routines/:routineId", (req,res,next)=>{
     })
     .catch(err=>next(err))
 })
+
+
+//routine-detail page (also used in routine-form page)
+app.get("/api/routines/:routineId", (req,res,next)=>{
+  const routineId = req.params.routineId
+
+  const sql = `
+  select *
+  from "routines"
+  where "routineId"=$1
+  `
+  const params = [routineId]
+
+  db.query(sql,params)
+    .then(result=>{
+      res.status(200).json(result.rows[0])
+    })
+    .catch(err=>next(err))
+})
+
+
+//favorites-add page (to routine-detail; delete endpoint also used in routine-detail page)
+app.post("/api/routineExercises", (req,res,next)=>{
+  const {routineId, exerciseId} =req.body
+
+  const sql = `
+  insert into "routineExercises" ("routineId", "exerciseId")
+  values ($1, $2)
+  returning *
+  `
+  let params=[routineId, exerciseId]
+
+  db.query(sql,params)
+    .then(result=>{
+      res.status(201).json(result.rows[0])
+    })
+    .catch(err=>next(err))
+})
+
+app.delete("/api/routineExercises/:routineId/:exerciseId", (req,res,next)=>{
+  const routineId = req.params.routineId
+  const exerciseId = req.params.exerciseId
+
+  const sql = `
+  delete from "routineExercises"
+  where "routineId" = $1
+  and "exerciseId" = $2
+  returning *
+  `
+  const params = [routineId, exerciseId]
+
+  db.query(sql,params)
+    .then(result=>{
+      res.status(204).json(result.rows[0])
+    })
+    .catch(err=>next(err))
+})
+
+
+//routine-detail page
+app.get("/api/routineExercises/:routineId", (req,res,next)=>{
+  const routineId = req.params.routineId
+
+  const sql = `
+  select *
+  from "routineExercises"
+  join "favorites" using ("exerciseId")
+  where "routineId" = $1
+  `
+  const params = [routineId]
+
+  db.query(sql,params)
+    .then(result=>{
+      res.status(200).json(result.rows)
+    })
+    .catch(err=>next(err))
+})
+
 
 
 

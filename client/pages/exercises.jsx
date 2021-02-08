@@ -90,13 +90,7 @@ export default class Exercises extends React.Component{
                 {
                   this.state.exercises.map(exercise => {
                     return (
-                      <a className="text-decoration-none text-dark"
-                      key={exercise.id}
-                      href={`#exercise?exerciseId=${exercise.id}`}>
-                        <div className="row row-exercise w-100">
-                          <button className="h4 exercise-name">{exercise.name}</button>
-                        </div>
-                      </a>
+                      <Exercise key={exercise.id} exercise={exercise} previousHash={this.props.previousHash} />
                     )
                   })
                 }
@@ -106,4 +100,17 @@ export default class Exercises extends React.Component{
       </>
     )
   }
+}
+
+function Exercise(props){
+  const {id, name} = props.exercise
+  return (
+    <a className="text-decoration-none text-dark"
+      href={`#exercise?exerciseId=${id}`}
+      onClick={() => props.previousHash(window.location.hash)}>
+      <div className="row row-exercise w-100">
+        <button className="h4 exercise-name">{name}</button>
+      </div>
+    </a>
+  )
 }

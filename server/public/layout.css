@@ -26,7 +26,24 @@
   .type-button.submit{
     width: 104%;
   }
-
+  .favs-add-header{
+    text-align: center;
+  }
+  .icons-div{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .fas.fa-pen{
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+  .fas.fa-trash{
+    margin-top: 1rem;
+  }
+  .routines-exercise-row{
+    margin: 0;
+  }
 }
 
 @media screen and (max-width:991px){
