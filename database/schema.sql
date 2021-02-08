@@ -34,18 +34,9 @@ create table "routines" (
 create table "routineExercises" (
     "routineId" integer not null,
     "exerciseId" integer not null,
-    constraint "routineExercises_pk" primary key ("routineId","exerciseId")
-) with (
-  oids=false
-);
-create table "workouts" (
-    "workoutId" serial not null,
-    "exerciseId" integer not null,
-    "routineId" integer not null,
     "isCompleted" boolean not null,
     "completedAt" timestamp not null default now(),
-    "userId" integer not null,
-    constraint "workouts_pk" primary key ("workoutId")
+    constraint "routineExercises_pk" primary key ("routineId","exerciseId")
 ) with (
   oids=false
 );
@@ -53,6 +44,3 @@ alter table "favorites" add constraint "favorites_fk0" foreign key ("userId") re
 alter table "routines" add constraint "routines_fk0" foreign key ("userId") references "users"("userId");
 alter table "routineExercises" add constraint "routineExercises_fk0" foreign key ("routineId") references "routines"("routineId");
 alter table "routineExercises" add constraint "routineExercises_fk1" foreign key ("exerciseId") references "favorites"("exerciseId");
-alter table "workouts" add constraint "workouts_fk0" foreign key ("exerciseId") references "favorites"("exerciseId");
-alter table "workouts" add constraint "workouts_fk1" foreign key ("routineId") references "routines"("routineId");
-alter table "workouts" add constraint "workouts_fk2" foreign key ("userId") references "users"("userId");
