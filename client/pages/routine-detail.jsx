@@ -13,6 +13,7 @@ export default class RoutineDetail extends React.Component{
       routineExercises: []
     }
     this.deleteRoutineExercise=this.deleteRoutineExercise.bind(this)
+    this.handleChange=this.handleChange.bind(this)
   }
 
   componentDidMount(){
@@ -43,6 +44,10 @@ export default class RoutineDetail extends React.Component{
     })
   }
 
+  handleChange(exerciseId){
+
+  }
+
   render(){
     return (
       this.state.loading
@@ -59,7 +64,8 @@ export default class RoutineDetail extends React.Component{
                 this.state.exercises.map(exercise => {
                   return (
                     <Exercise key={exercise.exerciseId} exercise={exercise}
-                     previousHash={this.props.previousHash} deleteRoutineExercise={this.deleteRoutineExercise} />
+                     previousHash={this.props.previousHash} deleteRoutineExercise={this.deleteRoutineExercise}
+                     handleChange={()=>this.handleChange(exercise.exerciseId)} />
                   )
                 })
               }
@@ -73,6 +79,9 @@ function Exercise(props){
   const {exerciseId, name} = props.exercise
   return (
     <div className="d-flex mb-5 align-items-center">
+      <label className="fas fa-check-square" htmlFor={`check${exerciseId}`}></label>
+      <input type="checkbox" id={`check${exerciseId}`}
+        className="d-none" onChange={props.handleChange}/>
       <a className="text-decoration-none text-dark w-100"
         href={`#favoritesExercise?exerciseId=${exerciseId}`}
         onClick={() => props.previousHash(window.location.hash)}>
