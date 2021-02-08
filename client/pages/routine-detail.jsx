@@ -45,7 +45,8 @@ export default class RoutineDetail extends React.Component{
   }
 
   handleChange(exerciseId){
-
+    console.log(exerciseId)
+    console.log(event.target.checked)
   }
 
   render(){
@@ -79,7 +80,7 @@ function Exercise(props){
   const {exerciseId, name} = props.exercise
   return (
     <div className="d-flex mb-5 align-items-center">
-      <label className="fas fa-check-square" htmlFor={`check${exerciseId}`}></label>
+      <label className="fas fa-check-square mr-4 mb-0" htmlFor={`check${exerciseId}`}></label>
       <input type="checkbox" id={`check${exerciseId}`}
         className="d-none" onChange={props.handleChange}/>
       <a className="text-decoration-none text-dark w-100"
