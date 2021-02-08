@@ -252,6 +252,26 @@ app.delete("/api/routineExercises/:routineId/:exerciseId", (req, res, next) => {
     .catch(err => next(err))
 })
 
+app.patch("/api/routineExercises/:routineId/:exerciseId", (req,res,next)=>{
+  const routineId = req.params.routineId
+  const exerciseId = req.params.exerciseId
+  const {isCompleted} = req.body
+
+  const sql = `
+  update "routineExercises"
+  set "isCompleted" = $1
+  where "routineId" = $2
+  and "exerciseId" = $3
+  `
+  const params = [isCompleted, routineId, exerciseId]
+
+  db.query(sql,params)
+    .then(result=>{
+      res.status(200).json(result.rows[0])
+    })
+    .catch(err=>next(err))
+})
+
 
 app.use(errorMiddleware)
 
