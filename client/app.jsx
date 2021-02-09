@@ -11,6 +11,7 @@ import RoutineForm from "./pages/routine-form"
 import RoutineDetail from "./pages/routine-detail"
 import AddFavorites from "./pages/favorites-add"
 import Stopwatch from "./pages/stopwatch"
+import Login from './pages/login';
 
 const types = [
   {name: "Chest", id: 1},
@@ -99,6 +100,10 @@ export default class App extends React.Component {
 
     if(route.path==="stopwatch"){
       return <Stopwatch />
+    }
+
+    if(route.path==="login"){
+      return <Login />
     }
   }
 
