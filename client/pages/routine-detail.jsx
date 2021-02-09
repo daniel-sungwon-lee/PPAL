@@ -96,8 +96,13 @@ export default class RoutineDetail extends React.Component{
             <div className="m-auto w-75">
               {
                 this.state.exercises.map(exercise => {
+                  let checkLabelClass = "far fa-square mr-4 mb-0"
+                  if(exercise.isCompleted){
+                    checkLabelClass="fas fa-check-square mr-4 mb-0"
+                  }
+
                   return (
-                    <Exercise key={exercise.exerciseId} exercise={exercise}
+                    <Exercise key={exercise.exerciseId} exercise={exercise} checkLabelClass={checkLabelClass}
                      previousHash={this.props.previousHash} deleteRoutineExercise={this.deleteRoutineExercise}
                      handleChange={()=>this.handleChange(exercise.exerciseId)} />
                   )
@@ -113,9 +118,10 @@ function Exercise(props){
   const {exerciseId, name, isCompleted} = props.exercise
   return (
     <div className="d-flex mb-5 align-items-center">
-      <label className="far fa-square mr-4 mb-0" htmlFor={`check${exerciseId}`}></label>
+      <label className={props.checkLabelClass} htmlFor={`check${exerciseId}`}></label>
       <input type="checkbox" id={`check${exerciseId}`}
-        className="d-none" checked={isCompleted} onChange={props.handleChange}/>
+        className="d-none" checked={isCompleted}
+        onChange={props.handleChange}/>
       <a className="text-decoration-none text-dark w-100"
         href={`#favoritesExercise?exerciseId=${exerciseId}`}
         onClick={() => props.previousHash(window.location.hash)}>
