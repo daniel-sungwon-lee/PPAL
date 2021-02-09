@@ -8,16 +8,12 @@ export default class Login extends React.Component{
       password: ""
     }
     this.handleSubmit=this.handleSubmit.bind(this)
-    this.handleEmailChange=this.handleEmailChange.bind(this)
-    this.handlePassword=this.handlePassword.bind(this)
+    this.handleChange=this.handleChange.bind(this)
   }
 
-  handleEmailChange(event){
-    this.setState({email: event.target.value})
-  }
-
-  handlePassword(event){
-    this.setState({password: event.target.value})
+  handleChange(event){
+    const {name,value} = event.target
+    this.setState({ [name]: value })
   }
 
   handleSubmit(event){
@@ -39,12 +35,12 @@ export default class Login extends React.Component{
             <div className="form-group d-flex flex-column input-div">
               <label htmlFor="email">Email</label>
               <input type="email" className="text-input" id="email" required
-                onChange={this.handleEmailChange} value={this.state.email} />
+                onChange={this.handleChange} name="email" value={this.state.email}/>
             </div>
             <div className="form-group d-flex flex-column">
               <label htmlFor="password">Password</label>
               <input type="password" minLength="8" required id="password" className="text-input"
-               onChange={this.handlePassword} value={this.state.password}/>
+               onChange={this.handleChange} name="password" value={this.state.password}/>
             </div>
             <div className="button-outline form-submit auth-button">
               <button className="type-button submit" type="submit">Sign in</button>
@@ -53,7 +49,7 @@ export default class Login extends React.Component{
           <div className="ml-4">
             <h2>First time?</h2>
             <div className="button-outline m-3">
-              <button className="type-button">Sign up</button>
+              <a href="#signUp"><button className="type-button">Sign up</button></a>
             </div>
           </div>
         </div>
