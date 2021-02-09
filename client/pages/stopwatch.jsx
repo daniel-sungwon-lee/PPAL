@@ -36,14 +36,13 @@ export default class Stopwatch extends React.Component{
           this.state.start
             ? <div className="row-watch">
                 <div className="watch">
-                  <h1>{this.state.counter}</h1>
+                  <h1 className="m-0">{this.state.counter}</h1>
                 </div>
                 <i onClick={this.pause} className="fas fa-pause"></i>
               </div>
             : <div className="row-watch">
-                <h4 className="watch-tip">Click on watch to reset</h4>
                 <div onClick={this.clear} className="watch" style={{cursor:"pointer"}}>
-                  <h1>{this.state.counter}</h1>
+                  <h1 className="m-0">{this.state.counter}</h1>
                 </div>
                 <i onClick={this.play} className="fas fa-play"></i>
               </div>

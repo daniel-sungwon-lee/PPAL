@@ -341,20 +341,13 @@
   transform: translate(-50%, -50%);
 }
 .watch{
-  border: solid 5px;
+  border: solid 10px;
   border-radius: 50%;
   width: 13rem;
   height: 13rem;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.watch-tip{
-  margin-bottom: 2rem;
-  padding: 1rem;
-  background-color: #FFF9C5;
-  border-radius: 16px;
-  border: solid black 4px;
 }
 .fas.fa-play, .fas.fa-pause{
   margin-top: 2rem;
