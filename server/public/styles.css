@@ -127,7 +127,7 @@
   max-height: 8rem;
   overflow: auto;
 }
-.fas{
+.fas, .far{
   font-size: 40px;
   cursor: pointer;
   transition: all 0.3s ease-out;
@@ -310,4 +310,12 @@
 }
 .fas.fa-thumbs-up.validate-modal:hover{
   color: #47C26A;
+}
+
+/*routine-detail page*/
+.routine-exercises-column{
+  width: 80%;
+}
+.far.fa-square, .fas.fa-check-square{
+  font-size: 33px;
 }

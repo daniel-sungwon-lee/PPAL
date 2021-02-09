@@ -44,6 +44,10 @@
   .routines-exercise-row{
     margin: 0;
   }
+  .routine-exercises-column{
+    width: initial;
+    margin: 0 1rem !important;
+  }
 }
 
 @media screen and (max-width:991px){

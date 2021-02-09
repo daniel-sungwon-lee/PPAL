@@ -197,14 +197,14 @@ app.get("/api/routines/:routineId", (req,res,next)=>{
 
 //favorites-add page
 app.post("/api/routineExercises", (req,res,next)=>{
-  const {routineId, exerciseId} =req.body
+  const {routineId, exerciseId, isCompleted} =req.body
 
   const sql = `
-  insert into "routineExercises" ("routineId", "exerciseId")
-  values ($1, $2)
+  insert into "routineExercises" ("routineId", "exerciseId", "isCompleted")
+  values ($1, $2, $3)
   returning *
   `
-  let params=[routineId, exerciseId]
+  let params=[routineId, exerciseId, isCompleted]
 
   db.query(sql,params)
     .then(result=>{
@@ -250,6 +250,27 @@ app.delete("/api/routineExercises/:routineId/:exerciseId", (req, res, next) => {
       res.status(204).json(result.rows[0])
     })
     .catch(err => next(err))
+})
+
+app.patch("/api/routineExercises/:routineId/:exerciseId", (req,res,next)=>{
+  const routineId = req.params.routineId
+  const exerciseId = req.params.exerciseId
+  const {isCompleted} = req.body
+
+  const sql = `
+  update "routineExercises"
+  set "isCompleted" = $1
+  where "routineId" = $2
+  and "exerciseId" = $3
+  returning *
+  `
+  const params = [isCompleted, routineId, exerciseId]
+
+  db.query(sql,params)
+    .then(result=>{
+      res.status(200).json(result.rows[0])
+    })
+    .catch(err=>next(err))
 })
 
 

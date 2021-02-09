@@ -13,6 +13,7 @@ export default class RoutineDetail extends React.Component{
       routineExercises: []
     }
     this.deleteRoutineExercise=this.deleteRoutineExercise.bind(this)
+    this.handleChange=this.handleChange.bind(this)
   }
 
   componentDidMount(){
@@ -43,6 +44,44 @@ export default class RoutineDetail extends React.Component{
     })
   }
 
+  handleChange(exerciseId){
+    if (event.target.checked){
+      event.target.previousSibling.className="fas fa-check-square mr-4 mb-0 checkbox-label"
+
+      const reqBody = {isCompleted: true}
+      fetch(`/api/routineExercises/${this.data.routineId}/${exerciseId}`, {
+        method: "PATCH",
+        headers: {"Content-Type" : "application/json"},
+        body: JSON.stringify(reqBody)
+      })
+        .then(res=>res.json())
+        .then(updatedExercise=>{
+          fetch(`/api/routineExercises/${updatedExercise.routineId}`)
+            .then(res=>res.json())
+            .then(data=>{
+              this.setState({exercises : data})
+            })
+        })
+    } else {
+      event.target.previousSibling.className= "far fa-square mr-4 mb-0 checkbox-label"
+
+      const reqBody = { isCompleted: false }
+      fetch(`/api/routineExercises/${this.data.routineId}/${exerciseId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(reqBody)
+      })
+        .then(res=>res.json())
+        .then(updatedExercise => {
+          fetch(`/api/routineExercises/${updatedExercise.routineId}`)
+            .then(res => res.json())
+            .then(data => {
+              this.setState({ exercises: data })
+            })
+        })
+    }
+  }
+
   render(){
     return (
       this.state.loading
@@ -54,12 +93,18 @@ export default class RoutineDetail extends React.Component{
               <h2 className="text-uppercase m-0" role="button" data-toggle="modal" data-target="#saveModal">{this.data.routine.name}</h2>
               <a className="text-dark" href={`#favoritesAdd?routineId=${this.data.routineId}&routineName=${this.data.routine.name}`}><i className="fas fa-plus"></i></a>
             </div>
-            <div className="m-auto w-75">
+            <div className="m-auto routine-exercises-column">
               {
                 this.state.exercises.map(exercise => {
+                  let checkLabelClass = "far fa-square mr-4 mb-0 checkbox-label"
+                  if(exercise.isCompleted){
+                    checkLabelClass="fas fa-check-square mr-4 mb-0 checkbox-label"
+                  }
+
                   return (
-                    <Exercise key={exercise.exerciseId} exercise={exercise}
-                     previousHash={this.props.previousHash} deleteRoutineExercise={this.deleteRoutineExercise} />
+                    <Exercise key={exercise.exerciseId} exercise={exercise} checkLabelClass={checkLabelClass}
+                     previousHash={this.props.previousHash} deleteRoutineExercise={this.deleteRoutineExercise}
+                     handleChange={()=>this.handleChange(exercise.exerciseId)} />
                   )
                 })
               }
@@ -70,9 +115,13 @@ export default class RoutineDetail extends React.Component{
 }
 
 function Exercise(props){
-  const {exerciseId, name} = props.exercise
+  const {exerciseId, name, isCompleted} = props.exercise
   return (
     <div className="d-flex mb-5 align-items-center">
+      <label className={props.checkLabelClass} htmlFor={`check${exerciseId}`}></label>
+      <input type="checkbox" id={`check${exerciseId}`}
+        className="d-none checkbox" checked={isCompleted}
+        onChange={props.handleChange}/>
       <a className="text-decoration-none text-dark w-100"
         href={`#favoritesExercise?exerciseId=${exerciseId}`}
         onClick={() => props.previousHash(window.location.hash)}>
