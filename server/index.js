@@ -287,7 +287,6 @@ app.post("/api/signUp", (req,res,next)=>{
       const sql =`
       insert into "users" ("username", "email", "password")
       values ($1, $2, $3)
-      returning *
       `
       const params= [username, email, hashedP]
 
