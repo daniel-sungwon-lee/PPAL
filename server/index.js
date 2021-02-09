@@ -223,6 +223,7 @@ app.get("/api/routineExercises/:routineId", (req,res,next)=>{
   from "routineExercises"
   join "favorites" using ("exerciseId")
   where "routineId" = $1
+  order by "isCompleted"
   `
   const params = [routineId]
 

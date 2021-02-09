@@ -319,3 +319,51 @@
 .far.fa-square, .fas.fa-check-square{
   font-size: 33px;
 }
+.fas.fa-check-square{
+  color: #008BF5;
+}
+.fas.fa-check-square:hover{
+  color: #0482F1;
+}
+.is-completed{
+  text-decoration: line-through;
+  color: #CFCFCF;
+}
+
+/*stopwatch page*/
+.row-watch{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.watch{
+  border: solid 10px;
+  border-radius: 50%;
+  width: 13rem;
+  height: 13rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.timer{
+  width: 111px;
+}
+.fas.fa-play, .fas.fa-pause{
+  margin-top: 2rem;
+}
+.fas.fa-pause{
+  color: #E12121;
+}
+.fas.fa-pause:hover{
+  color: #EF233C;
+}
+.fas.fa-play{
+  color: #28B351;
+}
+.fas.fa-play:hover{
+  color: #47C26A;
+}

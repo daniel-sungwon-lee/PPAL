@@ -49,9 +49,11 @@ export default class AddFavorites extends React.Component{
           body: JSON.stringify(reqBody)
         })
       }
-    }
+      window.location.hash = `#routine?routineId=${this.data.routineId}`
 
-    window.location.hash=`#routine?routineId=${this.data.routineId}`
+    } else {
+      window.location.hash=`#routine?routineId=${this.data.routineId}`
+    }
   }
 
   handleClick(event){

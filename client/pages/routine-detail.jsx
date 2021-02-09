@@ -46,7 +46,7 @@ export default class RoutineDetail extends React.Component{
 
   handleChange(exerciseId){
     if (event.target.checked){
-      event.target.previousSibling.className="fas fa-check-square mr-4 mb-0 checkbox-label"
+      event.target.previousSibling.className="fas fa-check-square mr-4 mb-0"
 
       const reqBody = {isCompleted: true}
       fetch(`/api/routineExercises/${this.data.routineId}/${exerciseId}`, {
@@ -63,7 +63,7 @@ export default class RoutineDetail extends React.Component{
             })
         })
     } else {
-      event.target.previousSibling.className= "far fa-square mr-4 mb-0 checkbox-label"
+      event.target.previousSibling.className= "far fa-square mr-4 mb-0"
 
       const reqBody = { isCompleted: false }
       fetch(`/api/routineExercises/${this.data.routineId}/${exerciseId}`, {
@@ -96,15 +96,18 @@ export default class RoutineDetail extends React.Component{
             <div className="m-auto routine-exercises-column">
               {
                 this.state.exercises.map(exercise => {
-                  let checkLabelClass = "far fa-square mr-4 mb-0 checkbox-label"
+                  let checkLabelClass = "far fa-square mr-4 mb-0"
+                  let buttonClass = "h4 exercise-name"
+
                   if(exercise.isCompleted){
-                    checkLabelClass="fas fa-check-square mr-4 mb-0 checkbox-label"
+                    checkLabelClass="fas fa-check-square mr-4 mb-0"
+                    buttonClass="h4 exercise-name is-completed"
                   }
 
                   return (
                     <Exercise key={exercise.exerciseId} exercise={exercise} checkLabelClass={checkLabelClass}
                      previousHash={this.props.previousHash} deleteRoutineExercise={this.deleteRoutineExercise}
-                     handleChange={()=>this.handleChange(exercise.exerciseId)} />
+                     handleChange={()=>this.handleChange(exercise.exerciseId)} buttonClass={buttonClass} />
                   )
                 })
               }
@@ -120,13 +123,13 @@ function Exercise(props){
     <div className="d-flex mb-5 align-items-center">
       <label className={props.checkLabelClass} htmlFor={`check${exerciseId}`}></label>
       <input type="checkbox" id={`check${exerciseId}`}
-        className="d-none checkbox" checked={isCompleted}
+        className="d-none" checked={isCompleted}
         onChange={props.handleChange}/>
       <a className="text-decoration-none text-dark w-100"
         href={`#favoritesExercise?exerciseId=${exerciseId}`}
         onClick={() => props.previousHash(window.location.hash)}>
         <div className="row row-exercise mb-0">
-          <button className="h4 exercise-name">{name}</button>
+          <button className={props.buttonClass}>{name}</button>
         </div>
       </a>
       <i className="fas fa-trash ml-4" data-toggle="modal" data-target={`#staticBackdrop${exerciseId}`}></i>
