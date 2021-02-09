@@ -29,6 +29,16 @@ export default class Stopwatch extends React.Component{
   }
 
   render(){
+    let seconds = this.state.counter
+    let minutes = Math.floor(seconds/60)
+
+    seconds -= (60 * minutes)
+
+    seconds = seconds.toString().padStart(2,"0")
+    minutes = minutes.toString().padStart(2,"0")
+
+    let timer = `${minutes}:${seconds} `
+
     return (
       <div className="container">
         <h2 className="text-center header">Stopwatch</h2>
@@ -36,13 +46,13 @@ export default class Stopwatch extends React.Component{
           this.state.start
             ? <div className="row-watch">
                 <div className="watch">
-                  <h1 className="m-0">{this.state.counter}</h1>
+                  <h1 className="m-0 timer">{timer}</h1>
                 </div>
                 <i onClick={this.pause} className="fas fa-pause"></i>
               </div>
             : <div className="row-watch">
                 <div onClick={this.clear} className="watch" style={{cursor:"pointer"}}>
-                  <h1 className="m-0">{this.state.counter}</h1>
+                  <h1 className="m-0 timer">{timer}</h1>
                 </div>
                 <i onClick={this.play} className="fas fa-play"></i>
               </div>

@@ -349,6 +349,9 @@
   align-items: center;
   justify-content: center;
 }
+.timer{
+  width: 111px;
+}
 .fas.fa-play, .fas.fa-pause{
   margin-top: 2rem;
 }
