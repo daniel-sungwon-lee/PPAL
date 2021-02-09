@@ -12,15 +12,15 @@ export default class Login extends React.Component{
     this.handlePassword=this.handlePassword.bind(this)
   }
 
-  handleEmailChange(){
-
+  handleEmailChange(event){
+    this.setState({email: event.target.value})
   }
 
-  handlePassword(){
-
+  handlePassword(event){
+    this.setState({password: event.target.value})
   }
 
-  handleSubmit(){
+  handleSubmit(event){
 
   }
 
@@ -46,7 +46,7 @@ export default class Login extends React.Component{
               <input type="password" minLength="8" required id="password" className="text-input"
                onChange={this.handlePassword} value={this.state.password}/>
             </div>
-            <div className="button-outline form-submit">
+            <div className="button-outline form-submit auth-button">
               <button className="type-button submit" type="submit">Sign in</button>
             </div>
           </form>

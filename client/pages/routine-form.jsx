@@ -113,12 +113,12 @@ export default class RoutineForm extends React.Component{
               <ModalStatic handleCancel={this.handleCancel}/>
             </div>
             <form className="form" onSubmit={this.handleSubmit}>
-              <div className="form-group d-flex flex-column">
+              <div className="form-group d-flex flex-column input-div">
                 <label htmlFor="routineName">Routine name</label>
                 <input type="text" className="text-input" id="routineName" required
                  placeholder="Push" onChange={this.handleNameChange} value={this.state.name}/>
               </div>
-              <div className="form-group d-flex flex-column">
+              <div className="form-group d-flex flex-column input-div">
                 <label htmlFor="routineDay">Day of the week</label>
                 <select required value={this.state.day} className="select" id="routineDay" onChange={this.handleDayChange}>
                   <option disabled hidden value="">Pick a day</option>
