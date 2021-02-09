@@ -329,3 +329,45 @@
   text-decoration: line-through;
   color: #CFCFCF;
 }
+
+/*stopwatch page*/
+.row-watch{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.watch{
+  border: solid 5px;
+  border-radius: 50%;
+  width: 13rem;
+  height: 13rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.watch-tip{
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: #FFF9C5;
+  border-radius: 16px;
+  border: solid black 4px;
+}
+.fas.fa-play, .fas.fa-pause{
+  margin-top: 2rem;
+}
+.fas.fa-pause{
+  color: #E12121;
+}
+.fas.fa-pause:hover{
+  color: #EF233C;
+}
+.fas.fa-play{
+  color: #28B351;
+}
+.fas.fa-play:hover{
+  color: #47C26A;
+}
