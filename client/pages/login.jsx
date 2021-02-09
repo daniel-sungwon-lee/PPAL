@@ -50,6 +50,12 @@ export default class Login extends React.Component{
               <button className="type-button submit" type="submit">Sign in</button>
             </div>
           </form>
+          <div className="ml-4">
+            <h2>First time?</h2>
+            <div className="button-outline m-3">
+              <button className="type-button">Sign up</button>
+            </div>
+          </div>
         </div>
       </div>
     )
