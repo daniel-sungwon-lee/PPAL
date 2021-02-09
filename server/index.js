@@ -5,6 +5,8 @@ const pg = require("pg")
 const ClientError = require("./client-error")
 const errorMiddleware = require("./error-middleware");
 const { user } = require('pg/lib/defaults');
+const argon2 = require("argon2")
+const jwt = require("jsonwebtoken")
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL
@@ -270,6 +272,30 @@ app.patch("/api/routineExercises/:routineId/:exerciseId", (req,res,next)=>{
   db.query(sql,params)
     .then(result=>{
       res.status(200).json(result.rows[0])
+    })
+    .catch(err=>next(err))
+})
+
+
+//sign-up page
+app.post("/api/signUp", (req,res,next)=>{
+  const {username, email, password} = req.body
+
+  argon2
+    .hash(password)
+    .then(hashedP=>{
+      const sql =`
+      insert into "users" ("username", "email", "password")
+      values ($1, $2, $3)
+      returning *
+      `
+      const params= [username, email, hashedP]
+
+      db.query(sql,params)
+        .then(result=>{
+          res.status(201).json(result.rows[0])
+        })
+        .catch(err=>next(err))
     })
     .catch(err=>next(err))
 })
