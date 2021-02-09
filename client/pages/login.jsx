@@ -17,7 +17,20 @@ export default class Login extends React.Component{
   }
 
   handleSubmit(event){
+    event.preventDefault()
+    const reqBody = this.state
 
+    fetch("/api/login", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(reqBody)
+    })
+      .then(res=>res.json())
+      .then(result=>{
+        if(result.token && result.user){
+          this.props.handleLogin(result)
+        }
+      })
   }
 
   render(){

@@ -29,7 +29,8 @@ export default class App extends React.Component {
     super(props)
     this.state={
       route: parseRoute(window.location.hash),
-      previousHash: null
+      previousHash: null,
+      user: null
     }
     this.previousHash=this.previousHash.bind(this)
   }
@@ -42,6 +43,12 @@ export default class App extends React.Component {
 
   previousHash(hash){
     this.setState({previousHash: hash})
+  }
+
+  handleLogin(result){
+    const {user, token} = result
+    this.setState({user: user})
+    window.localStorage.setItem("userToken", token)
   }
 
   renderPage(){
@@ -104,7 +111,7 @@ export default class App extends React.Component {
     }
 
     if(route.path==="login"){
-      return <Login />
+      return <Login handleLogin={this.handleLogin} />
     }
 
     if(route.path==="signUp"){
