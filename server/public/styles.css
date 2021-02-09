@@ -313,6 +313,9 @@
 }
 
 /*routine-detail page*/
+.routine-exercises-column{
+  width: 80%;
+}
 .far.fa-square, .fas.fa-check-square{
   font-size: 33px;
 }

@@ -46,7 +46,7 @@ export default class RoutineDetail extends React.Component{
 
   handleChange(exerciseId){
     if (event.target.checked){
-      event.target.previousSibling.className="fas fa-check-square mr-4 mb-0"
+      event.target.previousSibling.className="fas fa-check-square mr-4 mb-0 checkbox-label"
 
       const reqBody = {isCompleted: true}
       fetch(`/api/routineExercises/${this.data.routineId}/${exerciseId}`, {
@@ -63,7 +63,7 @@ export default class RoutineDetail extends React.Component{
             })
         })
     } else {
-      event.target.previousSibling.className= "far fa-square mr-4 mb-0"
+      event.target.previousSibling.className= "far fa-square mr-4 mb-0 checkbox-label"
 
       const reqBody = { isCompleted: false }
       fetch(`/api/routineExercises/${this.data.routineId}/${exerciseId}`, {
@@ -93,12 +93,12 @@ export default class RoutineDetail extends React.Component{
               <h2 className="text-uppercase m-0" role="button" data-toggle="modal" data-target="#saveModal">{this.data.routine.name}</h2>
               <a className="text-dark" href={`#favoritesAdd?routineId=${this.data.routineId}&routineName=${this.data.routine.name}`}><i className="fas fa-plus"></i></a>
             </div>
-            <div className="m-auto w-75">
+            <div className="m-auto routine-exercises-column">
               {
                 this.state.exercises.map(exercise => {
-                  let checkLabelClass = "far fa-square mr-4 mb-0"
+                  let checkLabelClass = "far fa-square mr-4 mb-0 checkbox-label"
                   if(exercise.isCompleted){
-                    checkLabelClass="fas fa-check-square mr-4 mb-0"
+                    checkLabelClass="fas fa-check-square mr-4 mb-0 checkbox-label"
                   }
 
                   return (
@@ -120,7 +120,7 @@ function Exercise(props){
     <div className="d-flex mb-5 align-items-center">
       <label className={props.checkLabelClass} htmlFor={`check${exerciseId}`}></label>
       <input type="checkbox" id={`check${exerciseId}`}
-        className="d-none" checked={isCompleted}
+        className="d-none checkbox" checked={isCompleted}
         onChange={props.handleChange}/>
       <a className="text-decoration-none text-dark w-100"
         href={`#favoritesExercise?exerciseId=${exerciseId}`}
