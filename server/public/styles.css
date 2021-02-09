@@ -319,3 +319,13 @@
 .far.fa-square, .fas.fa-check-square{
   font-size: 33px;
 }
+.fas.fa-check-square{
+  color: #008BF5;
+}
+.fas.fa-check-square:hover{
+  color: #0482F1;
+}
+.is-completed{
+  text-decoration: line-through;
+  color: #CFCFCF;
+}
