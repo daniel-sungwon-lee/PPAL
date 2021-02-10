@@ -80,7 +80,7 @@ export default class App extends React.Component {
       }
 
     } else {
-      const {userId, username} = this.state.user
+      const {userId, username} = user
 
       if(route.path===""){
         return <Home types={types} />
@@ -96,7 +96,8 @@ export default class App extends React.Component {
       if(route.path==="exercise"){
         const exerciseId = route.params.get("exerciseId")
 
-        return <ExerciseDetail exerciseId={exerciseId} previousHash={this.state.previousHash}/>
+        return <ExerciseDetail exerciseId={exerciseId} userId={userId}
+                previousHash={this.state.previousHash}/>
       }
 
       if(route.path==="favorites"){
