@@ -19,6 +19,7 @@ export default class Nav extends React.Component{
                 <a href="#stopwatch" className="text-decoration-none"><h5 className="text-white h4 nav-links">Stopwatch</h5></a>
                 <a href="#quote" className="text-decoration-none"><h5 className="text-white h4 nav-links">Motivational Quote</h5></a>
               </div>
+              <i className="fas fa-sign-out-alt" onClick={this.props.handleLogout}></i>
             </div>
             <nav className="navbar navbar-dark bg-dark">
               <button className="navbar-toggler nav-button" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
