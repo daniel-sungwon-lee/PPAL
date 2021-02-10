@@ -195,7 +195,7 @@ app.delete("/api/routines/:routineId", (req,res,next)=>{
 
 
 //routine-detail page (also used in routine-form page)
-app.get("/api/routines/:routineId", (req,res,next)=>{
+app.get("/api/routine/:routineId", (req,res,next)=>{
   const routineId = req.params.routineId
 
   const sql = `

@@ -19,7 +19,7 @@ export default class RoutineDetail extends React.Component{
   }
 
   componentDidMount(){
-    fetch(`/api/routines/${this.data.routineId}`)
+    fetch(`/api/routine/${this.data.routineId}`)
       .then(res=>res.json())
       .then(routine=>{
         this.data.routine=routine

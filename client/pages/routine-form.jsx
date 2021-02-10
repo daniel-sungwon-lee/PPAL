@@ -45,7 +45,7 @@ export default class RoutineForm extends React.Component{
     if(this.data.type==="new Routine"){
       return this.setState({loading: false})
     }
-    fetch(`/api/routines/${this.data.routineId}`)
+    fetch(`/api/routine/${this.data.routineId}`)
       .then(res=>res.json())
       .then(routine=>{
         const {name, day, description} = routine
