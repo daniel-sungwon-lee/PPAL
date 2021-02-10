@@ -9,6 +9,7 @@ export default class RoutineDetail extends React.Component{
       loading: true
     }
     this.data={
+      userId: this.props.userId,
       routineId: this.props.routineId,
       routine: {},
       routineExercises: []

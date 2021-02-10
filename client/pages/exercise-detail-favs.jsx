@@ -11,6 +11,7 @@ export default class ExerciseFav extends React.Component{
        sets:0
       }
     this.data={
+      userId: this.props.userId,
       exerciseId: this.props.exerciseId
     }
 

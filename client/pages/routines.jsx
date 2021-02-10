@@ -36,6 +36,7 @@ export default class Routines extends React.Component{
   constructor(props){
     super(props)
     this.state={routines: [], loading: true}
+    this.data = {userId: this.props.userId}
     this.deleteRoutine=this.deleteRoutine.bind(this)
   }
 

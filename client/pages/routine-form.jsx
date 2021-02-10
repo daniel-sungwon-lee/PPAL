@@ -32,6 +32,7 @@ export default class RoutineForm extends React.Component{
       loading: true
     }
     this.data={
+      userId: this.props.userId,
       type: `${this.props.type} Routine`,
       routineId: this.props.routineId
     }
@@ -66,8 +67,7 @@ export default class RoutineForm extends React.Component{
     const name = this.state.name
     const day= this.state.day
     const description = this.state.description
-    //admin userId
-    const userId = 1
+    const userId = this.data.userId
     const reqBody={name, day, description, userId}
 
     if(this.data.type ==="new Routine"){

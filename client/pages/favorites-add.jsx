@@ -16,6 +16,7 @@ export default class AddFavorites extends React.Component{
       classN: "fas fa-ban invisible"
     }
     this.data={
+      userId: this.props.userId,
       routineId: this.props.routineId,
       routineName: this.props.routineName
     }

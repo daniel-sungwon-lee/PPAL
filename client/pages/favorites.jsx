@@ -5,6 +5,7 @@ export default class Favorites extends React.Component{
   constructor(props){
     super(props)
     this.state={favorites: [], loading: true}
+    this.data = {userId: this.props.userId}
     this.deleteExercise=this.deleteExercise.bind(this)
   }
 
