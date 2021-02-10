@@ -233,7 +233,8 @@ app.post("/api/routineExercises", (req,res,next)=>{
 
 
 //routine-detail page
-app.get("/api/routineExercises/:routineId", (req,res,next)=>{
+app.get("/api/routineExercises/:userId/:routineId", (req,res,next)=>{
+  const userId = req.params.userId
   const routineId = req.params.routineId
 
   const sql = `
@@ -241,9 +242,10 @@ app.get("/api/routineExercises/:routineId", (req,res,next)=>{
   from "routineExercises"
   join "favorites" using ("exerciseId")
   where "routineId" = $1
+  and "userId" = $2
   order by "isCompleted"
   `
-  const params = [routineId]
+  const params = [routineId, userId]
 
   db.query(sql,params)
     .then(result=>{

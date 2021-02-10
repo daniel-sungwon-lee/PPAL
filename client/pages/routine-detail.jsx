@@ -25,7 +25,7 @@ export default class RoutineDetail extends React.Component{
         this.data.routine=routine
       })
 
-    fetch(`/api/routineExercises/${this.data.routineId}`)
+    fetch(`/api/routineExercises/${this.data.userId}/${this.data.routineId}`)
       .then(res=>res.json())
       .then(data=>{
         this.setState({exercises: data, loading: false})
