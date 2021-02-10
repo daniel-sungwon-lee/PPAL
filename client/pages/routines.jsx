@@ -36,11 +36,12 @@ export default class Routines extends React.Component{
   constructor(props){
     super(props)
     this.state={routines: [], loading: true}
+    this.data = {userId: this.props.userId}
     this.deleteRoutine=this.deleteRoutine.bind(this)
   }
 
   componentDidMount(){
-    fetch("/api/routines")
+    fetch(`/api/routines/${this.data.userId}`)
       .then(res=>res.json())
       .then(data=>{
         this.setState({routines: data, loading: false})

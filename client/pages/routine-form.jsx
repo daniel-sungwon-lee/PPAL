@@ -32,6 +32,7 @@ export default class RoutineForm extends React.Component{
       loading: true
     }
     this.data={
+      userId: this.props.userId,
       type: `${this.props.type} Routine`,
       routineId: this.props.routineId
     }
@@ -44,7 +45,7 @@ export default class RoutineForm extends React.Component{
     if(this.data.type==="new Routine"){
       return this.setState({loading: false})
     }
-    fetch(`/api/routines/${this.data.routineId}`)
+    fetch(`/api/routine/${this.data.routineId}`)
       .then(res=>res.json())
       .then(routine=>{
         const {name, day, description} = routine
@@ -66,8 +67,7 @@ export default class RoutineForm extends React.Component{
     const name = this.state.name
     const day= this.state.day
     const description = this.state.description
-    //admin userId
-    const userId = 1
+    const userId = this.data.userId
     const reqBody={name, day, description, userId}
 
     if(this.data.type ==="new Routine"){
@@ -125,7 +125,7 @@ export default class RoutineForm extends React.Component{
               </div>
               <div className="form-group d-flex flex-column">
                 <label htmlFor="routineDescription">Routine description</label>
-                <textarea className="textarea" id="routineDescription" required placeholder="Chest and triceps"
+                <textarea className="textarea" id="routineDescription" required placeholder="Chest and triceps workout"
                  onChange={this.handleChange} name="description" value={this.state.description}></textarea>
               </div>
               <div className="button-outline form-submit">

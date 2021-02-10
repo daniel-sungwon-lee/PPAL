@@ -11,13 +11,14 @@ create table "users" (
   oids=false
 );
 create table "favorites" (
-    "exerciseId" serial not null,
+    "exerciseId" integer not null,
     "name" text not null,
     "type" text not null,
     "reps" integer not null,
     "sets" integer not null,
     "userId" integer not null,
-    constraint "favorites_pk" primary key ("exerciseId")
+    "addedAt" timestamp not null default now(),
+    unique ("userId", "exerciseId")
 ) with (
   oids=false
 );
@@ -27,6 +28,7 @@ create table "routines" (
     "description" text not null,
     "day" text not null,
     "userId" integer not null,
+    "updatedAt" timestamp not null default now(),
     constraint "routines_pk" primary key ("routineId")
 ) with (
   oids=false
@@ -35,7 +37,7 @@ create table "routineExercises" (
     "routineId" integer not null,
     "exerciseId" integer not null,
     "isCompleted" boolean not null,
-    "completedAt" timestamp not null default now(),
+    "updatedAt" timestamp not null default now(),
     constraint "routineExercises_pk" primary key ("routineId","exerciseId")
 ) with (
   oids=false

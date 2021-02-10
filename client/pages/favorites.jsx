@@ -5,11 +5,12 @@ export default class Favorites extends React.Component{
   constructor(props){
     super(props)
     this.state={favorites: [], loading: true}
+    this.data = {userId: this.props.userId}
     this.deleteExercise=this.deleteExercise.bind(this)
   }
 
   componentDidMount(){
-    fetch("/api/favorites")
+    fetch(`/api/favorites/${this.data.userId}`)
       .then(res=>res.json())
       .then(data=>{
         this.setState({favorites: data, loading: false})
@@ -24,7 +25,7 @@ export default class Favorites extends React.Component{
 
     this.setState({favorites: newFavorites})
 
-    fetch(`/api/favorites/${exerciseId}`, {
+    fetch(`/api/favorites/${this.data.userId}/${exerciseId}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" }
     })

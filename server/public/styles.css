@@ -14,6 +14,19 @@
   transform: translate(20px,0);
   color: #FFF9C5
 }
+.fas.fa-sign-out-alt{
+  color: white;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+}
+.username-greeting{
+  display: inline-block;
+  position: absolute;
+  top: 4.5rem;
+  right: 1.5rem;
+  color: white;
+}
 
 /*home page*/
 .container{
@@ -65,6 +78,9 @@
 .header{
   text-transform: uppercase;
   margin: 2rem;
+}
+.fas.fa-arrow-left:hover{
+  transform: translate(-7px, 0);
 }
 .row.row-exercise{
   border: solid black 1px;
@@ -374,4 +390,12 @@
 }
 .auth-button{
   margin-top: 3.5rem !important;
+}
+
+/*quote page*/
+.quote{
+  padding: 5rem 2rem;
+}
+.fas.fa-redo-alt:hover{
+  color: #47C26A;
 }

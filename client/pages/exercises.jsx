@@ -76,7 +76,11 @@ export default class Exercises extends React.Component{
         this.state.loading
           ? <Spinner />
           : <div className="container exercises-container d-flex flex-column">
-              <h2 className="text-center header">{this.props.exercise}</h2>
+              <div className="header d-flex justify-content-between align-items-center">
+                <i className="fas fa-arrow-left invisible"></i>
+                <h2 className="m-0">{this.props.exercise}</h2>
+                <a className="text-dark" href="#"><i className="fas fa-arrow-left"></i></a>
+              </div>
               <div className="m-auto w-75">
                 {
                   this.state.exercises.map(exercise => {

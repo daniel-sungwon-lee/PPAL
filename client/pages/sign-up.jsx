@@ -34,7 +34,11 @@ export default class SignUp extends React.Component{
   render(){
     return (
       <div className="container mt-0">
-        <h2 className="header text-center">Sign up</h2>
+        <div className="header d-flex justify-content-between align-items-center">
+          <i className="fas fa-arrow-left invisible"></i>
+          <h2 className="m-0">Sign up</h2>
+          <a className="text-dark" href="#login"><i className="fas fa-arrow-left"></i></a>
+        </div>
         <form className="form" onSubmit={this.handleSubmit}>
           <div className="form-group d-flex flex-column input-div">
             <label htmlFor="username">Username</label>

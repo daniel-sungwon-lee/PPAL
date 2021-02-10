@@ -11,6 +11,7 @@ export default class ExerciseDetail extends React.Component{
       sets: 0
     }
     this.data={
+      userId: this.props.userId,
       exerciseId: this.props.exerciseId,
       message: "Saved to Favorites!"
     }
@@ -40,6 +41,7 @@ export default class ExerciseDetail extends React.Component{
   handleStarClick(event){
     const [exercise] = this.state.exercise
 
+    const userId = this.data.userId
     const exerciseId = exercise.id
     const name = exercise.name
 
@@ -57,9 +59,6 @@ export default class ExerciseDetail extends React.Component{
 
     let reps= this.state.reps
     let sets = this.state.sets
-
-    //admin userId
-    const userId = 1
 
     const favExercise = {
       exerciseId, name, type, reps, sets, userId

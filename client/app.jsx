@@ -14,6 +14,7 @@ import Stopwatch from "./pages/stopwatch"
 import Login from "./pages/login"
 import SignUp from "./pages/sign-up"
 import Spinner from "./components/spinner"
+import Quote from "./pages/quote"
 
 const types = [
   {name: "Chest", id: 1},
@@ -80,7 +81,7 @@ export default class App extends React.Component {
       }
 
     } else {
-      const {userId, username} = this.state.user
+      const {userId, username} = user
 
       if(route.path===""){
         return <Home types={types} />
@@ -96,34 +97,35 @@ export default class App extends React.Component {
       if(route.path==="exercise"){
         const exerciseId = route.params.get("exerciseId")
 
-        return <ExerciseDetail exerciseId={exerciseId} previousHash={this.state.previousHash}/>
+        return <ExerciseDetail exerciseId={exerciseId} userId={userId}
+                previousHash={this.state.previousHash}/>
       }
 
       if(route.path==="favorites"){
-        return <Favorites types={types} previousHash={this.previousHash} />
+        return <Favorites userId={userId} types={types} previousHash={this.previousHash} />
       }
 
       if(route.path==="favoritesExercise"){
         const exerciseId= route.params.get("exerciseId")
 
-        return <ExerciseFav exerciseId={exerciseId} previousHash={this.state.previousHash}/>
+        return <ExerciseFav userId={userId} exerciseId={exerciseId} previousHash={this.state.previousHash}/>
       }
 
       if(route.path==="routines"){
-        return <Routines />
+        return <Routines userId={userId} />
       }
 
       if(route.path==="routineForm"){
         const type = route.params.get("formType")
         const routineId = route.params.get("routineId")
 
-        return <RoutineForm type={type} routineId={routineId} />
+        return <RoutineForm userId={userId} type={type} routineId={routineId} />
       }
 
       if(route.path==="routine"){
         const routineId = route.params.get("routineId")
 
-        return <RoutineDetail routineId={routineId} previousHash={this.previousHash} />
+        return <RoutineDetail userId={userId} routineId={routineId} previousHash={this.previousHash} />
       }
 
       if(route.path==="favoritesAdd"){
@@ -131,13 +133,16 @@ export default class App extends React.Component {
         const routineName = route.params.get("routineName")
 
         return <AddFavorites routineId={routineId} routineName={routineName}
-                previousHash={this.previousHash} types={types} />
+                userId={userId} previousHash={this.previousHash} types={types} />
       }
 
       if(route.path==="stopwatch"){
         return <Stopwatch />
       }
 
+      if(route.path ==="quote"){
+        return <Quote />
+      }
     }
   }
 
