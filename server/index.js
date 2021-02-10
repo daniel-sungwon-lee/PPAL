@@ -38,15 +38,17 @@ app.post("/api/favorites", (req,res,next)=>{
 })
 
 //below was attempted but will do later (used in favorites page)
-app.delete("/api/favorites/:exerciseId", (req,res,next)=>{
+app.delete("/api/favorites/:userId/:exerciseId", (req,res,next)=>{
+  const userId = req.params.userId
   const exerciseId = req.params.exerciseId
 
   const sql = `
   delete from "favorites"
   where "exerciseId" = $1
+  and "userId" = $2
   returning *
   `
-  const params = [exerciseId]
+  const params = [exerciseId, userId]
 
   db.query(sql,params)
     .then(result=>{
@@ -57,27 +59,15 @@ app.delete("/api/favorites/:exerciseId", (req,res,next)=>{
 
 
 //favorites page
-app.get("/api/favorites", (req,res,next)=>{
+app.get("/api/favorites/:userId", (req,res,next)=>{
+  const userId = req.params.userId
+
   const sql = `
   select *
     from "favorites"
+    where "userId" = $1
   `
-  db.query(sql)
-    .then(result=>{
-      res.status(200).json(result.rows)
-    })
-    .catch(err=>next(err))
-})
-
-app.get("/api/favorites/:exerciseId", (req,res,next)=>{
-  const exerciseId = req.params.exerciseId
-
-  const sql = `
-  select *
-  from "favorites"
-  where "exerciseId" = $1
-  `
-  const params = [exerciseId]
+  const params = [userId]
 
   db.query(sql,params)
     .then(result=>{
@@ -88,8 +78,28 @@ app.get("/api/favorites/:exerciseId", (req,res,next)=>{
 
 
 //exercise-detail-fav page
-app.patch("/api/favorites/:exerciseId", (req,res,next)=>{
+app.get("/api/favorites/:userId/:exerciseId", (req, res, next) => {
   const exerciseId = req.params.exerciseId
+  const userId = req.params.userId
+
+  const sql = `
+  select *
+  from "favorites"
+  where "exerciseId" = $1
+  and "userId" = $2
+  `
+  const params = [exerciseId, userId]
+
+  db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows)
+    })
+    .catch(err => next(err))
+})
+
+app.patch("/api/favorites/:userId/:exerciseId", (req,res,next)=>{
+  const exerciseId = req.params.exerciseId
+  const userId= req.params.userId
   const {sets, reps} = req.body
 
   const sql = `
@@ -97,8 +107,9 @@ app.patch("/api/favorites/:exerciseId", (req,res,next)=>{
   set "sets" = $1,
       "reps" = $2
   where "exerciseId" = $3
+  and "userId" = $4
   `
-  const params = [sets, reps, exerciseId]
+  const params = [sets, reps, exerciseId, userId]
 
   db.query(sql,params)
     .then(result=>{
@@ -148,12 +159,17 @@ app.patch("/api/routines/:routineId", (req, res, next) => {
 
 
 //routines page
-app.get("/api/routines", (req,res,next)=>{
+app.get("/api/routines/:userId", (req,res,next)=>{
+  const userId = req.params.userId
+
   const sql = `
   select *
   from "routines"
+  where "userId" = $1
   `
-  db.query(sql)
+  const params = [userId]
+
+  db.query(sql, params)
     .then(result=>{
       res.status(200).json(result.rows)
     })

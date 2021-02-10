@@ -24,7 +24,7 @@ export default class ExerciseFav extends React.Component{
   }
 
   componentDidMount(){
-    fetch(`/api/favorites/${this.data.exerciseId}`)
+    fetch(`/api/favorites/${this.data.userId}/${this.data.exerciseId}`)
       .then(res=>res.json())
       .then(data=>{
         this.setState({exercise : data})
@@ -76,7 +76,7 @@ export default class ExerciseFav extends React.Component{
       sets: this.state.sets
     }
 
-    fetch(`/api/favorites/${this.data.exerciseId}`,{
+    fetch(`/api/favorites/${this.data.userId}/${this.data.exerciseId}`,{
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(reqBody)

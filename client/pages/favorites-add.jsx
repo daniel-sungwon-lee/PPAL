@@ -26,7 +26,7 @@ export default class AddFavorites extends React.Component{
   }
 
   componentDidMount(){
-    fetch("/api/favorites")
+    fetch(`/api/favorites/${this.data.userId}`)
       .then(res=>res.json())
       .then(favorites=>{
         this.setState({favorites : favorites, loading: false})
