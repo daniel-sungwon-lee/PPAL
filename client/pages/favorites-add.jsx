@@ -1,4 +1,5 @@
 import React from "react"
+import Spinner from "../components/spinner"
 
 const modalTypes = [
   { id: 1, message: "Cancel?", message2: "" },
@@ -167,17 +168,6 @@ function Exercise(props) {
            onChange={props.handleChange} />
       </div>
     </>
-  )
-}
-
-
-function Spinner(props) {
-  return (
-    <div className="spinnerDiv">
-      <div className="spinner-border" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
-    </div>
   )
 }
 

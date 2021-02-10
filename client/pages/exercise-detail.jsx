@@ -1,65 +1,5 @@
 import React from "react"
-
-function Spinner(props) {
-  return (
-    <div className="spinnerDiv">
-      <div className="spinner-border" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
-    </div>
-  )
-}
-
-function Carousel(props){
-  return (
-    <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
-      <div className="carousel-inner">
-        {
-          props.images.map(img=>{
-            let classN = "carousel-item"
-            if(props.images.indexOf(img)===0){
-              classN= "carousel-item active"
-            }
-            return (
-              <CarouselImg key={img.id} img={img.image} classN={classN} />
-            )
-          })
-        }
-      </div>
-      <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <i className="fas fa-angle-left text-dark" aria-hidden="true"></i>
-        <span className="sr-only">Previous</span>
-      </a>
-      <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <i className="fas fa-angle-right text-dark" aria-hidden="true"></i>
-        <span className="sr-only">Next</span>
-      </a>
-    </div>
-  )
-}
-
-function CarouselImg(props) {
-  return (
-    <div className={props.classN}>
-      <img src={props.img} className="d-block exercise-img" alt="Exercise Image" />
-    </div>
-  )
-}
-
-
-function Modal(props){
-  return (
-    <div className="modal fade" id="saveModal" role="dialog">
-      <div className="modal-dialog modal-lg">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h4 className="modal-title" id="exampleModalLabel">{props.message}</h4>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
+import Spinner from "../components/spinner"
 
 export default class ExerciseDetail extends React.Component{
   constructor(props){
@@ -231,6 +171,57 @@ function SingleExercise(props){
             </div>
           </div>
           <h4 className="num">{props.state.reps}</h4>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function Carousel(props) {
+  return (
+    <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
+      <div className="carousel-inner">
+        {
+          props.images.map(img => {
+            let classN = "carousel-item"
+            if (props.images.indexOf(img) === 0) {
+              classN = "carousel-item active"
+            }
+            return (
+              <CarouselImg key={img.id} img={img.image} classN={classN} />
+            )
+          })
+        }
+      </div>
+      <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <i className="fas fa-angle-left text-dark" aria-hidden="true"></i>
+        <span className="sr-only">Previous</span>
+      </a>
+      <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <i className="fas fa-angle-right text-dark" aria-hidden="true"></i>
+        <span className="sr-only">Next</span>
+      </a>
+    </div>
+  )
+}
+
+function CarouselImg(props) {
+  return (
+    <div className={props.classN}>
+      <img src={props.img} className="d-block exercise-img" alt="Exercise Image" />
+    </div>
+  )
+}
+
+
+function Modal(props) {
+  return (
+    <div className="modal fade" id="saveModal" role="dialog">
+      <div className="modal-dialog modal-lg">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h4 className="modal-title" id="exampleModalLabel">{props.message}</h4>
+          </div>
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import React from "react"
+import Spinner from "../components/spinner"
 
 function ModalStatic(props) {
   return (
@@ -36,9 +37,7 @@ export default class RoutineForm extends React.Component{
     }
     this.handleCancel=this.handleCancel.bind(this)
     this.handleSubmit=this.handleSubmit.bind(this)
-    this.handleNameChange=this.handleNameChange.bind(this)
-    this.handleDayChange=this.handleDayChange.bind(this)
-    this.handleDescription=this.handleDescription.bind(this)
+    this.handleChange=this.handleChange.bind(this)
   }
 
   componentDidMount(){
@@ -53,16 +52,9 @@ export default class RoutineForm extends React.Component{
       })
   }
 
-  handleNameChange(event){
-    this.setState({name: event.target.value})
-  }
-
-  handleDayChange(event){
-    this.setState({day: event.target.value})
-  }
-
-  handleDescription(event){
-    this.setState({description: event.target.value})
+  handleChange(event){
+    const { name, value } = event.target
+    this.setState({ [name] : value })
   }
 
   handleCancel(){
@@ -113,14 +105,14 @@ export default class RoutineForm extends React.Component{
               <ModalStatic handleCancel={this.handleCancel}/>
             </div>
             <form className="form" onSubmit={this.handleSubmit}>
-              <div className="form-group d-flex flex-column">
+              <div className="form-group d-flex flex-column input-div">
                 <label htmlFor="routineName">Routine name</label>
                 <input type="text" className="text-input" id="routineName" required
-                 placeholder="Push" onChange={this.handleNameChange} value={this.state.name}/>
+                 placeholder="Push" onChange={this.handleChange} name="name" value={this.state.name}/>
               </div>
-              <div className="form-group d-flex flex-column">
+              <div className="form-group d-flex flex-column input-div">
                 <label htmlFor="routineDay">Day of the week</label>
-                <select required value={this.state.day} className="select" id="routineDay" onChange={this.handleDayChange}>
+                <select required value={this.state.day} className="select" id="routineDay" name="day" onChange={this.handleChange}>
                   <option disabled hidden value="">Pick a day</option>
                   <option>Sunday</option>
                   <option>Monday</option>
@@ -134,7 +126,7 @@ export default class RoutineForm extends React.Component{
               <div className="form-group d-flex flex-column">
                 <label htmlFor="routineDescription">Routine description</label>
                 <textarea className="textarea" id="routineDescription" required placeholder="Chest and triceps"
-                 onChange={this.handleDescription} value={this.state.description}></textarea>
+                 onChange={this.handleChange} name="description" value={this.state.description}></textarea>
               </div>
               <div className="button-outline form-submit">
                 <button className="type-button submit" type="submit">Save</button>
@@ -143,14 +135,4 @@ export default class RoutineForm extends React.Component{
           </div>
     )
   }
-}
-
-function Spinner(props) {
-  return (
-    <div className="spinnerDiv">
-      <div className="spinner-border" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
-    </div>
-  )
 }

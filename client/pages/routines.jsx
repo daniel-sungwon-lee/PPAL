@@ -1,4 +1,5 @@
 import React from "react"
+import Spinner from "../components/spinner"
 
 const days =[
   {
@@ -30,16 +31,6 @@ const days =[
     num: "Seven"
   }
 ]
-
-function Spinner(props) {
-  return (
-    <div className="spinnerDiv">
-      <div className="spinner-border" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
-    </div>
-  )
-}
 
 export default class Routines extends React.Component{
   constructor(props){

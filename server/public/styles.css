@@ -367,3 +367,11 @@
 .fas.fa-play:hover{
   color: #47C26A;
 }
+
+/*login page*/
+.input-div{
+  margin-bottom: -1rem;
+}
+.auth-button{
+  margin-top: 3.5rem !important;
+}
