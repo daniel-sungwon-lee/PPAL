@@ -72,6 +72,9 @@
   text-transform: uppercase;
   margin: 2rem;
 }
+.fas.fa-arrow-left:hover{
+  transform: translate(-7px, 0);
+}
 .row.row-exercise{
   border: solid black 1px;
   border-radius: 16px;
