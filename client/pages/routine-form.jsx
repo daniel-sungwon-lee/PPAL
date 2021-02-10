@@ -125,7 +125,7 @@ export default class RoutineForm extends React.Component{
               </div>
               <div className="form-group d-flex flex-column">
                 <label htmlFor="routineDescription">Routine description</label>
-                <textarea className="textarea" id="routineDescription" required placeholder="Chest and triceps"
+                <textarea className="textarea" id="routineDescription" required placeholder="Chest and triceps workout"
                  onChange={this.handleChange} name="description" value={this.state.description}></textarea>
               </div>
               <div className="button-outline form-submit">
