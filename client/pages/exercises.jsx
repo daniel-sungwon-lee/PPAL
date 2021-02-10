@@ -1,4 +1,5 @@
 import React from "react"
+import Spinner from "../components/spinner"
 
 const apiURLParts = {
   chest: {
@@ -31,16 +32,6 @@ const apiURLParts = {
     category: 10,
     limit:28
   }
-}
-
-function Spinner(props) {
-  return (
-    <div className="spinnerDiv">
-      <div className="spinner-border" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
-    </div>
-  )
 }
 
 export default class Exercises extends React.Component{

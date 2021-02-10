@@ -1,7 +1,7 @@
 import React from 'react';
 import Home from './pages/home';
 import Nav from "./components/nav"
-import {parseRoute} from "./lib"
+import {parseRoute, decodeToken} from "./lib"
 import Exercises from "./pages/exercises"
 import ExerciseDetail from "./pages/exercise-detail"
 import Favorites from "./pages/favorites"
@@ -13,6 +13,7 @@ import AddFavorites from "./pages/favorites-add"
 import Stopwatch from "./pages/stopwatch"
 import Login from "./pages/login"
 import SignUp from "./pages/sign-up"
+import Spinner from "./components/spinner"
 
 const types = [
   {name: "Chest", id: 1},
@@ -30,7 +31,8 @@ export default class App extends React.Component {
     this.state={
       route: parseRoute(window.location.hash),
       previousHash: null,
-      user: null
+      user: null,
+      authorizing: true
     }
     this.previousHash=this.previousHash.bind(this)
   }
@@ -39,6 +41,11 @@ export default class App extends React.Component {
     window.addEventListener("hashchange",()=>{
       this.setState({route: parseRoute(window.location.hash)})
     })
+    const token = window.localStorage.getItem("userToken")
+    const user = token
+                  ? decodeToken(token)
+                  : null
+    this.setState({user, authorizing: false})
   }
 
   previousHash(hash){
@@ -120,9 +127,12 @@ export default class App extends React.Component {
   }
 
   render() {
+    if (this.state.authorizing){
+      return <Spinner />
+    }
     return (
       <>
-        <Nav />
+        <Nav user={this.state.user} />
         {this.renderPage()}
       </>
     )

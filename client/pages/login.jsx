@@ -35,7 +35,7 @@ export default class Login extends React.Component{
 
   render(){
     return (
-      <div className="container">
+      <div className="container mt-0">
         <div className="text-center header">
           <h1>PPAL</h1>
         </div>

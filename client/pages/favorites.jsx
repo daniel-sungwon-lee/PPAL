@@ -1,4 +1,5 @@
 import React from "react"
+import Spinner from "../components/spinner"
 
 export default class Favorites extends React.Component{
   constructor(props){
@@ -106,16 +107,6 @@ function Exercise(props){
         <ModalStatic key={exerciseId} deleteExercise={props.deleteExercise} id={exerciseId}/>
       </div>
     </>
-  )
-}
-
-function Spinner(props) {
-  return (
-    <div className="spinnerDiv">
-      <div className="spinner-border" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
-    </div>
   )
 }
 

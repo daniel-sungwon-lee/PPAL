@@ -1,4 +1,5 @@
 import React from "react"
+import Spinner from "../components/spinner"
 
 export default class RoutineDetail extends React.Component{
   constructor(props){
@@ -134,16 +135,6 @@ function Exercise(props){
       </a>
       <i className="fas fa-trash ml-4" data-toggle="modal" data-target={`#staticBackdrop${exerciseId}`}></i>
       <ModalStatic key={exerciseId} deleteRoutineExercise={()=>props.deleteRoutineExercise(exerciseId)} id={exerciseId} />
-    </div>
-  )
-}
-
-function Spinner(props) {
-  return (
-    <div className="spinnerDiv">
-      <div className="spinner-border" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
     </div>
   )
 }

@@ -1,50 +1,5 @@
 import React from "react"
-
-function Spinner(props) {
-  return (
-    <div className="spinnerDiv">
-      <div className="spinner-border" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
-    </div>
-  )
-}
-
-function Carousel(props) {
-  return (
-    <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
-      <div className="carousel-inner">
-        {
-          props.images.map(img => {
-            let classN = "carousel-item"
-            if (props.images.indexOf(img) === 0) {
-              classN = "carousel-item active"
-            }
-            return (
-              <CarouselImg key={img.id} img={img.image} classN={classN}/>
-            )
-          })
-        }
-      </div>
-      <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <i className="fas fa-angle-left text-dark" aria-hidden="true"></i>
-        <span className="sr-only">Previous</span>
-      </a>
-      <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <i className="fas fa-angle-right text-dark" aria-hidden="true"></i>
-        <span className="sr-only">Next</span>
-      </a>
-    </div>
-  )
-}
-
-function CarouselImg(props){
-  return (
-    <div className={props.classN}>
-      <img src={props.img} className="d-block exercise-img" alt="Exercise Image" />
-    </div>
-  )
-}
+import Spinner from "../components/spinner"
 
 export default class ExerciseFav extends React.Component{
   constructor(props){
@@ -204,6 +159,42 @@ function SingleExerciseFav(props){
           <h4 className="num">{props.state.reps}</h4>
         </div>
       </div>
+    </div>
+  )
+}
+
+function Carousel(props) {
+  return (
+    <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
+      <div className="carousel-inner">
+        {
+          props.images.map(img => {
+            let classN = "carousel-item"
+            if (props.images.indexOf(img) === 0) {
+              classN = "carousel-item active"
+            }
+            return (
+              <CarouselImg key={img.id} img={img.image} classN={classN} />
+            )
+          })
+        }
+      </div>
+      <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <i className="fas fa-angle-left text-dark" aria-hidden="true"></i>
+        <span className="sr-only">Previous</span>
+      </a>
+      <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <i className="fas fa-angle-right text-dark" aria-hidden="true"></i>
+        <span className="sr-only">Next</span>
+      </a>
+    </div>
+  )
+}
+
+function CarouselImg(props) {
+  return (
+    <div className={props.classN}>
+      <img src={props.img} className="d-block exercise-img" alt="Exercise Image" />
     </div>
   )
 }
