@@ -35,6 +35,8 @@ export default class App extends React.Component {
       authorizing: true
     }
     this.previousHash=this.previousHash.bind(this)
+    this.handleLogin=this.handleLogin.bind(this)
+    this.handleLogout=this.handleLogout.bind(this)
   }
 
   componentDidMount(){
@@ -54,75 +56,88 @@ export default class App extends React.Component {
 
   handleLogin(result){
     const {user, token} = result
-    this.setState({user: user})
+
+    this.setState({user})
     window.localStorage.setItem("userToken", token)
+    window.location.hash="#"
+  }
+
+  handleLogout(){
+    window.localStorage.removeItem("userToken")
+    this.setState({user:null})
   }
 
   renderPage(){
-    const {route} = this.state
+    const {route, user} = this.state
 
-    if(route.path===""){
-      return <Home types={types} />
-    }
+    if(user===null){
+      if(route.path==="login"){
+        return <Login handleLogin={this.handleLogin} />
+      } else if (route.path==="signUp"){
+        return <SignUp />
+      } else {
+        window.location.hash="#login"
+      }
 
-    const typeNames=types.map(type=>{
-      return type.name
-    })
-    if(typeNames.includes(route.path)){
-      return <Exercises exercise={route.path} previousHash={this.previousHash} />
-    }
+    } else {
+      const {userId, username} = this.state.user
 
-    if(route.path==="exercise"){
-      const exerciseId = route.params.get("exerciseId")
+      if(route.path===""){
+        return <Home types={types} />
+      }
 
-      return <ExerciseDetail exerciseId={exerciseId} previousHash={this.state.previousHash}/>
-    }
+      const typeNames=types.map(type=>{
+        return type.name
+      })
+      if(typeNames.includes(route.path)){
+        return <Exercises exercise={route.path} previousHash={this.previousHash} />
+      }
 
-    if(route.path==="favorites"){
-      return <Favorites types={types} previousHash={this.previousHash} />
-    }
+      if(route.path==="exercise"){
+        const exerciseId = route.params.get("exerciseId")
 
-    if(route.path==="favoritesExercise"){
-      const exerciseId= route.params.get("exerciseId")
+        return <ExerciseDetail exerciseId={exerciseId} previousHash={this.state.previousHash}/>
+      }
 
-      return <ExerciseFav exerciseId={exerciseId} previousHash={this.state.previousHash}/>
-    }
+      if(route.path==="favorites"){
+        return <Favorites types={types} previousHash={this.previousHash} />
+      }
 
-    if(route.path==="routines"){
-      return <Routines />
-    }
+      if(route.path==="favoritesExercise"){
+        const exerciseId= route.params.get("exerciseId")
 
-    if(route.path==="routineForm"){
-      const type = route.params.get("formType")
-      const routineId = route.params.get("routineId")
+        return <ExerciseFav exerciseId={exerciseId} previousHash={this.state.previousHash}/>
+      }
 
-      return <RoutineForm type={type} routineId={routineId} />
-    }
+      if(route.path==="routines"){
+        return <Routines />
+      }
 
-    if(route.path==="routine"){
-      const routineId = route.params.get("routineId")
+      if(route.path==="routineForm"){
+        const type = route.params.get("formType")
+        const routineId = route.params.get("routineId")
 
-      return <RoutineDetail routineId={routineId} previousHash={this.previousHash} />
-    }
+        return <RoutineForm type={type} routineId={routineId} />
+      }
 
-    if(route.path==="favoritesAdd"){
-      const routineId = route.params.get("routineId")
-      const routineName = route.params.get("routineName")
+      if(route.path==="routine"){
+        const routineId = route.params.get("routineId")
 
-      return <AddFavorites routineId={routineId} routineName={routineName}
-              previousHash={this.previousHash} types={types} />
-    }
+        return <RoutineDetail routineId={routineId} previousHash={this.previousHash} />
+      }
 
-    if(route.path==="stopwatch"){
-      return <Stopwatch />
-    }
+      if(route.path==="favoritesAdd"){
+        const routineId = route.params.get("routineId")
+        const routineName = route.params.get("routineName")
 
-    if(route.path==="login"){
-      return <Login handleLogin={this.handleLogin} />
-    }
+        return <AddFavorites routineId={routineId} routineName={routineName}
+                previousHash={this.previousHash} types={types} />
+      }
 
-    if(route.path==="signUp"){
-      return <SignUp />
+      if(route.path==="stopwatch"){
+        return <Stopwatch />
+      }
+
     }
   }
 
@@ -132,7 +147,7 @@ export default class App extends React.Component {
     }
     return (
       <>
-        <Nav user={this.state.user} />
+        <Nav user={this.state.user} handleLogout={this.handleLogout} />
         {this.renderPage()}
       </>
     )
