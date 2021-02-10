@@ -20,6 +20,13 @@
   top: 1.5rem;
   right: 1.5rem;
 }
+.username-greeting{
+  display: inline-block;
+  position: absolute;
+  top: 4.5rem;
+  right: 1.5rem;
+  color: white;
+}
 
 /*home page*/
 .container{
