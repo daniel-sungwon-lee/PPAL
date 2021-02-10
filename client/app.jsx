@@ -14,6 +14,7 @@ import Stopwatch from "./pages/stopwatch"
 import Login from "./pages/login"
 import SignUp from "./pages/sign-up"
 import Spinner from "./components/spinner"
+import Quote from "./pages/quote"
 
 const types = [
   {name: "Chest", id: 1},
@@ -139,6 +140,9 @@ export default class App extends React.Component {
         return <Stopwatch />
       }
 
+      if(route.path ==="quote"){
+        return <Quote />
+      }
     }
   }
 

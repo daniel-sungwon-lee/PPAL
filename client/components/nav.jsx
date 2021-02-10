@@ -17,7 +17,7 @@ export default class Nav extends React.Component{
                 <a href="#routines" className="text-decoration-none"><h5 className="text-white h4 nav-links">Routines</h5></a>
                 <a href="#favorites" className="text-decoration-none"><h5 className="text-white h4 nav-links">Favorites</h5></a>
                 <a href="#stopwatch" className="text-decoration-none"><h5 className="text-white h4 nav-links">Stopwatch</h5></a>
-                <a href="#quote" className="text-decoration-none"><h5 className="text-white h4 nav-links">Motivational Quote</h5></a>
+                <a href="#quote" className="text-decoration-none"><h5 className="text-white h4 nav-links">Quote</h5></a>
               </div>
               <i className="fas fa-sign-out-alt" onClick={this.props.handleLogout}></i>
               <div className="username-greeting">

@@ -391,3 +391,11 @@
 .auth-button{
   margin-top: 3.5rem !important;
 }
+
+/*quote page*/
+.quote{
+  padding: 5rem 2rem;
+}
+.fas.fa-redo-alt:hover{
+  color: #47C26A;
+}
