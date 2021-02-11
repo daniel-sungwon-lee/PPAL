@@ -7,7 +7,8 @@ export default class Quote extends React.Component{
     this.state={
       quote:"" ,
       author:"",
-      loading: true
+      loading: true,
+      num: 1
     }
     this.handleClick=this.handleClick.bind(this)
   }
@@ -24,8 +25,10 @@ export default class Quote extends React.Component{
   }
 
   handleClick(event){
-    this.setState({loading:true})
+    event.target.style.transform = `rotate(${this.state.num}turn)`
+    this.setState({num: this.state.num+1})
 
+    this.setState({loading:true})
     fetch("https://favqs.com/api/qotd")
       .then(res => res.json())
       .then(data => {
