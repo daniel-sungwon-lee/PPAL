@@ -23,6 +23,10 @@
   position: fixed;
   top: 0.5rem;
   right: 1rem;
+  transition: all 0.15s ease-out;
+}
+.fas.fa-sign-out-alt:hover{
+  transform: translate(3px);
 }
 .username-greeting{
   display: inline-block;
