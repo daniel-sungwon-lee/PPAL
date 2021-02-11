@@ -1,0 +1,12 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<defs>
+<font id="icofont" horiz-adv-x="1000" >
+<font-face font-family="IcoFont" font-weight="400" font-style="Regular" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="navigation-menu" horiz-adv-x="1000" unicode="&#xefa2;" d="M63 628v-24c0-38 30-69 68-69h738c38 0 68 31 68 69v24c0 38-30 69-68 69h-738c-38 0-68-31-68-69z m68-359h738c38 0 68 31 68 69v24c0 38-30 69-68 69h-738c-38 0-68-31-68-69v-24c0-38 30-69 68-69z m0-266h738c38 0 68 30 68 68v25c0 38-30 68-68 68h-738c-38 0-68-30-68-68v-25c0-38 30-68 68-68z" />
+<glyph glyph-name="muscle" horiz-adv-x="1000" unicode="&#xeb3a;" d="M949 282c-4 11-10 20-17 29-13 52-39 113-77 172-60 96-219 251-279 275-3 1-6 1-8 2-2 15-11 29-30 38-71 33-139 66-187 46-48-20-74-50-23-166 49-36 146 36 177-10 31-46 65-199 122-298-14 2-29 3-44 3-66 0-125-19-166-49-36 55-98 92-169 92-94 0-173-65-194-152l-9 0 5-414 102 2 38 65c64 25 140 89 193 157 72-10 163-16 200-16 39 0 189 17 231 33 100 36 160 122 135 191z" />
+</font>
+</defs>
+</svg>
