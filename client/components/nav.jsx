@@ -12,7 +12,7 @@ export default class Nav extends React.Component{
         ? <></>
         : <div className="fixed-top">
             <nav className="navbar navbar-dark bg-dark">
-              <button className="navbar-toggler nav-button" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+              <button className="navbar-toggler nav-button border-dark" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
               </button>
             </nav>

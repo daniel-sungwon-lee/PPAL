@@ -5,7 +5,11 @@
 /*nav*/
 .nav-button{
   outline: none !important;
-  border-radius: 7px;
+  transform: scale(1.1);
+  transition: all 0.3s ease-out;
+}
+.nav-button:hover{
+  transform: scale(1);
 }
 .nav-links{
   transition: all 0.3s ease-out;
