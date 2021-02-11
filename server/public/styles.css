@@ -393,8 +393,12 @@
 }
 
 /*quote page*/
+.row-quote{
+  height: 350px;
+}
 .quote{
   padding: 5rem 2rem;
+  overflow: auto;
 }
 .fas.fa-redo-alt:hover{
   color: #47C26A;
