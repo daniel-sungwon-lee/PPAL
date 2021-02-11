@@ -16,15 +16,15 @@
 }
 .fas.fa-sign-out-alt{
   color: white;
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
+  position: fixed;
+  top: 0.5rem;
+  right: 1rem;
 }
 .username-greeting{
   display: inline-block;
-  position: absolute;
-  top: 4.5rem;
-  right: 1.5rem;
+  position: fixed;
+  top: 3.5rem;
+  right: 1rem;
   color: white;
 }
 
