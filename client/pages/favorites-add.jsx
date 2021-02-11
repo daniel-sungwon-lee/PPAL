@@ -90,8 +90,12 @@ export default class AddFavorites extends React.Component{
         : <div className="container">
             {
               modalTypes.map(modal=>{
+                let extraClass=""
+                if(modal.id===2){
+                  extraClass="validate-modal"
+                }
                 return (
-                  <ModalStatic key={modal.id} modal={modal} handlePreviousPage={this.handlePreviousPage} />
+                  <ModalStatic key={modal.id} modal={modal} extraClass={extraClass} handlePreviousPage={this.handlePreviousPage} />
                 )
               })
             }
@@ -184,8 +188,8 @@ function ModalStatic(props) {
               <h4 className="m-0">{message2}</h4>
             </div>
             <div className="modal-icons d-flex align-items-center">
-              <i className="fas fa-hand-point-left" data-dismiss="modal" aria-label="Close"></i>
-              <i className="fas fa-thumbs-up" id={id} data-dismiss="modal" aria-label="Close" onClick={props.handlePreviousPage}></i>
+              <i className={`fas fa-hand-point-left ${props.extraClass}`} data-dismiss="modal" aria-label="Close"></i>
+              <i className={`fas fa-thumbs-up ${props.extraClass}`} id={id} data-dismiss="modal" aria-label="Close" onClick={props.handlePreviousPage}></i>
             </div>
           </div>
         </div>

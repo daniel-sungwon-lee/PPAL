@@ -27,6 +27,9 @@ export default class Login extends React.Component{
     })
       .then(res=>res.json())
       .then(result=>{
+        if(result.error==="invalid login"){
+          window.alert(result.error)
+        }
         if(result.token && result.user){
           this.props.handleLogin(result)
         }

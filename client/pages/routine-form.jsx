@@ -98,11 +98,11 @@ export default class RoutineForm extends React.Component{
       this.state.loading
         ? <Spinner />
         : <div className="container">
+            <ModalStatic handleCancel={this.handleCancel} />
             <div className="header d-flex justify-content-between align-items-center">
               <i className="fas fa-ban invisible"></i>
               <h2 className="text-uppercase m-0">{this.data.type}</h2>
               <i className="fas fa-ban" data-toggle="modal" data-target="#staticBackdrop"></i>
-              <ModalStatic handleCancel={this.handleCancel}/>
             </div>
             <form className="form" onSubmit={this.handleSubmit}>
               <div className="form-group d-flex flex-column input-div">
