@@ -96,14 +96,13 @@
   transform: translate(-7px, 0);
 }
 .row.row-exercise{
-  border: solid black 1px;
-  border-radius: 16px;
+  border-radius: 13px;
   margin: auto;
   margin-bottom: 2.5rem;
   transition: all 0.3s ease-out;
 }
 .exercise-name{
-  border: solid black 3px;
+  border: solid black 4px;
   border-radius: 13px;
   width: 100%;
   transition: all 0.3s ease-out;
@@ -114,7 +113,7 @@
   outline: none !important;
 }
 .exercise-name:hover{
-  transform: translate(0, -10px);
+  transform: translate(0px, -10px);
   background-color: #FFF9C5;
 }
 .row.row-exercise:hover{
