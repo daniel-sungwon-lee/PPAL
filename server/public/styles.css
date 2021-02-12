@@ -181,7 +181,7 @@
 }
 .reps, .sets{
   padding: 10px 30px;
-  border: solid;
+  border: solid black 3px;
   border-radius: 13px;
   background-color: #FFF9C5;
   text-align: left;
@@ -370,7 +370,7 @@
   transform: translate(-50%, -50%);
 }
 .watch{
-  border: solid 10px;
+  border: solid black 10px;
   border-radius: 50%;
   width: 13rem;
   height: 13rem;
