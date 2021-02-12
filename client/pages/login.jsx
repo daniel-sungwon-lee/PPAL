@@ -9,6 +9,7 @@ export default class Login extends React.Component{
     }
     this.handleSubmit=this.handleSubmit.bind(this)
     this.handleChange=this.handleChange.bind(this)
+    this.autoFill=this.autoFill.bind(this)
   }
 
   handleChange(event){
@@ -34,6 +35,10 @@ export default class Login extends React.Component{
           this.props.handleLogin(result)
         }
       })
+  }
+
+  autoFill(){
+    this.setState({email: "demo@user", password: "demouser"})
   }
 
   render(){
@@ -67,6 +72,9 @@ export default class Login extends React.Component{
             <div className="button-outline m-3">
               <a href="#signUp"><button className="type-button">Sign up</button></a>
             </div>
+          </div>
+          <div className="mt-4 ml-4 h5">
+            <a className="text-decoration-none demo-link" role="button" onClick={this.autoFill}>Click here if you don't like signing up</a>
           </div>
         </div>
       </div>

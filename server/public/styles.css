@@ -404,6 +404,13 @@
 .auth-button{
   margin-top: 3.5rem !important;
 }
+.demo-link{
+  color: black;
+  transition: all 0.3s ease-out;
+}
+.demo-link:hover{
+  color: #47C26A;
+}
 
 /*quote page*/
 .row-quote{
