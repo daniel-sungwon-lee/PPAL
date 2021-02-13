@@ -35,10 +35,17 @@
 }
 .username-greeting{
   display: inline-block;
-  position: fixed;
-  top: 3.5rem;
+  position: absolute;
+  top: 0rem;
   right: 1rem;
   color: white;
+}
+.icofont-muscle{
+  position: absolute;
+  right: 1rem;
+  top: 2.5rem;
+  color: #FFDBAC;
+  font-size: 33px;
 }
 
 /*home page*/
@@ -133,17 +140,13 @@
   align-items: center;
 }
 .img-div{
-  margin: 3rem 0rem 2rem;
-  width: 80% !important;
+  margin: 3rem 1rem 2rem;
+  text-align: center;
 }
 .exercise-img{
   width: 400px;
   margin: auto;
   transition: 0.3s ease-out;
-}
-.placeholder-img-div{
-  width: 200px;
-  margin: auto;
 }
 .fas.fa-images{
   font-size: 200px;
@@ -154,6 +157,7 @@
   margin: 0 3rem 2rem;
   max-height: 8rem;
   overflow: auto;
+  overflow-wrap: break-word;
 }
 .fas, .far{
   font-size: 40px;

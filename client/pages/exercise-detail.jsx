@@ -125,23 +125,25 @@ function SingleExercise(props){
 
   return (
     <div className="container single-exercise">
-      <div className="header d-flex justify-content-between align-items-center">
+      <div className="header d-flex justify-content-between align-items-center header-packed">
         <i className="fas fa-times invisible"></i>
         <h2 className="text-uppercase m-0">{name}</h2>
         <a className="text-dark" href={props.previousHash}><i className="fas fa-times"></i></a>
       </div>
       <div className="row row-exercise-single">
-        <div className="img-div">
-          {
-            images !== undefined && images.length !== 0
-              ? <Carousel key={id} images={images} />
-              : <div className="placeholder-img-div"><i className="fas fa-images"></i></div>
-          }
-        </div>
-        <i className="fas fa-star star-icon" data-toggle="modal" data-target="#saveModal" onClick={props.handleStarClick} style={{ color: props.data.starColor }}></i>
-        <Modal message={props.data.message} />
-        <div className="description">
-          <p>{description.replace(/(<([^>]+)>)/gi, "")}</p>
+        <div className="w-100">
+          <div className="img-div">
+            {
+              images !== undefined && images.length !== 0
+                ? <Carousel key={id} images={images} />
+                : <i className="fas fa-images"></i>
+            }
+          </div>
+          <i className="fas fa-star star-icon" data-toggle="modal" data-target="#saveModal" onClick={props.handleStarClick} style={{ color: props.data.starColor }}></i>
+          <Modal message={props.data.message} />
+          <div className="description">
+            <p>{description.replace(/(<([^>]+)>)/gi, "")}</p>
+          </div>
         </div>
       </div>
       <div className="row">
