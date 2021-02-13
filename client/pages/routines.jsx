@@ -53,12 +53,23 @@ export default class Routines extends React.Component{
       return routine.routineId !== routineId
     })
 
-    this.setState({ routines: newRoutines })
+    this.setState({ routines: newRoutines, loading: true })
 
-    fetch(`/api/routines/${routineId}`, {
+    fetch(`/api/routinesExercises/${routineId}`, {
       method: "DELETE",
-      headers: { "Content-Type": "application/json" }
+      headers: {"Content-Type":"application/json"}
     })
+      .then(result=>{
+
+        fetch(`/api/routines/${routineId}`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" }
+        })
+          .then(result=>{
+            this.setState({loading: false})
+          })
+
+      })
   }
 
   render(){

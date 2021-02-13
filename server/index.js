@@ -179,6 +179,25 @@ app.get("/api/routines/:userId", (req,res,next)=>{
     .catch(err=>next(err))
 })
 
+//deleting the routine's exercises first...
+app.delete("/api/routinesExercises/:routineId", (req,res,next)=>{
+  const routineId = req.params.routineId
+
+  const sql = `
+  delete from "routineExercises"
+  where "routineId" = $1
+  returning *
+  `
+  const params = [routineId]
+
+  db.query(sql,params)
+    .then(result=>{
+      res.status(204).json(result.rows[0])
+    })
+    .catch(err=>next(err))
+})
+
+//...then deleting the routine
 app.delete("/api/routines/:routineId", (req,res,next)=>{
   const routineId = req.params.routineId
 
