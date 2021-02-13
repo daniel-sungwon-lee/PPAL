@@ -28,6 +28,18 @@ export default class ExerciseFav extends React.Component{
       .then(res=>res.json())
       .then(data=>{
         this.setState({exercise : data})
+
+        fetch(`https://wger.de/api/v2/exerciseinfo/${this.data.exerciseId}`, init)
+          .then(res => res.json())
+          .then(data => {
+            this.setState({
+              exercise: new Array(Object.assign(this.state.exercise[0], data)),
+              reps: this.state.exercise[0].reps,
+              sets: this.state.exercise[0].sets,
+              loading: false
+            })
+          })
+
       })
 
     const init = {
@@ -37,17 +49,6 @@ export default class ExerciseFav extends React.Component{
         "Authorization": " Token 18800a66e3917105259880660857894f85fbb0f3"
       }
     }
-
-    fetch(`https://wger.de/api/v2/exerciseinfo/${this.data.exerciseId}`, init)
-      .then(res => res.json())
-      .then(data => {
-        this.setState({
-          exercise: new Array(Object.assign(this.state.exercise[0], data)),
-          reps: this.state.exercise[0].reps,
-          sets: this.state.exercise[0].sets,
-          loading: false
-        })
-      })
   }
 
   handleRepsUp(event) {
