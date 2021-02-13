@@ -96,14 +96,14 @@
   transform: translate(-7px, 0);
 }
 .row.row-exercise{
-  border-radius: 13px;
+  border-radius: 19px;
   margin: auto;
   margin-bottom: 2.5rem;
   transition: all 0.3s ease-out;
 }
 .exercise-name{
   border: solid black 4px;
-  border-radius: 13px;
+  border-radius: 19px;
   width: 100%;
   transition: all 0.3s ease-out;
   margin: 0;
@@ -181,7 +181,7 @@
 .reps, .sets{
   padding: 10px 30px;
   border: solid black 3px;
-  border-radius: 13px;
+  border-radius: 16px;
   background-color: #FFF9C5;
   text-align: left;
 }
@@ -200,7 +200,7 @@
 .modal-content{
   background-color: #FFF9C5;
   border: solid black 4px;
-  border-radius: 13px;
+  border-radius: 24px;
   padding: 1.5rem;
 }
 .modal-header{
@@ -253,7 +253,7 @@
 }
 .card{
   border: 4px black solid;
-  border-radius: 16px;
+  border-radius: 33px;
 }
 .card-header{
   background-color: white;
@@ -302,6 +302,7 @@
   border-radius: 13px;
   border: none;
   transition: all 0.3s ease-out;
+  background-color: white;
 }
 .text-input, .select{
   height: 2.5rem;
