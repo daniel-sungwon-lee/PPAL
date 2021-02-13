@@ -16,9 +16,9 @@ export default class Nav extends React.Component{
                 <i className="icofont-navigation-menu"></i>
               </button>
             </nav>
-            <div className="collapse position-relative" id="navbarToggleExternalContent">
+            <div className="collapse position-relative border-0" id="navbarToggleExternalContent">
               <i className="fas fa-sign-out-alt" onClick={this.props.handleLogout}></i>
-              <div className="bg-dark p-4 pb-5">
+              <div className="bg-dark p-4 pb-5 border-0">
                 <a href="#" className="text-decoration-none"><h5 className="text-white h4 nav-links">Home</h5></a>
                 <a href="#routines" className="text-decoration-none"><h5 className="text-white h4 nav-links">Routines</h5></a>
                 <a href="#favorites" className="text-decoration-none"><h5 className="text-white h4 nav-links">Favorites</h5></a>
