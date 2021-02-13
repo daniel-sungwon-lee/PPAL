@@ -38,7 +38,7 @@ export default class Login extends React.Component{
   }
 
   autoFill(){
-    this.setState({email: "demo@user", password: "demouser"})
+    this.setState({email: "demo@User", password: "demoUser3"})
   }
 
   render(){
