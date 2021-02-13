@@ -64,6 +64,8 @@ export default class RoutineForm extends React.Component{
   }
 
   handleSubmit(event){
+    this.setState({loading:true})
+
     event.preventDefault()
     const name = this.state.name
     const day= this.state.day
