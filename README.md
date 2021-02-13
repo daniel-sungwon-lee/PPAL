@@ -8,7 +8,7 @@ A full stack solo project made using React, Bootstrap, CSS, JavaScript, HTML, Ex
 https://ppalll.herokuapp.com/
 
 ## **Quick Walkthrough GIF:**
-![ppal-quick-walkthrough-mk2](https://user-images.githubusercontent.com/72715781/107818239-2e6fce80-6d2c-11eb-8ebe-8ca703795e3c.gif)
+![ppal-quick-walkthrough-mk4](https://user-images.githubusercontent.com/72715781/107845480-88a27b00-6d90-11eb-8e1e-e84251627442.gif)
 
 ## **Current Features:**
 * User can login/sign up/logout; every saved data is specific to the user
