@@ -7,6 +7,9 @@ A full stack solo project made using React, Bootstrap, CSS, JavaScript, HTML, Ex
 ## **Link to Live Site:**
 https://ppalll.herokuapp.com/
 
+## **Link to Video Walkthrough:**
+https://www.youtube.com/watch?v=nHrbjpGZWAQ&t=1s&ab_channel=Daniel
+
 ## **Quick Walkthrough GIFs (Desktop & Mobile):**
 ![ppal-quick-walkthrough-mk6](https://user-images.githubusercontent.com/72715781/107846033-492a5d80-6d95-11eb-8544-feec1a3f73ff.gif)
 
