@@ -1,4 +1,5 @@
 import React from "react"
+import Spinner from "../components/spinner"
 
 export default class SignUp extends React.Component{
   constructor(props){
@@ -6,10 +7,15 @@ export default class SignUp extends React.Component{
     this.state = {
       username: "",
       email: "",
-      password: ""
+      password: "",
+      loading: true
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentDidMount(){
+    this.setState({loading: false})
   }
 
   handleChange(event){
@@ -18,6 +24,8 @@ export default class SignUp extends React.Component{
   }
 
   handleSubmit(event) {
+    this.setState({loading: true})
+
     event.preventDefault()
     const reqBody =this.state
 
@@ -32,6 +40,10 @@ export default class SignUp extends React.Component{
   }
 
   render(){
+    if(this.state.loading){
+      return <Spinner />
+    }
+
     return (
       <div className="container mt-0">
         <div className="header d-flex justify-content-between align-items-center">

@@ -1,15 +1,21 @@
 import React from "react"
+import Spinner from "../components/spinner"
 
 export default class Login extends React.Component{
   constructor(props){
     super(props)
     this.state={
       email: "",
-      password: ""
+      password: "",
+      loading: true
     }
     this.handleSubmit=this.handleSubmit.bind(this)
     this.handleChange=this.handleChange.bind(this)
     this.autoFill=this.autoFill.bind(this)
+  }
+
+  componentDidMount(){
+    this.setState({loading: false})
   }
 
   handleChange(event){
@@ -18,6 +24,8 @@ export default class Login extends React.Component{
   }
 
   handleSubmit(event){
+    this.setState({loading: true})
+
     event.preventDefault()
     const reqBody = this.state
 
@@ -28,8 +36,9 @@ export default class Login extends React.Component{
     })
       .then(res=>res.json())
       .then(result=>{
-        if(result.error==="invalid login"){
-          window.alert(result.error)
+        if(result.error){
+          this.setState({loading: false})
+          setTimeout(()=>alert(result.error),33)
         }
         if(result.token && result.user){
           this.props.handleLogin(result)
@@ -42,6 +51,10 @@ export default class Login extends React.Component{
   }
 
   render(){
+    if(this.state.loading){
+      return <Spinner />
+    }
+
     return (
       <div className="container mt-0">
         <div className="text-center header">
