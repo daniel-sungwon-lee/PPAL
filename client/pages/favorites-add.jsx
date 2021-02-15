@@ -101,7 +101,7 @@ export default class AddFavorites extends React.Component{
             }
             <div className="header d-flex justify-content-between align-items-center header-packed">
               <i className="fas fa-ban" data-toggle="modal" data-target={`#staticBackdrop1`}></i>
-              <h2 className="text-uppercase mx-2 mb-0 favs-add-header">{`Add to ${this.data.routineName}`}</h2>
+              <h2 className="text-center mx-2 mb-0 text-break">{`Add to ${this.data.routineName}`}</h2>
               <i className={this.state.classN} data-toggle="modal" data-target={`#staticBackdrop2`}></i>
             </div>
             <>

@@ -1,6 +1,7 @@
 @media screen and (max-width:767px){
   .exercise-name{
-    padding: 1.3rem
+    padding: 1.3rem;
+    overflow-wrap: break-word;
   }
   .exercise-img{
     width: 200px;
@@ -25,9 +26,6 @@
   }
   .type-button.submit{
     width: 104%;
-  }
-  .favs-add-header{
-    text-align: center;
   }
   .icons-div{
     display: flex;

@@ -127,7 +127,7 @@ function SingleExercise(props){
     <div className="container single-exercise">
       <div className="header d-flex justify-content-between align-items-center header-packed">
         <i className="fas fa-times invisible"></i>
-        <h2 className="text-uppercase m-0">{name}</h2>
+        <h2 className="text-center m-0 mx-2 text-break">{name}</h2>
         <a className="text-dark" href={props.previousHash}><i className="fas fa-times"></i></a>
       </div>
       <div className="row row-exercise-single">
