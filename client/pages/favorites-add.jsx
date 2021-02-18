@@ -143,7 +143,7 @@ function ExerciseTypeHeader(props) {
                   handleClick={props.handleClick}
                   previousHash={props.previousHash} />
               );
-            } else if (exercise.type !== props.name) {
+            } else {
               return '';
             }
           })

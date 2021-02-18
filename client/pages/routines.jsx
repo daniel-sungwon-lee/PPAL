@@ -116,7 +116,7 @@ function Accordion(props) {
                 return <Routine key={routine.routineId} deleteRoutine={() => props.deleteRoutine(routine.routineId)}
                         routine={routine} />;
 
-              } else if (routine.day !== day) {
+              } else {
                 return '';
               }
             })

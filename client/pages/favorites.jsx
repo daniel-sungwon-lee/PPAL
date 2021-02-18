@@ -82,7 +82,7 @@ function ExerciseTypeHeader(props) {
                 deleteExercise={() => props.deleteExercise(exercise.exerciseId)}
                 previousHash={props.previousHash} />
             );
-          } else if (exercise.type !== props.name) {
+          } else {
             return '';
           }
         })
