@@ -4,7 +4,6 @@ const staticMiddleware = require('./static-middleware');
 const pg = require('pg');
 const ClientError = require('./client-error');
 const errorMiddleware = require('./error-middleware');
-const { user } = require('pg/lib/defaults');
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
 
