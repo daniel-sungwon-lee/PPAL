@@ -1,91 +1,90 @@
-import React from "react"
-import Spinner from "../components/spinner"
+import React from 'react';
+import Spinner from '../components/spinner';
 
-export default class RoutineDetail extends React.Component{
-  constructor(props){
-    super(props)
-    this.state={
+export default class RoutineDetail extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       exercises: [],
       loading: true
-    }
-    this.data={
+    };
+    this.data = {
       userId: this.props.userId,
       routineId: this.props.routineId,
       routine: {},
       routineExercises: []
-    }
-    this.deleteRoutineExercise=this.deleteRoutineExercise.bind(this)
-    this.handleChange=this.handleChange.bind(this)
+    };
+    this.deleteRoutineExercise = this.deleteRoutineExercise.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     fetch(`/api/routine/${this.data.routineId}`)
-      .then(res=>res.json())
-      .then(routine=>{
-        this.data.routine=routine
+      .then(res => res.json())
+      .then(routine => {
+        this.data.routine = routine;
 
         fetch(`/api/routineExercises/${this.data.userId}/${this.data.routineId}`)
-          .then(res=>res.json())
-          .then(data=>{
-            this.setState({exercises: data, loading: false})
-          })
-      })
-
+          .then(res => res.json())
+          .then(data => {
+            this.setState({ exercises: data, loading: false });
+          });
+      });
 
   }
 
-  deleteRoutineExercise(exerciseId){
+  deleteRoutineExercise(exerciseId) {
     const newExercises = this.state.exercises.filter(exercise => {
-      return exercise.exerciseId !== exerciseId
-    })
+      return exercise.exerciseId !== exerciseId;
+    });
 
-    this.setState({ exercises: newExercises })
+    this.setState({ exercises: newExercises });
 
     fetch(`/api/routineExercises/${this.data.routineId}/${exerciseId}`, {
-      method: "DELETE",
-      headers: {"Content-Type": "application/json"}
-    })
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
-  handleChange(exerciseId){
-    if (event.target.checked){
-      event.target.previousSibling.className="fas fa-check-square mr-4 mb-0"
+  handleChange(exerciseId) {
+    if (event.target.checked) {
+      event.target.previousSibling.className = 'fas fa-check-square mr-4 mb-0';
 
-      const reqBody = {isCompleted: true}
+      const reqBody = { isCompleted: true };
       fetch(`/api/routineExercises/${this.data.routineId}/${exerciseId}`, {
-        method: "PATCH",
-        headers: {"Content-Type" : "application/json"},
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(reqBody)
       })
-        .then(res=>res.json())
-        .then(updatedExercise=>{
-          fetch(`/api/routineExercises/${this.data.userId}/${updatedExercise.routineId}`)
-            .then(res=>res.json())
-            .then(data=>{
-              this.setState({exercises : data})
-            })
-        })
-    } else {
-      event.target.previousSibling.className= "far fa-square mr-4 mb-0"
-
-      const reqBody = { isCompleted: false }
-      fetch(`/api/routineExercises/${this.data.routineId}/${exerciseId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(reqBody)
-      })
-        .then(res=>res.json())
+        .then(res => res.json())
         .then(updatedExercise => {
           fetch(`/api/routineExercises/${this.data.userId}/${updatedExercise.routineId}`)
             .then(res => res.json())
             .then(data => {
-              this.setState({ exercises: data })
-            })
-        })
+              this.setState({ exercises: data });
+            });
+        });
+    } else {
+      event.target.previousSibling.className = 'far fa-square mr-4 mb-0';
+
+      const reqBody = { isCompleted: false };
+      fetch(`/api/routineExercises/${this.data.routineId}/${exerciseId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(reqBody)
+      })
+        .then(res => res.json())
+        .then(updatedExercise => {
+          fetch(`/api/routineExercises/${this.data.userId}/${updatedExercise.routineId}`)
+            .then(res => res.json())
+            .then(data => {
+              this.setState({ exercises: data });
+            });
+        });
     }
   }
 
-  render(){
+  render() {
     return (
       this.state.loading
         ? <Spinner />
@@ -99,29 +98,29 @@ export default class RoutineDetail extends React.Component{
             <div className="m-auto routine-exercises-column">
               {
                 this.state.exercises.map(exercise => {
-                  let checkLabelClass = "far fa-square mr-4 mb-0"
-                  let buttonClass = "h4 exercise-name"
+                  let checkLabelClass = 'far fa-square mr-4 mb-0';
+                  let buttonClass = 'h4 exercise-name';
 
-                  if(exercise.isCompleted){
-                    checkLabelClass="fas fa-check-square mr-4 mb-0"
-                    buttonClass="h4 exercise-name is-completed"
+                  if (exercise.isCompleted) {
+                    checkLabelClass = 'fas fa-check-square mr-4 mb-0';
+                    buttonClass = 'h4 exercise-name is-completed';
                   }
 
                   return (
                     <Exercise key={exercise.exerciseId} exercise={exercise} checkLabelClass={checkLabelClass}
                      previousHash={this.props.previousHash} deleteRoutineExercise={this.deleteRoutineExercise}
-                     handleChange={()=>this.handleChange(exercise.exerciseId)} buttonClass={buttonClass} />
-                  )
+                     handleChange={() => this.handleChange(exercise.exerciseId)} buttonClass={buttonClass} />
+                  );
                 })
               }
             </div>
           </div>
-    )
+    );
   }
 }
 
-function Exercise(props){
-  const {exerciseId, name, isCompleted} = props.exercise
+function Exercise(props) {
+  const { exerciseId, name, isCompleted } = props.exercise;
   return (
     <div className="d-flex mb-5 align-items-center">
       <label className={props.checkLabelClass} htmlFor={`check${exerciseId}`}></label>
@@ -136,9 +135,9 @@ function Exercise(props){
         </div>
       </a>
       <i className="fas fa-trash ml-4" data-toggle="modal" data-target={`#staticBackdrop${exerciseId}`}></i>
-      <ModalStatic key={exerciseId} deleteRoutineExercise={()=>props.deleteRoutineExercise(exerciseId)} id={exerciseId} />
+      <ModalStatic key={exerciseId} deleteRoutineExercise={() => props.deleteRoutineExercise(exerciseId)} id={exerciseId} />
     </div>
-  )
+  );
 }
 
 function Modal(props) {
@@ -152,7 +151,7 @@ function Modal(props) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function ModalStatic(props) {
@@ -173,5 +172,5 @@ function ModalStatic(props) {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,104 +1,104 @@
-import React from "react"
-import Spinner from "../components/spinner"
+import React from 'react';
+import Spinner from '../components/spinner';
 
-const days =[
+const days = [
   {
-    day: "Sunday",
-    num: "One"
+    day: 'Sunday',
+    num: 'One'
   },
   {
-    day: "Monday",
-    num: "Two"
+    day: 'Monday',
+    num: 'Two'
   },
   {
-    day: "Tuesday",
-    num: "Three"
+    day: 'Tuesday',
+    num: 'Three'
   },
   {
-    day: "Wednesday",
-    num: "Four"
+    day: 'Wednesday',
+    num: 'Four'
   },
   {
-    day: "Thursday",
-    num: "Five"
+    day: 'Thursday',
+    num: 'Five'
   },
   {
-    day: "Friday",
-    num: "Six"
+    day: 'Friday',
+    num: 'Six'
   },
   {
-    day: "Saturday",
-    num: "Seven"
+    day: 'Saturday',
+    num: 'Seven'
   }
-]
+];
 
-export default class Routines extends React.Component{
-  constructor(props){
-    super(props)
-    this.state={routines: [], loading: true}
-    this.data = {userId: this.props.userId}
-    this.deleteRoutine=this.deleteRoutine.bind(this)
+export default class Routines extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { routines: [], loading: true };
+    this.data = { userId: this.props.userId };
+    this.deleteRoutine = this.deleteRoutine.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     fetch(`/api/routines/${this.data.userId}`)
-      .then(res=>res.json())
-      .then(data=>{
-        this.setState({routines: data, loading: false})
-      })
+      .then(res => res.json())
+      .then(data => {
+        this.setState({ routines: data, loading: false });
+      });
   }
 
-  deleteRoutine(routineId){
+  deleteRoutine(routineId) {
     const newRoutines = this.state.routines.filter(routine => {
-      return routine.routineId !== routineId
-    })
+      return routine.routineId !== routineId;
+    });
 
-    this.setState({ routines: newRoutines })
+    this.setState({ routines: newRoutines });
 
     fetch(`/api/routinesExercises/${routineId}`, {
-      method: "DELETE",
-      headers: {"Content-Type":"application/json"}
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' }
     })
-      .then(result=>{
+      .then(result => {
 
         fetch(`/api/routines/${routineId}`, {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" }
-        })
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' }
+        });
 
-      })
+      });
   }
 
-  render(){
-    if (this.state.loading){
-      return <Spinner />
-    }else {
+  render() {
+    if (this.state.loading) {
+      return <Spinner />;
+    } else {
       return (
         <div className="container">
           <div className="header d-flex justify-content-between align-items-center">
             <i className="fas fa-plus invisible"></i>
             <h2 className="text-uppercase m-0">Routines</h2>
-            <a className="text-dark" href={`#routineForm?formType=new`}><i className="fas fa-plus"></i></a>
+            <a className="text-dark" href={'#routineForm?formType=new'}><i className="fas fa-plus"></i></a>
           </div>
 
           <div className="accordion" id="accordionExample">
             {
-              days.map(obj=>{
+              days.map(obj => {
                 return (
                   <Accordion key={obj.num} obj={obj} routines={this.state.routines}
                     deleteRoutine={this.deleteRoutine} />
-                )
+                );
               })
             }
           </div>
         </div>
-      )
+      );
     }
   }
 }
 
 function Accordion(props) {
-  const {day,num} = props.obj
+  const { day, num } = props.obj;
   return (
     <div className="card">
       <div className="card-header" id={`heading${num}`}>
@@ -114,21 +114,21 @@ function Accordion(props) {
             props.routines.map(routine => {
               if (routine.day === day) {
                 return <Routine key={routine.routineId} deleteRoutine={() => props.deleteRoutine(routine.routineId)}
-                        routine={routine} />
+                        routine={routine} />;
 
               } else if (routine.day !== day) {
-                return ""
+                return '';
               }
             })
           }
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-function Routine(props){
-  const {name, routineId} = props.routine
+function Routine(props) {
+  const { name, routineId } = props.routine;
   return (
     <div id={routineId} className="routines-exercise-row d-flex justify-content-between align-items-center mb-5">
       <a className="w-75 text-decoration-none text-dark"
@@ -143,7 +143,7 @@ function Routine(props){
       </div>
       <ModalStatic key={routineId} deleteRoutine={props.deleteRoutine} routineId={routineId} />
     </div>
-  )
+  );
 }
 
 function ModalStatic(props) {
@@ -164,5 +164,5 @@ function ModalStatic(props) {
         </div>
       </div>
     </div>
-  )
+  );
 }

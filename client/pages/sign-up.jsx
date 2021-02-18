@@ -1,47 +1,47 @@
-import React from "react"
-import Spinner from "../components/spinner"
+import React from 'react';
+import Spinner from '../components/spinner';
 
-export default class SignUp extends React.Component{
-  constructor(props){
-    super(props)
+export default class SignUp extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
-      username: "",
-      email: "",
-      password: "",
+      username: '',
+      email: '',
+      password: '',
       loading: true
-    }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount(){
-    this.setState({loading: false})
+  componentDidMount() {
+    this.setState({ loading: false });
   }
 
-  handleChange(event){
-    const {name, value} =event.target
-    this.setState({ [name] : value })
+  handleChange(event) {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
   }
 
   handleSubmit(event) {
-    this.setState({loading: true})
+    this.setState({ loading: true });
 
-    event.preventDefault()
-    const reqBody =this.state
+    event.preventDefault();
+    const reqBody = this.state;
 
-    fetch("/api/signUp", {
-      method: "POST",
-      headers: {"Content-Type" : "application/json"},
+    fetch('/api/signUp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(reqBody)
     })
-      .then(result=>{
-        window.location.hash="#login"
-      })
+      .then(result => {
+        window.location.hash = '#login';
+      });
   }
 
-  render(){
-    if(this.state.loading){
-      return <Spinner />
+  render() {
+    if (this.state.loading) {
+      return <Spinner />;
     }
 
     return (
@@ -72,6 +72,6 @@ export default class SignUp extends React.Component{
           </div>
         </form>
       </div>
-    )
+    );
   }
 }

@@ -1,14 +1,14 @@
-import React from "react"
+import React from 'react';
 
-export default class Nav extends React.Component{
-  constructor(props){
-    super(props)
-    this.state={}
+export default class Nav extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
 
-  render(){
+  render() {
     return (
-      this.props.user ===null
+      this.props.user === null
         ? <></>
         : <div className="fixed-top">
             <nav className="navbar navbar-dark bg-dark border-0">
@@ -31,6 +31,6 @@ export default class Nav extends React.Component{
               <i className="icofont-muscle"></i>
             </div>
           </div>
-    )
+    );
   }
 }

@@ -1,42 +1,42 @@
-import React from "react"
-import Spinner from "../components/spinner"
+import React from 'react';
+import Spinner from '../components/spinner';
 
-export default class Favorites extends React.Component{
-  constructor(props){
-    super(props)
-    this.state={favorites: [], loading: true}
-    this.data = {userId: this.props.userId}
-    this.deleteExercise=this.deleteExercise.bind(this)
+export default class Favorites extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { favorites: [], loading: true };
+    this.data = { userId: this.props.userId };
+    this.deleteExercise = this.deleteExercise.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     fetch(`/api/favorites/${this.data.userId}`)
-      .then(res=>res.json())
-      .then(data=>{
-        this.setState({favorites: data, loading: false})
-      })
+      .then(res => res.json())
+      .then(data => {
+        this.setState({ favorites: data, loading: false });
+      });
 
   }
 
-  deleteExercise(exerciseId){
-    const newFavorites = this.state.favorites.filter(exercise=>{
-      return exercise.exerciseId !== exerciseId
-    })
+  deleteExercise(exerciseId) {
+    const newFavorites = this.state.favorites.filter(exercise => {
+      return exercise.exerciseId !== exerciseId;
+    });
 
-    this.setState({favorites: newFavorites})
+    this.setState({ favorites: newFavorites });
 
     fetch(`/api/favorites/${this.data.userId}/${exerciseId}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" }
-    })
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
-  render(){
-    if(this.state.loading){
+  render() {
+    if (this.state.loading) {
       return (
         <Spinner />
-      )
-    } else{
+      );
+    } else {
       return (
         <div className="container">
           <div className="header d-flex justify-content-between align-items-center">
@@ -46,23 +46,23 @@ export default class Favorites extends React.Component{
           </div>
           <>
           {
-            this.props.types.map(type=>{
+            this.props.types.map(type => {
               return (
                 <ExerciseTypeHeader key={type.id} name={type.name}
                  favorites={this.state.favorites}
                  deleteExercise={this.deleteExercise}
                  previousHash={this.props.previousHash} />
-              )
+              );
             })
           }
           </>
         </div>
-      )
+      );
     }
   }
 }
 
-function ExerciseTypeHeader(props){
+function ExerciseTypeHeader(props) {
   return (
     <>
     <div className="d-flex justify-content-start m-4">
@@ -74,32 +74,32 @@ function ExerciseTypeHeader(props){
     </div>
     <>
       {
-        props.favorites.map(exercise=>{
-          if(exercise.type===props.name){
+        props.favorites.map(exercise => {
+          if (exercise.type === props.name) {
             return (
               <Exercise key={exercise.exerciseId}
                 exercise={exercise}
-                deleteExercise={()=>props.deleteExercise(exercise.exerciseId)}
+                deleteExercise={() => props.deleteExercise(exercise.exerciseId)}
                 previousHash={props.previousHash} />
-            )
-          } else if (exercise.type!==props.name){
-            return ""
+            );
+          } else if (exercise.type !== props.name) {
+            return '';
           }
         })
       }
     </>
     </>
-  )
+  );
 }
 
-function Exercise(props){
-  const {exerciseId, type, name} = props.exercise
+function Exercise(props) {
+  const { exerciseId, name } = props.exercise;
   return (
     <>
       <div id={exerciseId} className="favorites-exercise-row d-flex justify-content-between align-items-center mb-5">
         <a className="w-75 text-decoration-none text-dark"
           href={`#favoritesExercise?exerciseId=${exerciseId}`}
-          onClick={()=>props.previousHash(window.location.hash)}>
+          onClick={() => props.previousHash(window.location.hash)}>
           <div className="row row-exercise m-0">
             <button className="h4 exercise-name">{name}</button>
           </div>
@@ -108,7 +108,7 @@ function Exercise(props){
         <ModalStatic key={exerciseId} deleteExercise={props.deleteExercise} id={exerciseId}/>
       </div>
     </>
-  )
+  );
 }
 
 function ModalStatic(props) {
@@ -129,5 +129,5 @@ function ModalStatic(props) {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import parseRoute from "./parse-route"
-import decodeToken from "./decode.token"
+import parseRoute from './parse-route';
+import decodeToken from './decode.token';
 
-export {parseRoute, decodeToken}
+export { parseRoute, decodeToken };

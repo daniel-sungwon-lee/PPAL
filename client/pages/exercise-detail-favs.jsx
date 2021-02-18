@@ -1,33 +1,33 @@
-import React from "react"
-import Spinner from "../components/spinner"
+import React from 'react';
+import Spinner from '../components/spinner';
 
-export default class ExerciseFav extends React.Component{
-  constructor(props){
-    super(props)
-    this.state={
-       exercise: [],
-       loading: true,
-       reps:0,
-       sets:0
-      }
-    this.data={
+export default class ExerciseFav extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      exercise: [],
+      loading: true,
+      reps: 0,
+      sets: 0
+    };
+    this.data = {
       userId: this.props.userId,
       exerciseId: this.props.exerciseId
-    }
+    };
 
-    this.handleRepsUp = this.handleRepsUp.bind(this)
-    this.handleSetsUp = this.handleSetsUp.bind(this)
-    this.handleRepsDown = this.handleRepsDown.bind(this)
-    this.handleSetsDown = this.handleSetsDown.bind(this)
-    this.saveRepsAndSets=this.saveRepsAndSets.bind(this)
+    this.handleRepsUp = this.handleRepsUp.bind(this);
+    this.handleSetsUp = this.handleSetsUp.bind(this);
+    this.handleRepsDown = this.handleRepsDown.bind(this);
+    this.handleSetsDown = this.handleSetsDown.bind(this);
+    this.saveRepsAndSets = this.saveRepsAndSets.bind(this);
 
   }
 
-  componentDidMount(){
+  componentDidMount() {
     fetch(`/api/favorites/${this.data.userId}/${this.data.exerciseId}`)
-      .then(res=>res.json())
-      .then(data=>{
-        this.setState({exercise : data})
+      .then(res => res.json())
+      .then(data => {
+        this.setState({ exercise: data });
 
         fetch(`https://wger.de/api/v2/exerciseinfo/${this.data.exerciseId}`, init)
           .then(res => res.json())
@@ -37,55 +37,55 @@ export default class ExerciseFav extends React.Component{
               reps: this.state.exercise[0].reps,
               sets: this.state.exercise[0].sets,
               loading: false
-            })
-          })
+            });
+          });
 
-      })
+      });
 
     const init = {
-      "method": "GET",
-      "headers": {
-        "Accept": "application/json",
-        "Authorization": " Token 18800a66e3917105259880660857894f85fbb0f3"
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: ' Token 18800a66e3917105259880660857894f85fbb0f3'
       }
-    }
+    };
   }
 
   handleRepsUp(event) {
-    this.setState({reps: this.state.reps +1})
+    this.setState({ reps: this.state.reps + 1 });
   }
 
   handleSetsUp(event) {
-    this.setState({ sets: this.state.sets + 1 })
+    this.setState({ sets: this.state.sets + 1 });
   }
 
   handleRepsDown(event) {
     if (this.state.reps > 0) {
-      this.setState({ reps: this.state.reps - 1 })
+      this.setState({ reps: this.state.reps - 1 });
     }
   }
 
   handleSetsDown(event) {
     if (this.state.sets > 0) {
-      this.setState({ sets: this.state.sets - 1 })
+      this.setState({ sets: this.state.sets - 1 });
     }
   }
 
-  saveRepsAndSets(event){
-    const reqBody ={
+  saveRepsAndSets(event) {
+    const reqBody = {
       reps: this.state.reps,
       sets: this.state.sets
-    }
+    };
 
-    fetch(`/api/favorites/${this.data.userId}/${this.data.exerciseId}`,{
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
+    fetch(`/api/favorites/${this.data.userId}/${this.data.exerciseId}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(reqBody)
-    })
+    });
 
   }
 
-  render(){
+  render() {
     return (
       <>
         {
@@ -102,16 +102,16 @@ export default class ExerciseFav extends React.Component{
                 handleSetsDown={this.handleSetsDown}
                 state={this.state}
                 previousHash={this.props.previousHash} />
-              )
+              );
             })
         }
       </>
-    )
+    );
   }
 }
 
-function SingleExerciseFav(props){
-  const {id, name, images, description, sets, reps} = props.exercise
+function SingleExerciseFav(props) {
+  const { id, name, images, description } = props.exercise;
 
   return (
     <div className="container single-exercise">
@@ -129,15 +129,15 @@ function SingleExerciseFav(props){
                 : <i className="fas fa-images"></i>
             }
           </div>
-          <i className="fas fa-star star-icon" style={{ color: "#FFEE59" }}></i>
+          <i className="fas fa-star star-icon" style={{ color: '#FFEE59' }}></i>
           <div className="description">
-            <p>{description.replace(/(<([^>]+)>)/gi, "")}</p>
+            <p>{description.replace(/(<([^>]+)>)/gi, '')}</p>
           </div>
         </div>
       </div>
       <div className="row">
         <div className="link">
-          <a href={`https://www.google.com/search?q=${name} Exercise`} target="_blank"
+          <a href={`https://www.google.com/search?q=${name} Exercise`} target="_blank" rel="noreferrer"
           className="text-decoration-none link">{`Click here to search for ${name}`}</a>
         </div>
       </div>
@@ -164,7 +164,7 @@ function SingleExerciseFav(props){
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function Carousel(props) {
@@ -173,13 +173,13 @@ function Carousel(props) {
       <div className="carousel-inner">
         {
           props.images.map(img => {
-            let classN = "carousel-item"
+            let classN = 'carousel-item';
             if (props.images.indexOf(img) === 0) {
-              classN = "carousel-item active"
+              classN = 'carousel-item active';
             }
             return (
               <CarouselImg key={img.id} img={img.image} classN={classN} />
-            )
+            );
           })
         }
       </div>
@@ -192,7 +192,7 @@ function Carousel(props) {
         <span className="sr-only">Next</span>
       </a>
     </div>
-  )
+  );
 }
 
 function CarouselImg(props) {
@@ -200,5 +200,5 @@ function CarouselImg(props) {
     <div className={props.classN}>
       <img src={props.img} className="d-block exercise-img" alt="Exercise Image" />
     </div>
-  )
+  );
 }

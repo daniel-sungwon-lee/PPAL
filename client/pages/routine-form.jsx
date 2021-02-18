@@ -1,5 +1,5 @@
-import React from "react"
-import Spinner from "../components/spinner"
+import React from 'react';
+import Spinner from '../components/spinner';
 
 function ModalStatic(props) {
   return (
@@ -19,84 +19,84 @@ function ModalStatic(props) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default class RoutineForm extends React.Component{
-  constructor(props){
-    super(props)
-    this.state={
-      name: "",
-      day: "",
-      description: "",
+export default class RoutineForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      day: '',
+      description: '',
       loading: true
-    }
-    this.data={
+    };
+    this.data = {
       userId: this.props.userId,
       type: `${this.props.type} Routine`,
       routineId: this.props.routineId
-    }
-    this.handleCancel=this.handleCancel.bind(this)
-    this.handleSubmit=this.handleSubmit.bind(this)
-    this.handleChange=this.handleChange.bind(this)
+    };
+    this.handleCancel = this.handleCancel.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount(){
-    if(this.data.type==="new Routine"){
-      return this.setState({loading: false})
+  componentDidMount() {
+    if (this.data.type === 'new Routine') {
+      return this.setState({ loading: false });
     }
 
     fetch(`/api/routine/${this.data.routineId}`)
-      .then(res=>res.json())
-      .then(routine=>{
-        const {name, day, description} = routine
-        this.setState({name, day, description, loading: false})
-      })
+      .then(res => res.json())
+      .then(routine => {
+        const { name, day, description } = routine;
+        this.setState({ name, day, description, loading: false });
+      });
   }
 
-  handleChange(event){
-    const { name, value } = event.target
-    this.setState({ [name] : value })
+  handleChange(event) {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
   }
 
-  handleCancel(){
-    window.location.hash="#routines"
+  handleCancel() {
+    window.location.hash = '#routines';
   }
 
-  handleSubmit(event){
-    this.setState({loading:true})
+  handleSubmit(event) {
+    this.setState({ loading: true });
 
-    event.preventDefault()
-    const name = this.state.name
-    const day= this.state.day
-    const description = this.state.description
-    const userId = this.data.userId
-    const reqBody={name, day, description, userId}
+    event.preventDefault();
+    const name = this.state.name;
+    const day = this.state.day;
+    const description = this.state.description;
+    const userId = this.data.userId;
+    const reqBody = { name, day, description, userId };
 
-    if(this.data.type ==="new Routine"){
-      fetch("/api/routines", {
-        method: "POST",
-        headers: {"Content-Type" : "application/json"},
+    if (this.data.type === 'new Routine') {
+      fetch('/api/routines', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(reqBody)
       })
-        .then(res=>res.json())
-        .then(result=>{
-          window.location.hash="#routines"
-        })
+        .then(res => res.json())
+        .then(result => {
+          window.location.hash = '#routines';
+        });
 
-    } else if(this.data.type==="edit Routine"){
+    } else if (this.data.type === 'edit Routine') {
       fetch(`/api/routines/${this.data.routineId}`, {
-        method: "PATCH",
-        headers: {"Content-Type" : "application/json"},
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(reqBody)
       })
-        .then(result=>{
-          window.location.hash = "#routines"
-        })
+        .then(result => {
+          window.location.hash = '#routines';
+        });
     }
   }
 
-  render(){
+  render() {
     return (
       this.state.loading
         ? <Spinner />
@@ -136,6 +136,6 @@ export default class RoutineForm extends React.Component{
               </div>
             </form>
           </div>
-    )
+    );
   }
 }

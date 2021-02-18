@@ -1,58 +1,58 @@
-import React from "react"
-import Spinner from "../components/spinner"
+import React from 'react';
+import Spinner from '../components/spinner';
 
-export default class Login extends React.Component{
-  constructor(props){
-    super(props)
-    this.state={
-      email: "",
-      password: "",
+export default class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
       loading: true
-    }
-    this.handleSubmit=this.handleSubmit.bind(this)
-    this.handleChange=this.handleChange.bind(this)
-    this.autoFill=this.autoFill.bind(this)
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.autoFill = this.autoFill.bind(this);
   }
 
-  componentDidMount(){
-    this.setState({loading: false})
+  componentDidMount() {
+    this.setState({ loading: false });
   }
 
-  handleChange(event){
-    const {name,value} = event.target
-    this.setState({ [name]: value })
+  handleChange(event) {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
   }
 
-  handleSubmit(event){
-    this.setState({loading: true})
+  handleSubmit(event) {
+    this.setState({ loading: true });
 
-    event.preventDefault()
-    const reqBody = this.state
+    event.preventDefault();
+    const reqBody = this.state;
 
-    fetch("/api/login", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
+    fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(reqBody)
     })
-      .then(res=>res.json())
-      .then(result=>{
-        if(result.error){
-          this.setState({loading: false})
-          setTimeout(()=>alert(result.error),33)
+      .then(res => res.json())
+      .then(result => {
+        if (result.error) {
+          this.setState({ loading: false });
+          setTimeout(() => alert(result.error), 33);
         }
-        if(result.token && result.user){
-          this.props.handleLogin(result)
+        if (result.token && result.user) {
+          this.props.handleLogin(result);
         }
-      })
+      });
   }
 
-  autoFill(){
-    this.setState({email: "demo@User", password: "demoUser3"})
+  autoFill() {
+    this.setState({ email: 'demo@User', password: 'demoUser3' });
   }
 
-  render(){
-    if(this.state.loading){
-      return <Spinner />
+  render() {
+    if (this.state.loading) {
+      return <Spinner />;
     }
 
     return (
@@ -87,10 +87,10 @@ export default class Login extends React.Component{
             </div>
           </div>
           <div className="mt-4 ml-4 h5">
-            <a className="text-decoration-none demo-link" role="button" onClick={this.autoFill}>Click here if you don't like signing up</a>
+            <a className="text-decoration-none demo-link" role="button" onClick={this.autoFill}>Click here if you don&apos;t like signing up</a>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }

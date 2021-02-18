@@ -1,109 +1,106 @@
 require('dotenv/config');
 const express = require('express');
 const staticMiddleware = require('./static-middleware');
-const pg = require("pg")
-const ClientError = require("./client-error")
-const errorMiddleware = require("./error-middleware");
+const pg = require('pg');
+const ClientError = require('./client-error');
+const errorMiddleware = require('./error-middleware');
 const { user } = require('pg/lib/defaults');
-const argon2 = require("argon2")
-const jwt = require("jsonwebtoken")
+const argon2 = require('argon2');
+const jwt = require('jsonwebtoken');
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false
   }
-})
+});
 
 const app = express();
 
 app.use(staticMiddleware);
 
-app.use(express.json())
+app.use(express.json());
 
-
-//exercise-detail page
-app.post("/api/favorites", (req,res,next)=>{
-  const {exerciseId, name, type, reps, sets, userId} = req.body
+// exercise-detail page
+app.post('/api/favorites', (req, res, next) => {
+  const { exerciseId, name, type, reps, sets, userId } = req.body;
 
   const sql = `
   insert into "favorites" ("exerciseId","name","type","reps","sets","userId")
   values ($1, $2, $3, $4, $5, $6)
   returning *
-  `
-  const params = [exerciseId, name, type, reps, sets, userId]
+  `;
+  const params = [exerciseId, name, type, reps, sets, userId];
 
-  db.query(sql,params)
-    .then(result=>{
-      res.status(201).json(result.rows[0])
+  db.query(sql, params)
+    .then(result => {
+      res.status(201).json(result.rows[0]);
     })
-    .catch(err=>next(err))
-})
+    .catch(err => next(err));
+});
 
-//below was attempted but will do later (used in favorites page)
-app.delete("/api/favorites/:userId/:exerciseId", (req,res,next)=>{
-  const userId = req.params.userId
-  const exerciseId = req.params.exerciseId
+// below was attempted but will do later (used in favorites page)
+app.delete('/api/favorites/:userId/:exerciseId', (req, res, next) => {
+  const userId = req.params.userId;
+  const exerciseId = req.params.exerciseId;
 
   const sql = `
   delete from "favorites"
   where "exerciseId" = $1
   and "userId" = $2
   returning *
-  `
-  const params = [exerciseId, userId]
+  `;
+  const params = [exerciseId, userId];
 
-  db.query(sql,params)
-    .then(result=>{
-      res.status(204).json(result.rows[0])
+  db.query(sql, params)
+    .then(result => {
+      res.status(204).json(result.rows[0]);
     })
-    .catch(err=>next(err))
-})
+    .catch(err => next(err));
+});
 
-
-//favorites page
-app.get("/api/favorites/:userId", (req,res,next)=>{
-  const userId = req.params.userId
+// favorites page
+app.get('/api/favorites/:userId', (req, res, next) => {
+  const userId = req.params.userId;
 
   const sql = `
   select *
     from "favorites"
     where "userId" = $1
-  `
-  const params = [userId]
+  `;
+  const params = [userId];
 
-  db.query(sql,params)
-    .then(result=>{
-      res.status(200).json(result.rows)
+  db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows);
     })
-    .catch(err=>next(err))
-})
+    .catch(err => next(err));
+});
 
-
-//exercise-detail-fav page
-app.get("/api/favorites/:userId/:exerciseId", (req, res, next) => {
-  const exerciseId = req.params.exerciseId
-  const userId = req.params.userId
+// exercise-detail-fav page
+app.get('/api/favorites/:userId/:exerciseId', (req, res, next) => {
+  const exerciseId = req.params.exerciseId;
+  const userId = req.params.userId;
 
   const sql = `
   select *
   from "favorites"
   where "exerciseId" = $1
   and "userId" = $2
-  `
-  const params = [exerciseId, userId]
+  `;
+  const params = [exerciseId, userId];
 
   db.query(sql, params)
     .then(result => {
-      res.status(200).json(result.rows)
+      res.status(200).json(result.rows);
     })
-    .catch(err => next(err))
-})
+    .catch(err => next(err));
+});
 
-app.patch("/api/favorites/:userId/:exerciseId", (req,res,next)=>{
-  const exerciseId = req.params.exerciseId
-  const userId= req.params.userId
-  const {sets, reps} = req.body
+app.patch('/api/favorites/:userId/:exerciseId', (req, res, next) => {
+  const exerciseId = req.params.exerciseId;
+  const userId = req.params.userId;
+  const { sets, reps } = req.body;
 
   const sql = `
   update "favorites"
@@ -111,38 +108,37 @@ app.patch("/api/favorites/:userId/:exerciseId", (req,res,next)=>{
       "reps" = $2
   where "exerciseId" = $3
   and "userId" = $4
-  `
-  const params = [sets, reps, exerciseId, userId]
+  `;
+  const params = [sets, reps, exerciseId, userId];
 
-  db.query(sql,params)
-    .then(result=>{
-      res.status(200).json(result.rows[0])
+  db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows[0]);
     })
-    .catch(err=>next(err))
-})
+    .catch(err => next(err));
+});
 
+// routine-form page
+app.post('/api/routines', (req, res, next) => {
+  const { name, description, day, userId } = req.body;
 
-//routine-form page
-app.post("/api/routines", (req,res,next)=>{
-  const {name, description, day, userId} = req.body
-
-  const sql=`
+  const sql = `
   insert into "routines" ("name","description","day","userId")
   values ($1, $2, $3, $4)
   returning *
-  `
-  const params = [name, description, day, userId]
+  `;
+  const params = [name, description, day, userId];
 
-  db.query(sql,params)
-    .then(result=>{
-      res.status(201).json(result.rows[0])
+  db.query(sql, params)
+    .then(result => {
+      res.status(201).json(result.rows[0]);
     })
-    .catch(err=>next(err))
-})
+    .catch(err => next(err));
+});
 
-app.patch("/api/routines/:routineId", (req, res, next) => {
-  const { name, description, day } = req.body
-  const routineId = req.params.routineId
+app.patch('/api/routines/:routineId', (req, res, next) => {
+  const { name, description, day } = req.body;
+  const routineId = req.params.routineId;
 
   const sql = `
   update "routines"
@@ -150,114 +146,110 @@ app.patch("/api/routines/:routineId", (req, res, next) => {
       "description" = $2,
       "day" = $3
   where "routineId" = $4
-  `
-  const params = [name, description, day, routineId]
+  `;
+  const params = [name, description, day, routineId];
 
   db.query(sql, params)
     .then(result => {
-      res.status(200).json(result.rows[0])
+      res.status(200).json(result.rows[0]);
     })
-    .catch(err => next(err))
-})
+    .catch(err => next(err));
+});
 
-
-//routines page
-app.get("/api/routines/:userId", (req,res,next)=>{
-  const userId = req.params.userId
+// routines page
+app.get('/api/routines/:userId', (req, res, next) => {
+  const userId = req.params.userId;
 
   const sql = `
   select *
   from "routines"
   where "userId" = $1
-  `
-  const params = [userId]
+  `;
+  const params = [userId];
 
   db.query(sql, params)
-    .then(result=>{
-      res.status(200).json(result.rows)
+    .then(result => {
+      res.status(200).json(result.rows);
     })
-    .catch(err=>next(err))
-})
+    .catch(err => next(err));
+});
 
-//deleting the routine's exercises first...
-app.delete("/api/routinesExercises/:routineId", (req,res,next)=>{
-  const routineId = req.params.routineId
+// deleting the routine's exercises first...
+app.delete('/api/routinesExercises/:routineId', (req, res, next) => {
+  const routineId = req.params.routineId;
 
   const sql = `
   delete from "routineExercises"
   where "routineId" = $1
   returning *
-  `
-  const params = [routineId]
+  `;
+  const params = [routineId];
 
-  db.query(sql,params)
-    .then(result=>{
-      res.status(204).json(result.rows[0])
+  db.query(sql, params)
+    .then(result => {
+      res.status(204).json(result.rows[0]);
     })
-    .catch(err=>next(err))
-})
+    .catch(err => next(err));
+});
 
-//...then deleting the routine
-app.delete("/api/routines/:routineId", (req,res,next)=>{
-  const routineId = req.params.routineId
+// ...then deleting the routine
+app.delete('/api/routines/:routineId', (req, res, next) => {
+  const routineId = req.params.routineId;
 
   const sql = `
   delete from "routines"
   where "routineId" = $1
   returning *
-  `
-  const params = [routineId]
+  `;
+  const params = [routineId];
 
-  db.query(sql,params)
-    .then(result=>{
-      res.status(204).json(result.rows[0])
+  db.query(sql, params)
+    .then(result => {
+      res.status(204).json(result.rows[0]);
     })
-    .catch(err=>next(err))
-})
+    .catch(err => next(err));
+});
 
-
-//routine-detail page (also used in routine-form page)
-app.get("/api/routine/:routineId", (req,res,next)=>{
-  const routineId = req.params.routineId
+// routine-detail page (also used in routine-form page)
+app.get('/api/routine/:routineId', (req, res, next) => {
+  const routineId = req.params.routineId;
 
   const sql = `
   select *
   from "routines"
   where "routineId"=$1
-  `
-  const params = [routineId]
+  `;
+  const params = [routineId];
 
-  db.query(sql,params)
-    .then(result=>{
-      res.status(200).json(result.rows[0])
+  db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows[0]);
     })
-    .catch(err=>next(err))
-})
+    .catch(err => next(err));
+});
 
-
-//favorites-add page
-app.post("/api/routineExercises", (req,res,next)=>{
-  const {routineId, exerciseId, isCompleted} =req.body
+// favorites-add page
+app.post('/api/routineExercises', (req, res, next) => {
+  const { routineId, exerciseId, isCompleted } = req.body;
 
   const sql = `
   insert into "routineExercises" ("routineId", "exerciseId", "isCompleted")
   values ($1, $2, $3)
   returning *
-  `
-  let params=[routineId, exerciseId, isCompleted]
+  `;
+  const params = [routineId, exerciseId, isCompleted];
 
-  db.query(sql,params)
-    .then(result=>{
-      res.status(201).json(result.rows[0])
+  db.query(sql, params)
+    .then(result => {
+      res.status(201).json(result.rows[0]);
     })
-    .catch(err=>next(err))
-})
+    .catch(err => next(err));
+});
 
-
-//routine-detail page
-app.get("/api/routineExercises/:userId/:routineId", (req,res,next)=>{
-  const userId = req.params.userId
-  const routineId = req.params.routineId
+// routine-detail page
+app.get('/api/routineExercises/:userId/:routineId', (req, res, next) => {
+  const userId = req.params.userId;
+  const routineId = req.params.routineId;
 
   const sql = `
   select *
@@ -266,39 +258,39 @@ app.get("/api/routineExercises/:userId/:routineId", (req,res,next)=>{
   where "routineId" = $1
   and "userId" = $2
   order by "isCompleted"
-  `
-  const params = [routineId, userId]
+  `;
+  const params = [routineId, userId];
 
-  db.query(sql,params)
-    .then(result=>{
-      res.status(200).json(result.rows)
+  db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows);
     })
-    .catch(err=>next(err))
-})
+    .catch(err => next(err));
+});
 
-app.delete("/api/routineExercises/:routineId/:exerciseId", (req, res, next) => {
-  const routineId = req.params.routineId
-  const exerciseId = req.params.exerciseId
+app.delete('/api/routineExercises/:routineId/:exerciseId', (req, res, next) => {
+  const routineId = req.params.routineId;
+  const exerciseId = req.params.exerciseId;
 
   const sql = `
   delete from "routineExercises"
   where "routineId" = $1
   and "exerciseId" = $2
   returning *
-  `
-  const params = [routineId, exerciseId]
+  `;
+  const params = [routineId, exerciseId];
 
   db.query(sql, params)
     .then(result => {
-      res.status(204).json(result.rows[0])
+      res.status(204).json(result.rows[0]);
     })
-    .catch(err => next(err))
-})
+    .catch(err => next(err));
+});
 
-app.patch("/api/routineExercises/:routineId/:exerciseId", (req,res,next)=>{
-  const routineId = req.params.routineId
-  const exerciseId = req.params.exerciseId
-  const {isCompleted} = req.body
+app.patch('/api/routineExercises/:routineId/:exerciseId', (req, res, next) => {
+  const routineId = req.params.routineId;
+  const exerciseId = req.params.exerciseId;
+  const { isCompleted } = req.body;
 
   const sql = `
   update "routineExercises"
@@ -306,74 +298,72 @@ app.patch("/api/routineExercises/:routineId/:exerciseId", (req,res,next)=>{
   where "routineId" = $2
   and "exerciseId" = $3
   returning *
-  `
-  const params = [isCompleted, routineId, exerciseId]
+  `;
+  const params = [isCompleted, routineId, exerciseId];
 
-  db.query(sql,params)
-    .then(result=>{
-      res.status(200).json(result.rows[0])
+  db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows[0]);
     })
-    .catch(err=>next(err))
-})
+    .catch(err => next(err));
+});
 
-
-//sign-up page
-app.post("/api/signUp", (req,res,next)=>{
-  const {username, email, password} = req.body
+// sign-up page
+app.post('/api/signUp', (req, res, next) => {
+  const { username, email, password } = req.body;
 
   argon2
     .hash(password)
-    .then(hashedP=>{
-      const sql =`
+    .then(hashedP => {
+      const sql = `
       insert into "users" ("username", "email", "password")
       values ($1, $2, $3)
-      `
-      const params= [username, email, hashedP]
+      `;
+      const params = [username, email, hashedP];
 
-      db.query(sql,params)
-        .then(result=>{
-          res.status(201).json(result.rows[0])
+      db.query(sql, params)
+        .then(result => {
+          res.status(201).json(result.rows[0]);
         })
-        .catch(err=>next(err))
+        .catch(err => next(err));
     })
-    .catch(err=>next(err))
-})
+    .catch(err => next(err));
+});
 
-//login page
-app.post("/api/login", (req,res,next)=>{
-  const {email, password} = req.body
+// login page
+app.post('/api/login', (req, res, next) => {
+  const { email, password } = req.body;
 
   const sql = `
   select "userId", "password", "username"
   from "users"
   where "email" = $1
-  `
-  const params = [email]
+  `;
+  const params = [email];
 
-  db.query(sql,params)
-    .then(result=>{
-      const [user] = result.rows
-      if(!user){
-        throw new ClientError(401, "invalid login")
+  db.query(sql, params)
+    .then(result => {
+      const [user] = result.rows;
+      if (!user) {
+        throw new ClientError(401, 'invalid login');
       }
-      const {userId, password: hashedPassword, username} = user
+      const { userId, password: hashedPassword, username } = user;
       argon2
         .verify(hashedPassword, password)
-        .then(isMatch=>{
-          if(!isMatch){
-            throw new ClientError(401, "invalid login")
+        .then(isMatch => {
+          if (!isMatch) {
+            throw new ClientError(401, 'invalid login');
           }
-          const payload = {userId, username}
-          const token =jwt.sign(payload, process.env.TOKEN_SECRET)
-          res.json({token, user:payload})
+          const payload = { userId, username };
+          const token = jwt.sign(payload, process.env.TOKEN_SECRET);
+          res.json({ token, user: payload });
         })
-        .catch(err=>next(err))
+        .catch(err => next(err));
     })
-    .catch(err=>next(err))
-})
+    .catch(err => next(err));
+});
 
-
-app.use(errorMiddleware)
+app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console

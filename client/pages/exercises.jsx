@@ -1,5 +1,5 @@
-import React from "react"
-import Spinner from "../components/spinner"
+import React from 'react';
+import Spinner from '../components/spinner';
 
 const apiURLParts = {
   chest: {
@@ -30,46 +30,46 @@ const apiURLParts = {
   },
   abs: {
     category: 10,
-    limit:28
+    limit: 28
   }
-}
+};
 
-export default class Exercises extends React.Component{
-  constructor(props){
-    super(props)
-    this.state={
-      exercises:[], loading: true
-    }
+export default class Exercises extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      exercises: [], loading: true
+    };
   }
 
-  componentDidMount(){
-    const {exercise} = this.props
-    const ex = exercise.toLowerCase()
+  componentDidMount() {
+    const { exercise } = this.props;
+    const ex = exercise.toLowerCase();
 
-    if(apiURLParts[ex]){
-      const {category, limit, muscles} = apiURLParts[ex]
-      const apiURL = `https://wger.de/api/v2/exerciseinfo/?language=2&category=${category}&limit=${limit}${muscles ? `&muscles=${muscles}` : ""}`
+    if (apiURLParts[ex]) {
+      const { category, limit, muscles } = apiURLParts[ex];
+      const apiURL = `https://wger.de/api/v2/exerciseinfo/?language=2&category=${category}&limit=${limit}${muscles ? `&muscles=${muscles}` : ''}`;
 
       const init = {
-        "method": "GET",
-        "headers": {
-          "Accept": "application/json",
-          "Authorization": " Token 18800a66e3917105259880660857894f85fbb0f3"
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          Authorization: ' Token 18800a66e3917105259880660857894f85fbb0f3'
         }
-      }
+      };
 
       fetch(apiURL, init)
         .then(res => res.json())
         .then(data => {
-          let { results } = data
-          this.setState({ exercises: results })
-          this.setState({ loading: false })
+          const { results } = data;
+          this.setState({ exercises: results });
+          this.setState({ loading: false });
         })
-        .catch(err => console.error(err))
+        .catch(err => console.error(err));
     }
   }
 
-  render(){
+  render() {
     return (
       <>
       {
@@ -86,19 +86,19 @@ export default class Exercises extends React.Component{
                   this.state.exercises.map(exercise => {
                     return (
                       <Exercise key={exercise.id} exercise={exercise} previousHash={this.props.previousHash} />
-                    )
+                    );
                   })
                 }
               </div>
             </div>
       }
       </>
-    )
+    );
   }
 }
 
-function Exercise(props){
-  const {id, name} = props.exercise
+function Exercise(props) {
+  const { id, name } = props.exercise;
   return (
     <a className="text-decoration-none text-dark"
       href={`#exercise?exerciseId=${id}`}
@@ -107,5 +107,5 @@ function Exercise(props){
         <button className="h4 exercise-name">{name}</button>
       </div>
     </a>
-  )
+  );
 }
