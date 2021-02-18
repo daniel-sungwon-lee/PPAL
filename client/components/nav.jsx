@@ -10,7 +10,9 @@ export default class Nav extends React.Component {
     return (
       this.props.user === null
         ? <></>
-        : <div className="fixed-top">
+        : <>
+          <div className="collapse overlay" id="navbarToggleExternalContent" data-toggle="collapse" data-target="#navbarToggleExternalContent"></div>
+          <div className="fixed-top">
             <nav className="navbar navbar-dark bg-dark border-0">
               <button className="navbar-toggler nav-button border-dark" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                 <i className="icofont-navigation-menu"></i>
@@ -31,6 +33,7 @@ export default class Nav extends React.Component {
               <i className="icofont-muscle"></i>
             </div>
           </div>
+          </>
     );
   }
 }
