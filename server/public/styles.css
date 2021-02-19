@@ -414,6 +414,33 @@
 .demo-link:hover{
   color: #47C26A;
 }
+.info{
+  position: absolute;
+  transition: 0.3s ease-out;
+  top: 1rem;
+  right: 1rem;
+  opacity: 0.5;
+}
+.info:hover{
+  opacity: 1;
+}
+.fas.fa-info-circle{
+  position: absolute;
+  right: 0;
+}
+.info-text-div{
+  position: absolute;
+  right: 0;
+  top: 40px;
+  width: 14rem;
+  background-color: #FFF9C5;
+  border-radius: 1rem;
+}
+.info-text{
+  margin: 0;
+  padding: 2rem 1rem;
+  cursor: default;
+}
 
 /*quote page*/
 .row-quote{

@@ -1,5 +1,6 @@
 import React from 'react';
 import Spinner from '../components/spinner';
+import Info from '../components/info';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -58,6 +59,7 @@ export default class Login extends React.Component {
 
     return (
       <div className="container mt-0">
+        <Info />
         <div className="text-center header">
           <h1>PPAL</h1>
         </div>
