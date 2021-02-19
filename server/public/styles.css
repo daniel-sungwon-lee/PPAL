@@ -16,7 +16,7 @@
   transition: all 0.3s ease-out;
 }
 .nav-links:hover{
-  transform: translate(20px,0);
+  transform: translate(-5px,0);
   color: #FFF9C5
 }
 .icofont-navigation-menu{
