@@ -83,6 +83,10 @@ export default class App extends React.Component {
     } else {
       const { userId } = user;
 
+      if (window.location.hash === '#login' || window.location.hash === '#signUp') {
+        window.location.hash = '#';
+      }
+
       if (route.path === '') {
         return <Home types={types} />;
       }
