@@ -417,8 +417,8 @@
 .info{
   position: absolute;
   transition: 0.3s ease-out;
-  top: 19px;
-  right: 19px;
+  top: 1rem;
+  right: 1rem;
   opacity: 0.5;
 }
 .info:hover{
@@ -439,6 +439,7 @@
 .info-text{
   margin: 0;
   padding: 2rem 1rem;
+  cursor: default;
 }
 
 /*quote page*/
