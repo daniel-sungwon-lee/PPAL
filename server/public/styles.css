@@ -373,10 +373,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
 }
 .watch{
   border: solid black 10px;
@@ -386,12 +382,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 2rem auto 1.5rem;
 }
 .timer{
   width: 111px;
-}
-.fas.fa-play, .fas.fa-pause{
-  margin-top: 2rem;
 }
 .fas.fa-pause{
   color: #E12121;
