@@ -1,5 +1,6 @@
 import React from 'react';
 import Spinner from '../components/spinner';
+import Info from '../components/info';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -12,7 +13,6 @@ export default class Login extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.autoFill = this.autoFill.bind(this);
-    this.closeToast = this.closeToast.bind(this);
   }
 
   componentDidMount() {
@@ -52,10 +52,6 @@ export default class Login extends React.Component {
     this.setState({ email: 'demo@User', password: 'demoUser3' });
   }
 
-  closeToast() {
-    event.target.closest('.toast').style.opacity = '0';
-  }
-
   render() {
     if (this.state.loading) {
       return <Spinner />;
@@ -63,14 +59,7 @@ export default class Login extends React.Component {
 
     return (
       <div className="container mt-0">
-        <div className="toast m-0" role="status" aria-live="polite" aria-atomic="true">
-          <div className="d-flex align-items-center">
-            <div className="toast-body">
-              <h5 className="m-0">PPAL helps people plan workout routines; sign-up to get started!</h5>
-            </div>
-            <i className="fas fa-times pr-3 toast-close" onClick={this.closeToast}></i>
-          </div>
-        </div>
+        <Info />
         <div className="text-center header">
           <h1>PPAL</h1>
         </div>

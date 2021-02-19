@@ -414,18 +414,27 @@
 .demo-link:hover{
   color: #47C26A;
 }
-.toast{
+.info{
   position: absolute;
   transition: 0.3s ease-out;
   top: 19px;
   right: 19px;
   opacity: 0.5;
 }
-.toast:hover{
+.info:hover{
   opacity: 1;
 }
-.fas.fa-times.toast-close:hover{
-  transform: none;
+.fas.fa-info-circle{
+  position: absolute;
+  right: 0;
+}
+.info-text{
+  position: absolute;
+  right: 0;
+  top: 40px;
+  width: 14rem;
+  background-color: #FFF9C5;
+  border-radius: 1rem;
 }
 
 /*quote page*/
