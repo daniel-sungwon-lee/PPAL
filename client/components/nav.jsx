@@ -21,11 +21,11 @@ export default class Nav extends React.Component {
             <div className="collapse position-relative border-0" id="navbarToggleExternalContent">
               <i className="fas fa-sign-out-alt" onClick={this.props.handleLogout}></i>
               <div className="bg-dark p-4 pb-5 border-0">
-                <a href="#" className="text-decoration-none"><h5 className="text-white h4 nav-links">Home</h5></a>
-                <a href="#routines" className="text-decoration-none"><h5 className="text-white h4 nav-links">Routines</h5></a>
-                <a href="#favorites" className="text-decoration-none"><h5 className="text-white h4 nav-links">Favorites</h5></a>
-                <a href="#stopwatch" className="text-decoration-none"><h5 className="text-white h4 nav-links">Stopwatch</h5></a>
-                <a href="#quote" className="text-decoration-none"><h5 className="text-white h4 nav-links">Quote</h5></a>
+                <a href="#" className="text-decoration-none"><h5 className="text-white h4 nav-links" data-toggle="collapse" data-target="#navbarToggleExternalContent">Home</h5></a>
+                <a href="#routines" className="text-decoration-none"><h5 className="text-white h4 nav-links" data-toggle="collapse" data-target="#navbarToggleExternalContent">Routines</h5></a>
+                <a href="#favorites" className="text-decoration-none"><h5 className="text-white h4 nav-links" data-toggle="collapse" data-target="#navbarToggleExternalContent">Favorites</h5></a>
+                <a href="#stopwatch" className="text-decoration-none"><h5 className="text-white h4 nav-links" data-toggle="collapse" data-target="#navbarToggleExternalContent">Stopwatch</h5></a>
+                <a href="#quote" className="text-decoration-none"><h5 className="text-white h4 nav-links" data-toggle="collapse" data-target="#navbarToggleExternalContent">Quote</h5></a>
               </div>
               <div className="username-greeting">
                 <h4>{`Hello, ${this.props.user.username}!`}</h4>
