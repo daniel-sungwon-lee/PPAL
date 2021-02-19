@@ -428,13 +428,17 @@
   position: absolute;
   right: 0;
 }
-.info-text{
+.info-text-div{
   position: absolute;
   right: 0;
   top: 40px;
   width: 14rem;
   background-color: #FFF9C5;
   border-radius: 1rem;
+}
+.info-text{
+  margin: 0;
+  padding: 2rem 1rem;
 }
 
 /*quote page*/
