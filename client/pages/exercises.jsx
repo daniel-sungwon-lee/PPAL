@@ -65,7 +65,7 @@ export default class Exercises extends React.Component {
           this.setState({ exercises: results });
           this.setState({ loading: false });
         })
-        .catch(err => console.error(err));
+        .catch(() => location.reload());
     }
   }
 

@@ -51,7 +51,8 @@ export default class RoutineForm extends React.Component {
       .then(routine => {
         const { name, day, description } = routine;
         this.setState({ name, day, description, loading: false });
-      });
+      })
+      .catch(() => location.reload());
   }
 
   handleChange(event) {
@@ -82,7 +83,8 @@ export default class RoutineForm extends React.Component {
         .then(res => res.json())
         .then(result => {
           window.location.hash = '#routines';
-        });
+        })
+        .catch(() => location.reload());
 
     } else if (this.data.type === 'edit Routine') {
       fetch(`/api/routines/${this.data.routineId}`, {
@@ -92,7 +94,8 @@ export default class RoutineForm extends React.Component {
       })
         .then(result => {
           window.location.hash = '#routines';
-        });
+        })
+        .catch(() => location.reload());
     }
   }
 

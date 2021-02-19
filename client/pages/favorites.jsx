@@ -14,7 +14,8 @@ export default class Favorites extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({ favorites: data, loading: false });
-      });
+      })
+      .catch(() => location.reload());
 
   }
 
@@ -28,7 +29,8 @@ export default class Favorites extends React.Component {
     fetch(`/api/favorites/${this.data.userId}/${exerciseId}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }
-    });
+    })
+      .catch(() => location.reload());
   }
 
   render() {

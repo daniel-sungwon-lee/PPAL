@@ -36,7 +36,8 @@ export default class SignUp extends React.Component {
     })
       .then(result => {
         window.location.hash = '#login';
-      });
+      })
+      .catch(() => location.reload());
   }
 
   render() {

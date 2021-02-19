@@ -43,7 +43,8 @@ export default class Login extends React.Component {
         if (result.token && result.user) {
           this.props.handleLogin(result);
         }
-      });
+      })
+      .catch(() => location.reload());
   }
 
   autoFill() {

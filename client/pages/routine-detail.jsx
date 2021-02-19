@@ -28,8 +28,10 @@ export default class RoutineDetail extends React.Component {
           .then(res => res.json())
           .then(data => {
             this.setState({ exercises: data, loading: false });
-          });
-      });
+          })
+          .catch(() => location.reload());
+      })
+      .catch(() => location.reload());
 
   }
 
@@ -43,7 +45,8 @@ export default class RoutineDetail extends React.Component {
     fetch(`/api/routineExercises/${this.data.routineId}/${exerciseId}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }
-    });
+    })
+      .catch(() => location.reload());
   }
 
   handleChange(exerciseId) {
@@ -62,8 +65,11 @@ export default class RoutineDetail extends React.Component {
             .then(res => res.json())
             .then(data => {
               this.setState({ exercises: data });
-            });
-        });
+            })
+            .catch(() => location.reload());
+        })
+        .catch(() => location.reload());
+
     } else {
       event.target.previousSibling.className = 'far fa-square mr-4 mb-0';
 
@@ -79,8 +85,11 @@ export default class RoutineDetail extends React.Component {
             .then(res => res.json())
             .then(data => {
               this.setState({ exercises: data });
-            });
-        });
+            })
+            .catch(() => location.reload());
+        })
+        .catch(() => location.reload());
+
     }
   }
 

@@ -21,7 +21,7 @@ export default class Quote extends React.Component {
         const { author, body } = quote;
         this.setState({ quote: body, author: author, loading: false });
       })
-      .catch(err => console.error(err));
+      .catch(() => location.reload());
   }
 
   handleClick(event) {
@@ -36,7 +36,7 @@ export default class Quote extends React.Component {
         const { author, body } = quote;
         this.setState({ quote: body, author: author, loading: false });
       })
-      .catch(err => console.error(err));
+      .catch(() => location.reload());
   }
 
   render() {

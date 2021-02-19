@@ -35,7 +35,8 @@ export default class ExerciseDetail extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({ exercise: new Array(data), loading: false });
-      });
+      })
+      .catch(() => location.reload());
   }
 
   handleStarClick(event) {
@@ -68,7 +69,8 @@ export default class ExerciseDetail extends React.Component {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(favExercise)
-    });
+    })
+      .catch(() => location.reload());
 
     // star icon changes color depending on if it saved or not,
     // and can be removed (do later)

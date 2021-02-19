@@ -45,7 +45,8 @@ export default class Routines extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({ routines: data, loading: false });
-      });
+      })
+      .catch(() => location.reload());
   }
 
   deleteRoutine(routineId) {
@@ -64,9 +65,11 @@ export default class Routines extends React.Component {
         fetch(`/api/routines/${routineId}`, {
           method: 'DELETE',
           headers: { 'Content-Type': 'application/json' }
-        });
+        })
+          .catch(() => location.reload());
 
-      });
+      })
+      .catch(() => location.reload());
   }
 
   render() {

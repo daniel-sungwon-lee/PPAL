@@ -30,7 +30,8 @@ export default class AddFavorites extends React.Component {
       .then(res => res.json())
       .then(favorites => {
         this.setState({ favorites: favorites, loading: false });
-      });
+      })
+      .catch(() => location.reload());
   }
 
   handlePreviousPage(event) {
@@ -49,7 +50,8 @@ export default class AddFavorites extends React.Component {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(reqBody)
-        });
+        })
+          .catch(() => location.reload());
       }
       window.location.hash = `#routine?routineId=${this.data.routineId}`;
 

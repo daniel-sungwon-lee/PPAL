@@ -38,9 +38,11 @@ export default class ExerciseFav extends React.Component {
               sets: this.state.exercise[0].sets,
               loading: false
             });
-          });
+          })
+          .catch(() => location.reload());
 
-      });
+      })
+      .catch(() => location.reload());
 
     const init = {
       method: 'GET',
@@ -81,7 +83,8 @@ export default class ExerciseFav extends React.Component {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(reqBody)
-    });
+    })
+      .catch(() => location.reload());
 
   }
 
@@ -129,7 +132,7 @@ function SingleExerciseFav(props) {
                 : <i className="fas fa-images"></i>
             }
           </div>
-          <i className="fas fa-star star-icon" style={{ color: '#FFEE59' }}></i>
+          <i className="fas fa-star star-icon" style={{ color: '#FFEE59', cursor: 'default' }}></i>
           <div className="description">
             <p>{description.replace(/(<([^>]+)>)/gi, '')}</p>
           </div>
