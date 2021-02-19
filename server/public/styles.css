@@ -414,6 +414,19 @@
 .demo-link:hover{
   color: #47C26A;
 }
+.toast{
+  position: absolute;
+  transition: 0.3s ease-out;
+  top: 19px;
+  right: 19px;
+  opacity: 0.5;
+}
+.toast:hover{
+  opacity: 1;
+}
+.fas.fa-times.toast-close:hover{
+  transform: none;
+}
 
 /*quote page*/
 .row-quote{
