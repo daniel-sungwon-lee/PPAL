@@ -38,7 +38,7 @@ https://www.youtube.com/watch?v=nHrbjpGZWAQ&t=1s&ab_channel=Daniel
 
 ## **APIs Used:**
 * [To fetch exercises](https://wger.de/en/software/api)
-* [To fetch quotes](https://favqs.com/api)
+* [To fetch quotes](https://pprathameshmore.github.io/QuoteGarden/)
 
 ## **Planning:**
 * [Original Figma wireframe/design](https://www.figma.com/file/ZIihGkhiuclreS25bdSUlW/Final-Project?node-id=0%3A1)
