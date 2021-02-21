@@ -14,12 +14,14 @@ export default class Quote extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://favqs.com/api/qotd')
+    fetch('https://quote-garden.herokuapp.com/api/v3/quotes/random')
       .then(res => res.json())
-      .then(data => {
-        const { quote } = data;
-        const { author, body } = quote;
-        this.setState({ quote: body, author: author, loading: false });
+      .then(response => {
+        const { data } = response;
+        const [obj] = data;
+        const { quoteText, quoteAuthor } = obj;
+
+        this.setState({ quote: quoteText, author: quoteAuthor, loading: false });
       })
       .catch(() => location.reload());
   }
@@ -29,12 +31,14 @@ export default class Quote extends React.Component {
     this.setState({ num: this.state.num + 1 });
 
     this.setState({ loading: true });
-    fetch('https://favqs.com/api/qotd')
+    fetch('https://quote-garden.herokuapp.com/api/v3/quotes/random')
       .then(res => res.json())
-      .then(data => {
-        const { quote } = data;
-        const { author, body } = quote;
-        this.setState({ quote: body, author: author, loading: false });
+      .then(response => {
+        const { data } = response;
+        const [obj] = data;
+        const { quoteText, quoteAuthor } = obj;
+
+        this.setState({ quote: quoteText, author: quoteAuthor, loading: false });
       })
       .catch(() => location.reload());
   }
