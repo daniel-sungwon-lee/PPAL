@@ -1,6 +1,6 @@
 # PPAL
 
-A web application for people who want to search for exercises by category and create a workout routine from their saved (favorites) list of exercises.
+PPAL (Push, Pull, Abs, Legs) is a web application for people who want to search for exercises by category and create a workout routine from their saved (favorites) list of exercises.
 
 A full stack solo project made using React, Bootstrap, CSS, JavaScript, HTML, Express, PostgreSQL, npm, Webpack, Babel, and Node.js.
 
