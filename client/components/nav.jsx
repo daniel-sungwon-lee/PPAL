@@ -30,7 +30,7 @@ export default class Nav extends React.Component {
               <div className="username-greeting">
                 <h4>{`Hello, ${this.props.user.username}!`}</h4>
               </div>
-              <i className="icofont-muscle"></i>
+              <img src="icons/picon.png" className="icofont-muscle" alt="PPAL logo"/>
             </div>
           </div>
           </>
