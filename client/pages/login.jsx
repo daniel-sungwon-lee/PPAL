@@ -1,6 +1,7 @@
 import React from 'react';
 import Spinner from '../components/spinner';
 import Info from '../components/info';
+import Fade from 'react-reveal/Fade';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -60,39 +61,41 @@ export default class Login extends React.Component {
     return (
       <div className="container mt-0">
         <Info />
-        <div className="text-center header">
-          <h1>PPAL</h1>
-        </div>
-        <div>
-          <div className="ml-4">
-            <h2 className="m-0">Welcome,</h2>
-            <h2>Please sign in</h2>
+        <Fade>
+          <div className="text-center header">
+            <h1>PPAL</h1>
           </div>
-          <form className="form" onSubmit={this.handleSubmit}>
-            <div className="form-group d-flex flex-column input-div">
-              <label htmlFor="email">Email</label>
-              <input type="email" className="text-input" id="email" required
-                onChange={this.handleChange} name="email" value={this.state.email}/>
+          <div>
+            <div className="ml-4">
+              <h2 className="m-0">Welcome,</h2>
+              <h2>Please sign in</h2>
             </div>
-            <div className="form-group d-flex flex-column">
-              <label htmlFor="password">Password</label>
-              <input type="password" minLength="8" required id="password" className="text-input"
-               onChange={this.handleChange} name="password" value={this.state.password}/>
+            <form className="form" onSubmit={this.handleSubmit}>
+              <div className="form-group d-flex flex-column input-div">
+                <label htmlFor="email">Email</label>
+                <input type="email" className="text-input" id="email" required
+                  onChange={this.handleChange} name="email" value={this.state.email}/>
+              </div>
+              <div className="form-group d-flex flex-column">
+                <label htmlFor="password">Password</label>
+                <input type="password" minLength="8" required id="password" className="text-input"
+                onChange={this.handleChange} name="password" value={this.state.password}/>
+              </div>
+              <div className="button-outline form-submit auth-button">
+                <button className="type-button submit" type="submit">Sign in</button>
+              </div>
+            </form>
+            <div className="ml-4">
+              <h2>First time?</h2>
+              <div className="button-outline m-3">
+                <a href="#signUp"><button className="type-button">Sign up</button></a>
+              </div>
             </div>
-            <div className="button-outline form-submit auth-button">
-              <button className="type-button submit" type="submit">Sign in</button>
-            </div>
-          </form>
-          <div className="ml-4">
-            <h2>First time?</h2>
-            <div className="button-outline m-3">
-              <a href="#signUp"><button className="type-button">Sign up</button></a>
+            <div className="mt-4 ml-4 h5">
+              <a className="text-decoration-none demo-link" role="button" onClick={this.autoFill}>Click here if you don&apos;t like signing up</a>
             </div>
           </div>
-          <div className="mt-4 ml-4 h5">
-            <a className="text-decoration-none demo-link" role="button" onClick={this.autoFill}>Click here if you don&apos;t like signing up</a>
-          </div>
-        </div>
+        </Fade>
       </div>
     );
   }

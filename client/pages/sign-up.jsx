@@ -1,5 +1,6 @@
 import React from 'react';
 import Spinner from '../components/spinner';
+import Fade from 'react-reveal/Fade';
 
 export default class SignUp extends React.Component {
   constructor(props) {
@@ -47,31 +48,33 @@ export default class SignUp extends React.Component {
 
     return (
       <div className="container mt-0">
-        <div className="header d-flex justify-content-between align-items-center">
-          <i className="fas fa-arrow-left invisible"></i>
-          <h2 className="m-0">Sign up</h2>
-          <a className="text-dark" href="#login"><i className="fas fa-arrow-left"></i></a>
-        </div>
-        <form className="form" onSubmit={this.handleSubmit}>
-          <div className="form-group d-flex flex-column input-div">
-            <label htmlFor="username">Username</label>
-            <input type="text" className="text-input" id="username" required
-              onChange={this.handleChange} name="username" value={this.state.username} />
+        <Fade>
+          <div className="header d-flex justify-content-between align-items-center">
+            <i className="fas fa-arrow-left invisible"></i>
+            <h2 className="m-0">Sign up</h2>
+            <a className="text-dark" href="#login"><i className="fas fa-arrow-left"></i></a>
           </div>
-          <div className="form-group d-flex flex-column input-div">
-            <label htmlFor="email">Email</label>
-            <input type="email" className="text-input" id="email" required
-              onChange={this.handleChange} name="email" value={this.state.email} />
-          </div>
-          <div className="form-group d-flex flex-column">
-            <label htmlFor="password">Password</label>
-            <input type="password" minLength="8" required id="password" className="text-input"
-              onChange={this.handleChange} name="password" value={this.state.password} />
-          </div>
-          <div className="button-outline form-submit auth-button">
-            <button className="type-button submit" type="submit">Sign up</button>
-          </div>
-        </form>
+          <form className="form" onSubmit={this.handleSubmit}>
+            <div className="form-group d-flex flex-column input-div">
+              <label htmlFor="username">Username</label>
+              <input type="text" className="text-input" id="username" required
+                onChange={this.handleChange} name="username" value={this.state.username} />
+            </div>
+            <div className="form-group d-flex flex-column input-div">
+              <label htmlFor="email">Email</label>
+              <input type="email" className="text-input" id="email" required
+                onChange={this.handleChange} name="email" value={this.state.email} />
+            </div>
+            <div className="form-group d-flex flex-column">
+              <label htmlFor="password">Password</label>
+              <input type="password" minLength="8" required id="password" className="text-input"
+                onChange={this.handleChange} name="password" value={this.state.password} />
+            </div>
+            <div className="button-outline form-submit auth-button">
+              <button className="type-button submit" type="submit">Sign up</button>
+            </div>
+          </form>
+        </Fade>
       </div>
     );
   }

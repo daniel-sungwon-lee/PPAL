@@ -1,5 +1,6 @@
 import React from 'react';
 import Spinner from '../components/spinner';
+import Fade from 'react-reveal/Fade';
 
 const days = [
   {
@@ -104,13 +105,15 @@ function Accordion(props) {
   const { day, num } = props.obj;
   return (
     <div className="card">
-      <div className="card-header" id={`heading${num}`}>
-        <h2 className="mb-0">
-          <button className="accordion-button btn btn-block text-left" type="button" data-toggle="collapse" data-target={`#collapse${num}`} aria-expanded="true" aria-controls={`collapse${num}`}>
-            {day}
-          </button>
-        </h2>
-      </div>
+      <Fade top>
+        <div className="card-header" id={`heading${num}`}>
+          <h2 className="mb-0">
+            <button className="accordion-button btn btn-block text-left" type="button" data-toggle="collapse" data-target={`#collapse${num}`} aria-expanded="true" aria-controls={`collapse${num}`}>
+              {day}
+            </button>
+          </h2>
+        </div>
+      </Fade>
       <div id={`collapse${num}`} className="collapse show" aria-labelledby={`heading${num}`} data-parent="#accordionExample">
         <div className="card-body">
           {
@@ -134,16 +137,18 @@ function Routine(props) {
   const { name, routineId } = props.routine;
   return (
     <div id={routineId} className="routines-exercise-row d-flex justify-content-between align-items-center mb-5">
-      <a className="w-75 text-decoration-none text-dark"
-        href={`#routine?routineId=${routineId}`}>
-        <div className="row row-exercise m-0">
-          <button className="h4 exercise-name">{name}</button>
+      <Fade bottom>
+        <a className="w-75 text-decoration-none text-dark"
+          href={`#routine?routineId=${routineId}`}>
+          <div className="row row-exercise m-0">
+            <button className="h4 exercise-name">{name}</button>
+          </div>
+        </a>
+        <div className="icons-div">
+          <a className="text-dark" href={`#routineForm?formType=edit&routineId=${routineId}`}><i className="fas fa-pen"></i></a>
+          <i className="fas fa-trash" data-toggle="modal" data-target={`#staticBackdrop${routineId}`}></i>
         </div>
-      </a>
-      <div className="icons-div">
-        <a className="text-dark" href={`#routineForm?formType=edit&routineId=${routineId}`}><i className="fas fa-pen"></i></a>
-        <i className="fas fa-trash" data-toggle="modal" data-target={`#staticBackdrop${routineId}`}></i>
-      </div>
+      </Fade>
       <ModalStatic key={routineId} deleteRoutine={props.deleteRoutine} routineId={routineId} />
     </div>
   );

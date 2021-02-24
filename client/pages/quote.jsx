@@ -1,5 +1,6 @@
 import React from 'react';
 import Spinner from '../components/spinner';
+import Zoom from 'react-reveal/Zoom';
 
 export default class Quote extends React.Component {
   constructor(props) {
@@ -47,19 +48,21 @@ export default class Quote extends React.Component {
     return (
         <div className="container single-exercise">
           <h2 className="text-center header">Quote</h2>
-          <div className="row row-exercise-single row-quote">
-            {
-              this.state.loading
-                ? <Spinner />
-                : <div className="quote">
-                    <h4>{this.state.quote}</h4>
-                    <h5>{`-${this.state.author}`}</h5>
-                  </div>
-            }
-          </div>
-          <div className="row">
-            <i className="fas fa-redo-alt" onClick={this.handleClick}></i>
-          </div>
+          <Zoom>
+            <div className="row row-exercise-single row-quote">
+              {
+                this.state.loading
+                  ? <Spinner />
+                  : <div className="quote">
+                      <h4>{this.state.quote}</h4>
+                      <h5>{`-${this.state.author}`}</h5>
+                    </div>
+              }
+            </div>
+            <div className="row">
+              <i className="fas fa-redo-alt" onClick={this.handleClick}></i>
+            </div>
+          </Zoom>
         </div>
     );
   }

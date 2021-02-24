@@ -1,5 +1,6 @@
 import React from 'react';
 import Spinner from '../components/spinner';
+import Zoom from 'react-reveal/Zoom';
 
 function ModalStatic(props) {
   return (
@@ -105,39 +106,41 @@ export default class RoutineForm extends React.Component {
         ? <Spinner />
         : <div className="container">
             <ModalStatic handleCancel={this.handleCancel} />
-            <div className="header d-flex justify-content-between align-items-center">
-              <i className="fas fa-ban invisible"></i>
-              <h2 className="text-uppercase m-0">{this.data.type}</h2>
-              <i className="fas fa-ban" data-toggle="modal" data-target="#staticBackdrop"></i>
-            </div>
-            <form className="form" onSubmit={this.handleSubmit}>
-              <div className="form-group d-flex flex-column input-div">
-                <label htmlFor="routineName">Routine name</label>
-                <input type="text" className="text-input" id="routineName" required
-                 placeholder="Push" onChange={this.handleChange} name="name" value={this.state.name}/>
+            <Zoom>
+              <div className="header d-flex justify-content-between align-items-center">
+                <i className="fas fa-ban invisible"></i>
+                <h2 className="text-uppercase m-0">{this.data.type}</h2>
+                <i className="fas fa-ban" data-toggle="modal" data-target="#staticBackdrop"></i>
               </div>
-              <div className="form-group d-flex flex-column input-div">
-                <label htmlFor="routineDay">Day of the week</label>
-                <select required value={this.state.day} className="select" id="routineDay" name="day" onChange={this.handleChange}>
-                  <option disabled hidden value="">Pick a day</option>
-                  <option>Sunday</option>
-                  <option>Monday</option>
-                  <option>Tuesday</option>
-                  <option>Wednesday</option>
-                  <option>Thursday</option>
-                  <option>Friday</option>
-                  <option>Saturday</option>
-                </select>
-              </div>
-              <div className="form-group d-flex flex-column">
-                <label htmlFor="routineDescription">Routine description</label>
-                <textarea className="textarea" id="routineDescription" required placeholder="Chest and triceps workout"
-                 onChange={this.handleChange} name="description" value={this.state.description}></textarea>
-              </div>
-              <div className="button-outline form-submit">
-                <button className="type-button submit" type="submit">Save</button>
-              </div>
-            </form>
+              <form className="form" onSubmit={this.handleSubmit}>
+                <div className="form-group d-flex flex-column input-div">
+                  <label htmlFor="routineName">Routine name</label>
+                  <input type="text" className="text-input" id="routineName" required
+                  placeholder="Push" onChange={this.handleChange} name="name" value={this.state.name}/>
+                </div>
+                <div className="form-group d-flex flex-column input-div">
+                  <label htmlFor="routineDay">Day of the week</label>
+                  <select required value={this.state.day} className="select" id="routineDay" name="day" onChange={this.handleChange}>
+                    <option disabled hidden value="">Pick a day</option>
+                    <option>Sunday</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                  </select>
+                </div>
+                <div className="form-group d-flex flex-column">
+                  <label htmlFor="routineDescription">Routine description</label>
+                  <textarea className="textarea" id="routineDescription" required placeholder="Chest and triceps workout"
+                  onChange={this.handleChange} name="description" value={this.state.description}></textarea>
+                </div>
+                <div className="button-outline form-submit">
+                  <button className="type-button submit" type="submit">Save</button>
+                </div>
+              </form>
+            </Zoom>
           </div>
     );
   }

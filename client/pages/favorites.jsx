@@ -1,5 +1,6 @@
 import React from 'react';
 import Spinner from '../components/spinner';
+import Fade from 'react-reveal/Fade';
 
 export default class Favorites extends React.Component {
   constructor(props) {
@@ -67,13 +68,15 @@ export default class Favorites extends React.Component {
 function ExerciseTypeHeader(props) {
   return (
     <>
-    <div className="d-flex justify-content-start m-4">
-      <div className="type-header d-flex align-items-center justify-content-center">
-        <div className="w-100">
-          <h3 className="m-0 pl-4">{props.name}</h3>
+    <Fade bottom>
+      <div className="d-flex justify-content-start m-4">
+        <div className="type-header d-flex align-items-center justify-content-center">
+          <div className="w-100">
+            <h3 className="m-0 pl-4">{props.name}</h3>
+          </div>
         </div>
       </div>
-    </div>
+    </Fade>
     <>
       {
         props.favorites.map(exercise => {
@@ -99,14 +102,16 @@ function Exercise(props) {
   return (
     <>
       <div id={exerciseId} className="favorites-exercise-row d-flex justify-content-between align-items-center mb-5">
-        <a className="w-75 text-decoration-none text-dark"
-          href={`#favoritesExercise?exerciseId=${exerciseId}`}
-          onClick={() => props.previousHash(window.location.hash)}>
-          <div className="row row-exercise m-0">
-            <button className="h4 exercise-name">{name}</button>
-          </div>
-        </a>
-        <i className="fas fa-trash" data-toggle="modal" data-target={`#staticBackdrop${exerciseId}`}></i>
+        <Fade bottom>
+          <a className="w-75 text-decoration-none text-dark"
+            href={`#favoritesExercise?exerciseId=${exerciseId}`}
+            onClick={() => props.previousHash(window.location.hash)}>
+            <div className="row row-exercise m-0">
+              <button className="h4 exercise-name">{name}</button>
+            </div>
+          </a>
+          <i className="fas fa-trash" data-toggle="modal" data-target={`#staticBackdrop${exerciseId}`}></i>
+        </Fade>
         <ModalStatic key={exerciseId} deleteExercise={props.deleteExercise} id={exerciseId}/>
       </div>
     </>

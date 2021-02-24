@@ -1,5 +1,6 @@
 import React from 'react';
 import Spinner from '../components/spinner';
+import Zoom from 'react-reveal/Zoom';
 
 export default class ExerciseDetail extends React.Component {
   constructor(props) {
@@ -127,55 +128,57 @@ function SingleExercise(props) {
 
   return (
     <div className="container single-exercise">
-      <div className="header d-flex justify-content-between align-items-center header-packed">
-        <i className="fas fa-times invisible"></i>
-        <h2 className="text-center m-0 mx-2 text-break">{name}</h2>
-        <a className="text-dark" href={props.previousHash}><i className="fas fa-times"></i></a>
-      </div>
-      <div className="row row-exercise-single">
-        <div className="w-100">
-          <div className="img-div">
-            {
-              images !== undefined && images.length !== 0
-                ? <Carousel key={id} images={images} />
-                : <i className="fas fa-images"></i>
-            }
-          </div>
-          <i className="fas fa-star star-icon" data-toggle="modal" data-target="#saveModal" onClick={props.handleStarClick} style={{ color: props.data.starColor }}></i>
-          <Modal message={props.data.message} />
-          <div className="description">
-            <p>{description.replace(/(<([^>]+)>)/gi, '')}</p>
-          </div>
+      <Modal message={props.data.message} />
+      <Zoom>
+        <div className="header d-flex justify-content-between align-items-center header-packed">
+          <i className="fas fa-times invisible"></i>
+          <h2 className="text-center m-0 mx-2 text-break">{name}</h2>
+          <a className="text-dark" href={props.previousHash}><i className="fas fa-times"></i></a>
         </div>
-      </div>
-      <div className="row">
-        <div className="link">
-          <a href={`https://www.google.com/search?q=${name} Exercise`} target="_blank" rel="noreferrer"
-          className="text-decoration-none link">{`Click here to search for ${name}`}</a>
-        </div>
-      </div>
-      <div className="row justify-content-around">
-        <div className="d-flex flex-column align-items-center">
-          <div className="reps d-flex align-items-center">
-            <h4 className="m-0">Sets</h4>
-            <div className="sort d-flex flex-column ml-4">
-              <i className="fas fa-caret-up" onClick={props.handleSetsUp}></i>
-              <i className="fas fa-caret-down" onClick={props.handleSetsDown}></i>
+        <div className="row row-exercise-single">
+          <div className="w-100">
+            <div className="img-div">
+              {
+                images !== undefined && images.length !== 0
+                  ? <Carousel key={id} images={images} />
+                  : <i className="fas fa-images"></i>
+              }
+            </div>
+            <i className="fas fa-star star-icon" data-toggle="modal" data-target="#saveModal" onClick={props.handleStarClick} style={{ color: props.data.starColor }}></i>
+            <div className="description">
+              <p>{description.replace(/(<([^>]+)>)/gi, '')}</p>
             </div>
           </div>
-          <h4 className="num">{props.state.sets}</h4>
         </div>
-        <div className="d-flex flex-column align-items-center">
-          <div className="sets d-flex align-items-center">
-            <h4 className="m-0">Reps</h4>
-            <div className="sort d-flex flex-column ml-4">
-              <i className="fas fa-caret-up" onClick={props.handleRepsUp}></i>
-              <i className="fas fa-caret-down" onClick={props.handleRepsDown}></i>
-            </div>
+        <div className="row">
+          <div className="link">
+            <a href={`https://www.google.com/search?q=${name} Exercise`} target="_blank" rel="noreferrer"
+            className="text-decoration-none link">{`Click here to search for ${name}`}</a>
           </div>
-          <h4 className="num">{props.state.reps}</h4>
         </div>
-      </div>
+        <div className="row justify-content-around">
+          <div className="d-flex flex-column align-items-center">
+            <div className="reps d-flex align-items-center">
+              <h4 className="m-0">Sets</h4>
+              <div className="sort d-flex flex-column ml-4">
+                <i className="fas fa-caret-up" onClick={props.handleSetsUp}></i>
+                <i className="fas fa-caret-down" onClick={props.handleSetsDown}></i>
+              </div>
+            </div>
+            <h4 className="num">{props.state.sets}</h4>
+          </div>
+          <div className="d-flex flex-column align-items-center">
+            <div className="sets d-flex align-items-center">
+              <h4 className="m-0">Reps</h4>
+              <div className="sort d-flex flex-column ml-4">
+                <i className="fas fa-caret-up" onClick={props.handleRepsUp}></i>
+                <i className="fas fa-caret-down" onClick={props.handleRepsDown}></i>
+              </div>
+            </div>
+            <h4 className="num">{props.state.reps}</h4>
+          </div>
+        </div>
+      </Zoom>
     </div>
   );
 }

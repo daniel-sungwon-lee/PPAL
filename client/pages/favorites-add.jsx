@@ -1,5 +1,6 @@
 import React from 'react';
 import Spinner from '../components/spinner';
+import Fade from 'react-reveal/Fade';
 
 const modalTypes = [
   { id: 1, message: 'Cancel?', message2: '' },
@@ -106,7 +107,7 @@ export default class AddFavorites extends React.Component {
               <h2 className="text-center mx-2 mb-0 text-break">{`Add to ${this.data.routineName}`}</h2>
               <i className={this.state.classN} data-toggle="modal" data-target={'#staticBackdrop2'}></i>
             </div>
-            <>
+            <Fade bottom>
             {
               this.props.types.map(type => {
                 return (
@@ -118,7 +119,7 @@ export default class AddFavorites extends React.Component {
                 );
               })
             }
-            </>
+            </Fade>
           </div>
     );
   }
