@@ -1,5 +1,6 @@
 import React from 'react';
 import Spinner from '../components/spinner';
+import Fade from 'react-reveal/Fade';
 
 export default class RoutineDetail extends React.Component {
   constructor(props) {
@@ -132,18 +133,20 @@ function Exercise(props) {
   const { exerciseId, name, isCompleted } = props.exercise;
   return (
     <div className="d-flex mb-5 align-items-center">
-      <label className={props.checkLabelClass} htmlFor={`check${exerciseId}`}></label>
-      <input type="checkbox" id={`check${exerciseId}`}
-        className="d-none" checked={isCompleted}
-        onChange={props.handleChange}/>
-      <a className="text-decoration-none text-dark w-100"
-        href={`#favoritesExercise?exerciseId=${exerciseId}`}
-        onClick={() => props.previousHash(window.location.hash)}>
-        <div className="row row-exercise mb-0">
-          <button className={props.buttonClass}>{name}</button>
-        </div>
-      </a>
-      <i className="fas fa-trash ml-4" data-toggle="modal" data-target={`#staticBackdrop${exerciseId}`}></i>
+      <Fade bottom>
+        <label className={props.checkLabelClass} htmlFor={`check${exerciseId}`}></label>
+        <input type="checkbox" id={`check${exerciseId}`}
+          className="d-none" checked={isCompleted}
+          onChange={props.handleChange}/>
+        <a className="text-decoration-none text-dark w-100"
+          href={`#favoritesExercise?exerciseId=${exerciseId}`}
+          onClick={() => props.previousHash(window.location.hash)}>
+          <div className="row row-exercise mb-0">
+            <button className={props.buttonClass}>{name}</button>
+          </div>
+        </a>
+        <i className="fas fa-trash ml-4" data-toggle="modal" data-target={`#staticBackdrop${exerciseId}`}></i>
+      </Fade>
       <ModalStatic key={exerciseId} deleteRoutineExercise={() => props.deleteRoutineExercise(exerciseId)} id={exerciseId} />
     </div>
   );
