@@ -1,4 +1,5 @@
 import React from 'react';
+import Bounce from 'react-reveal/Bounce';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -10,14 +11,16 @@ export default class Home extends React.Component {
     return (
       <>
       <div className="container">
-      <h2 className="text-center header">Home</h2>
-        {
-          this.props.types.map(type => {
-            return (
-            <HomeButton key={type.id} type={type} />
-            );
-          })
-        }
+        <h2 className="text-center header">Home</h2>
+        <Bounce>
+          {
+            this.props.types.map(type => {
+              return (
+              <HomeButton key={type.id} type={type} />
+              );
+            })
+          }
+        </Bounce>
       </div>
       </>
     );

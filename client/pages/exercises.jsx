@@ -1,5 +1,6 @@
 import React from 'react';
 import Spinner from '../components/spinner';
+import Fade from 'react-reveal/Fade';
 
 const apiURLParts = {
   chest: {
@@ -82,13 +83,15 @@ export default class Exercises extends React.Component {
                 <a className="text-dark" href="#"><i className="fas fa-arrow-left"></i></a>
               </div>
               <div className="m-auto w-75">
-                {
-                  this.state.exercises.map(exercise => {
-                    return (
-                      <Exercise key={exercise.id} exercise={exercise} previousHash={this.props.previousHash} />
-                    );
-                  })
-                }
+                <Fade bottom>
+                  {
+                    this.state.exercises.map(exercise => {
+                      return (
+                        <Exercise key={exercise.id} exercise={exercise} previousHash={this.props.previousHash} />
+                      );
+                    })
+                  }
+                </Fade>
               </div>
             </div>
       }

@@ -1,4 +1,5 @@
 import React from 'react';
+import Zoom from 'react-reveal/Zoom';
 
 export default class Stopwatch extends React.Component {
   constructor(props) {
@@ -42,21 +43,23 @@ export default class Stopwatch extends React.Component {
     return (
       <div className="container">
         <h2 className="text-center header">Stopwatch</h2>
-        {
-          this.state.start
-            ? <div className="row-watch">
-                <div className="watch">
-                  <h1 className="m-0 timer">{timer}</h1>
+        <Zoom>
+          {
+            this.state.start
+              ? <div className="row-watch">
+                  <div className="watch">
+                    <h1 className="m-0 timer">{timer}</h1>
+                  </div>
+                  <i onClick={this.pause} className="fas fa-pause"></i>
                 </div>
-                <i onClick={this.pause} className="fas fa-pause"></i>
-              </div>
-            : <div className="row-watch">
-                <div onClick={this.clear} className="watch" style={{ cursor: 'pointer' }}>
-                  <h1 className="m-0 timer">{timer}</h1>
+              : <div className="row-watch">
+                  <div onClick={this.clear} className="watch" style={{ cursor: 'pointer' }}>
+                    <h1 className="m-0 timer">{timer}</h1>
+                  </div>
+                  <i onClick={this.play} className="fas fa-play"></i>
                 </div>
-                <i onClick={this.play} className="fas fa-play"></i>
-              </div>
-        }
+          }
+        </Zoom>
       </div>
     );
   }
