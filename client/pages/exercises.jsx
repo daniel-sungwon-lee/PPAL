@@ -103,7 +103,7 @@ function Exercise(props) {
     <a className="text-decoration-none text-dark"
       href={`#exercise?exerciseId=${id}`}
       onClick={() => props.previousHash(window.location.hash)}>
-      <div className="row row-exercise w-100">
+      <div id={id} className="row row-exercise w-100">
         <button className="h4 exercise-name">{name}</button>
       </div>
     </a>
