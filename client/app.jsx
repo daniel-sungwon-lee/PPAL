@@ -101,7 +101,8 @@ export default class App extends React.Component {
         return type.name;
       });
       if (typeNames.includes(route.path)) {
-        return <Exercises exercise={route.path} previousHash={this.previousHash} previousExId={this.state.previousExerciseId} />;
+        return <Exercises exercise={route.path} previousHash={this.previousHash}
+                previousExId={this.state.previousExerciseId} />;
       }
 
       if (route.path === 'exercise') {
@@ -112,13 +113,15 @@ export default class App extends React.Component {
       }
 
       if (route.path === 'favorites') {
-        return <Favorites userId={userId} types={types} previousHash={this.previousHash} />;
+        return <Favorites userId={userId} types={types} previousHash={this.previousHash}
+                previousExId={this.state.previousExerciseId} />;
       }
 
       if (route.path === 'favoritesExercise') {
         const exerciseId = route.params.get('exerciseId');
 
-        return <ExerciseFav userId={userId} exerciseId={exerciseId} previousHash={this.state.previousHash}/>;
+        return <ExerciseFav userId={userId} exerciseId={exerciseId}
+                previousHash={this.state.previousHash} previousExerciseId={this.previousExerciseId} />;
       }
 
       if (route.path === 'routines') {
@@ -143,7 +146,7 @@ export default class App extends React.Component {
         const routineName = route.params.get('routineName');
 
         return <AddFavorites routineId={routineId} routineName={routineName}
-                userId={userId} previousHash={this.previousHash} types={types} />;
+                userId={userId} previousHash={this.previousHash} types={types} previousExId={this.state.previousExerciseId} />;
       }
 
       if (route.path === 'stopwatch') {

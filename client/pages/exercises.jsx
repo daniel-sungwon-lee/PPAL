@@ -72,8 +72,7 @@ export default class Exercises extends React.Component {
               duration: 1000,
               smooth: true,
               delay: 0,
-              offset: -94,
-              isDynamic: true
+              offset: -164
             });
           }
         })

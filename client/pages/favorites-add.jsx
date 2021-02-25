@@ -1,6 +1,7 @@
 import React from 'react';
 import Spinner from '../components/spinner';
 import Fade from 'react-reveal/Fade';
+import { scroller } from 'react-scroll/modules';
 
 const modalTypes = [
   { id: 1, message: 'Cancel?', message2: '' },
@@ -31,6 +32,15 @@ export default class AddFavorites extends React.Component {
       .then(res => res.json())
       .then(favorites => {
         this.setState({ favorites: favorites, loading: false });
+
+        if (this.props.previousExId) {
+          scroller.scrollTo(this.props.previousExId, {
+            duration: 1000,
+            smooth: true,
+            delay: 0,
+            offset: -94
+          });
+        }
       })
       .catch(() => location.reload());
   }
@@ -107,7 +117,7 @@ export default class AddFavorites extends React.Component {
               <h2 className="text-center mx-2 mb-0 text-break">{`Add to ${this.data.routineName}`}</h2>
               <i className={this.state.classN} data-toggle="modal" data-target={'#staticBackdrop2'}></i>
             </div>
-            <Fade bottom>
+            <>
             {
               this.props.types.map(type => {
                 return (
@@ -119,7 +129,7 @@ export default class AddFavorites extends React.Component {
                 );
               })
             }
-            </Fade>
+            </>
           </div>
     );
   }
@@ -128,13 +138,15 @@ export default class AddFavorites extends React.Component {
 function ExerciseTypeHeader(props) {
   return (
     <>
-      <div className="d-flex justify-content-start m-4">
-        <div className="type-header d-flex align-items-center justify-content-center">
-          <div className="w-100">
-            <h3 className="m-0 pl-4">{props.name}</h3>
+      <Fade bottom>
+        <div className="d-flex justify-content-start m-4">
+          <div className="type-header d-flex align-items-center justify-content-center">
+            <div className="w-100">
+              <h3 className="m-0 pl-4">{props.name}</h3>
+            </div>
           </div>
         </div>
-      </div>
+      </Fade>
       <>
         {
           props.favorites.map(exercise => {
@@ -161,19 +173,21 @@ function Exercise(props) {
   return (
     <>
       <div id={exerciseId} className="favorites-exercise-row d-flex justify-content-between align-items-center mb-5">
-        <a className="w-75 text-decoration-none text-dark"
-          href={`#favoritesExercise?exerciseId=${exerciseId}`}
-          onClick={() => props.previousHash(window.location.hash)}>
-          <div className="row row-exercise m-0">
-            <button className="h4 exercise-name">{name}</button>
-          </div>
-        </a>
-        <label className="fas fa-plus favs-add" htmlFor={`check${exerciseId}`} style={{ transform: 'rotate(0deg)' }}></label>
-        <input id={`check${exerciseId}`}
-           className="d-none"
-           type="checkbox"
-           onClick={props.handleClick}
-           onChange={props.handleChange} />
+        <Fade bottom>
+          <a className="w-75 text-decoration-none text-dark"
+            href={`#favoritesExercise?exerciseId=${exerciseId}`}
+            onClick={() => props.previousHash(window.location.hash)}>
+            <div className="row row-exercise m-0">
+              <button className="h4 exercise-name">{name}</button>
+            </div>
+          </a>
+          <label className="fas fa-plus favs-add" htmlFor={`check${exerciseId}`} style={{ transform: 'rotate(0deg)' }}></label>
+          <input id={`check${exerciseId}`}
+            className="d-none"
+            type="checkbox"
+            onClick={props.handleClick}
+            onChange={props.handleChange} />
+        </Fade>
       </div>
     </>
   );
