@@ -60,7 +60,6 @@ export default class Login extends React.Component {
 
     return (
       <div className="container mt-0">
-        <Info />
         <Fade>
           <div className="text-center header">
             <h1>PPAL</h1>
@@ -96,6 +95,7 @@ export default class Login extends React.Component {
             </div>
           </div>
         </Fade>
+        <Info />
       </div>
     );
   }
