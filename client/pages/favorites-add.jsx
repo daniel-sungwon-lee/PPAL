@@ -1,6 +1,7 @@
 import React from 'react';
 import Spinner from '../components/spinner';
 import Fade from 'react-reveal/Fade';
+import { scroller } from 'react-scroll/modules';
 
 const modalTypes = [
   { id: 1, message: 'Cancel?', message2: '' },
@@ -31,6 +32,15 @@ export default class AddFavorites extends React.Component {
       .then(res => res.json())
       .then(favorites => {
         this.setState({ favorites: favorites, loading: false });
+
+        if (this.props.previousExId) {
+          scroller.scrollTo(this.props.previousExId, {
+            duration: 1000,
+            smooth: true,
+            delay: 0,
+            offset: -164
+          });
+        }
       })
       .catch(() => location.reload());
   }
@@ -55,9 +65,11 @@ export default class AddFavorites extends React.Component {
           .catch(() => location.reload());
       }
       window.location.hash = `#routine?routineId=${this.data.routineId}`;
+      this.props.previousExerciseId(null);
 
     } else {
       window.location.hash = `#routine?routineId=${this.data.routineId}`;
+      this.props.previousExerciseId(null);
     }
   }
 
@@ -107,7 +119,7 @@ export default class AddFavorites extends React.Component {
               <h2 className="text-center mx-2 mb-0 text-break">{`Add to ${this.data.routineName}`}</h2>
               <i className={this.state.classN} data-toggle="modal" data-target={'#staticBackdrop2'}></i>
             </div>
-            <Fade bottom>
+            <>
             {
               this.props.types.map(type => {
                 return (
@@ -119,7 +131,7 @@ export default class AddFavorites extends React.Component {
                 );
               })
             }
-            </Fade>
+            </>
           </div>
     );
   }
@@ -128,14 +140,16 @@ export default class AddFavorites extends React.Component {
 function ExerciseTypeHeader(props) {
   return (
     <>
-      <div className="d-flex justify-content-start m-4">
-        <div className="type-header d-flex align-items-center justify-content-center">
-          <div className="w-100">
-            <h3 className="m-0 pl-4">{props.name}</h3>
+      <Fade bottom>
+        <div className="d-flex justify-content-start m-4">
+          <div className="type-header d-flex align-items-center justify-content-center">
+            <div className="w-100">
+              <h3 className="m-0 pl-4">{props.name}</h3>
+            </div>
           </div>
         </div>
-      </div>
-      <>
+      </Fade>
+      <Fade bottom>
         {
           props.favorites.map(exercise => {
             if (exercise.type === props.name) {
@@ -151,7 +165,7 @@ function ExerciseTypeHeader(props) {
             }
           })
         }
-      </>
+      </Fade>
     </>
   );
 }

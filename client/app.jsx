@@ -33,11 +33,15 @@ export default class App extends React.Component {
       route: parseRoute(window.location.hash),
       previousHash: null,
       user: null,
-      authorizing: true
+      authorizing: true,
+      previousExerciseId: null,
+      previousRoutineId: null
     };
     this.previousHash = this.previousHash.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.previousExerciseId = this.previousExerciseId.bind(this);
+    this.previousRoutineId = this.previousRoutineId.bind(this);
   }
 
   componentDidMount() {
@@ -68,6 +72,14 @@ export default class App extends React.Component {
     this.setState({ user: null });
   }
 
+  previousExerciseId(id) {
+    this.setState({ previousExerciseId: id });
+  }
+
+  previousRoutineId(id) {
+    this.setState({ previousRoutineId: id });
+  }
+
   renderPage() {
     const { route, user } = this.state;
 
@@ -95,41 +107,47 @@ export default class App extends React.Component {
         return type.name;
       });
       if (typeNames.includes(route.path)) {
-        return <Exercises exercise={route.path} previousHash={this.previousHash} />;
+        return <Exercises exercise={route.path} previousHash={this.previousHash}
+                previousExId={this.state.previousExerciseId} previousExerciseId={this.previousExerciseId} />;
       }
 
       if (route.path === 'exercise') {
         const exerciseId = route.params.get('exerciseId');
 
         return <ExerciseDetail exerciseId={exerciseId} userId={userId}
-                previousHash={this.state.previousHash}/>;
+                previousHash={this.state.previousHash} previousExerciseId={this.previousExerciseId} />;
       }
 
       if (route.path === 'favorites') {
-        return <Favorites userId={userId} types={types} previousHash={this.previousHash} />;
+        return <Favorites userId={userId} types={types} previousHash={this.previousHash}
+                previousExId={this.state.previousExerciseId} />;
       }
 
       if (route.path === 'favoritesExercise') {
         const exerciseId = route.params.get('exerciseId');
 
-        return <ExerciseFav userId={userId} exerciseId={exerciseId} previousHash={this.state.previousHash}/>;
+        return <ExerciseFav userId={userId} exerciseId={exerciseId}
+                previousHash={this.state.previousHash} previousExerciseId={this.previousExerciseId} />;
       }
 
       if (route.path === 'routines') {
-        return <Routines userId={userId} />;
+        return <Routines userId={userId} previousRoutineId={this.state.previousRoutineId} />;
       }
 
       if (route.path === 'routineForm') {
         const type = route.params.get('formType');
         const routineId = route.params.get('routineId');
 
-        return <RoutineForm userId={userId} type={type} routineId={routineId} />;
+        return <RoutineForm userId={userId} type={type} routineId={routineId}
+                previousRoutineId={this.previousRoutineId} />;
       }
 
       if (route.path === 'routine') {
         const routineId = route.params.get('routineId');
 
-        return <RoutineDetail userId={userId} routineId={routineId} previousHash={this.previousHash} />;
+        return <RoutineDetail userId={userId} routineId={routineId} previousHash={this.previousHash}
+                previousExId={this.state.previousExerciseId} previousRoutineId={this.previousRoutineId}
+                previousExerciseId={this.previousExerciseId} />;
       }
 
       if (route.path === 'favoritesAdd') {
@@ -137,7 +155,8 @@ export default class App extends React.Component {
         const routineName = route.params.get('routineName');
 
         return <AddFavorites routineId={routineId} routineName={routineName}
-                userId={userId} previousHash={this.previousHash} types={types} />;
+                userId={userId} previousHash={this.previousHash} types={types}
+                previousExId={this.state.previousExerciseId} previousExerciseId={this.previousExerciseId} />;
       }
 
       if (route.path === 'stopwatch') {
@@ -156,8 +175,11 @@ export default class App extends React.Component {
     }
     return (
       <>
-        <Nav user={this.state.user} handleLogout={this.handleLogout} />
+        <Nav user={this.state.user} handleLogout={this.handleLogout}
+         previousExerciseId={this.previousExerciseId} previousRoutineId={this.previousRoutineId} />
+        <>
         {this.renderPage()}
+        </>
       </>
     );
   }

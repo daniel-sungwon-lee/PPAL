@@ -1,6 +1,7 @@
 import React from 'react';
 import Spinner from '../components/spinner';
 import Fade from 'react-reveal/Fade';
+import { scroller } from 'react-scroll/modules';
 
 export default class Favorites extends React.Component {
   constructor(props) {
@@ -15,6 +16,15 @@ export default class Favorites extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({ favorites: data, loading: false });
+
+        if (this.props.previousExId) {
+          scroller.scrollTo(this.props.previousExId, {
+            duration: 1000,
+            smooth: true,
+            delay: 0,
+            offset: -94
+          });
+        }
       })
       .catch(() => location.reload());
 

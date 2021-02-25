@@ -1,6 +1,7 @@
 import React from 'react';
 import Spinner from '../components/spinner';
 import Fade from 'react-reveal/Fade';
+import { scroller } from 'react-scroll';
 
 const apiURLParts = {
   chest: {
@@ -65,6 +66,15 @@ export default class Exercises extends React.Component {
           const { results } = data;
           this.setState({ exercises: results });
           this.setState({ loading: false });
+
+          if (this.props.previousExId) {
+            scroller.scrollTo(this.props.previousExId, {
+              duration: 1000,
+              smooth: true,
+              delay: 0,
+              offset: -164
+            });
+          }
         })
         .catch(() => location.reload());
     }
@@ -80,7 +90,7 @@ export default class Exercises extends React.Component {
               <div className="header d-flex justify-content-between align-items-center">
                 <i className="fas fa-arrow-left invisible"></i>
                 <h2 className="m-0">{this.props.exercise}</h2>
-                <a className="text-dark" href="#"><i className="fas fa-arrow-left"></i></a>
+                <a className="text-dark" href="#" onClick={() => this.props.previousExerciseId(null)}><i className="fas fa-arrow-left"></i></a>
               </div>
               <div className="m-auto w-75">
                 <Fade bottom>

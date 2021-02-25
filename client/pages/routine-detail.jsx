@@ -1,6 +1,7 @@
 import React from 'react';
 import Spinner from '../components/spinner';
 import Fade from 'react-reveal/Fade';
+import { scroller } from 'react-scroll/modules';
 
 export default class RoutineDetail extends React.Component {
   constructor(props) {
@@ -29,6 +30,15 @@ export default class RoutineDetail extends React.Component {
           .then(res => res.json())
           .then(data => {
             this.setState({ exercises: data, loading: false });
+
+            if (this.props.previousExId) {
+              scroller.scrollTo(this.props.previousExId, {
+                duration: 1000,
+                smooth: true,
+                delay: 0,
+                offset: -94
+              });
+            }
           })
           .catch(() => location.reload());
       })
@@ -101,7 +111,9 @@ export default class RoutineDetail extends React.Component {
         : <div className="container">
             <Modal description={this.data.routine.description}/>
             <div className="header d-flex justify-content-between align-items-center header-packed">
-              <a className="text-dark" href="#routines"><i className="fas fa-arrow-left"></i></a>
+              <a className="text-dark" href="#routines" onClick={() => this.props.previousRoutineId(this.data.routineId)}>
+                <i onClick={() => this.props.previousExerciseId(null)} className="fas fa-arrow-left"></i>
+              </a>
               <h2 className="text-center m-0 mx-2 text-break" role="button" data-toggle="modal" data-target="#saveModal">{this.data.routine.name}</h2>
               <a className="text-dark" href={`#favoritesAdd?routineId=${this.data.routineId}&routineName=${this.data.routine.name}`}><i className="fas fa-plus"></i></a>
             </div>
@@ -132,7 +144,7 @@ export default class RoutineDetail extends React.Component {
 function Exercise(props) {
   const { exerciseId, name, isCompleted } = props.exercise;
   return (
-    <div className="d-flex mb-5 align-items-center">
+    <div id={exerciseId} className="d-flex mb-5 align-items-center">
       <Fade bottom>
         <label className={props.checkLabelClass} htmlFor={`check${exerciseId}`}></label>
         <input type="checkbox" id={`check${exerciseId}`}

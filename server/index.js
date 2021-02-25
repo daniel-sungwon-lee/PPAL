@@ -66,6 +66,7 @@ app.get('/api/favorites/:userId', (req, res, next) => {
   select *
     from "favorites"
     where "userId" = $1
+    order by "name"
   `;
   const params = [userId];
 
@@ -163,6 +164,7 @@ app.get('/api/routines/:userId', (req, res, next) => {
   select *
   from "routines"
   where "userId" = $1
+  order by "routineId"
   `;
   const params = [userId];
 
@@ -256,7 +258,7 @@ app.get('/api/routineExercises/:userId/:routineId', (req, res, next) => {
   join "favorites" using ("exerciseId")
   where "routineId" = $1
   and "userId" = $2
-  order by "isCompleted"
+  order by "isCompleted", "name"
   `;
   const params = [routineId, userId];
 
