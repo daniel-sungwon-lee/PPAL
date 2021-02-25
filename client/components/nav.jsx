@@ -19,7 +19,11 @@ export default class Nav extends React.Component {
               </button>
             </nav>
             <div className="collapse position-relative border-0" id="navbarToggleExternalContent">
-              <i className="fas fa-sign-out-alt" onClick={this.props.handleLogout}></i>
+              <a className="text-decoration-none" onClick={() => this.props.previousExerciseId(null)}>
+                <span onClick={() => this.props.previousRoutineId(null)}>
+                  <i className="fas fa-sign-out-alt text-white" onClick={this.props.handleLogout}></i>
+                </span>
+              </a>
               <div className="bg-dark p-4 pb-5 border-0">
                 <a href="#" className="text-decoration-none" onClick={() => this.props.previousExerciseId(null)}>
                   <h5 className="text-white h4 nav-links" onClick={() => this.props.previousRoutineId(null)} data-toggle="collapse" data-target="#navbarToggleExternalContent">
@@ -50,7 +54,9 @@ export default class Nav extends React.Component {
               <div className="username-greeting">
                 <h4>{`Hello, ${this.props.user.username}!`}</h4>
               </div>
-              <a href="#"><img src="icons/ppal.png" className="icofont-muscle" data-toggle="collapse" data-target="#navbarToggleExternalContent" alt="PPAL logo"/></a>
+              <a href="#" onClick={() => this.props.previousExerciseId(null)}>
+                <img src="icons/ppal.png" onClick={() => this.props.previousRoutineId(null)} className="icofont-muscle" data-toggle="collapse" data-target="#navbarToggleExternalContent" alt="PPAL logo"/>
+              </a>
             </div>
           </div>
           </>
