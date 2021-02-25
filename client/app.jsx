@@ -120,7 +120,7 @@ export default class App extends React.Component {
 
       if (route.path === 'favorites') {
         return <Favorites userId={userId} types={types} previousHash={this.previousHash}
-                previousExId={this.state.previousExerciseId} />;
+                previousExId={this.state.previousExerciseId} previousExerciseId={this.previousExerciseId} />;
       }
 
       if (route.path === 'favoritesExercise') {

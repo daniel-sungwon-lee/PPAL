@@ -55,7 +55,9 @@ export default class Favorites extends React.Component {
           <div className="header d-flex justify-content-between align-items-center">
             <i className="fas fa-plus invisible"></i>
             <h2 className="text-uppercase m-0">Favorites</h2>
-            <a className="text-dark" href="#"><i className="fas fa-plus"></i></a>
+            <a className="text-dark" href="#" onClick={() => this.props.previousExerciseId(null)}>
+              <i className="fas fa-plus"></i>
+            </a>
           </div>
           <>
           {
