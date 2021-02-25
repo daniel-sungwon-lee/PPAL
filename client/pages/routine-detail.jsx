@@ -111,7 +111,7 @@ export default class RoutineDetail extends React.Component {
         : <div className="container">
             <Modal description={this.data.routine.description}/>
             <div className="header d-flex justify-content-between align-items-center header-packed">
-              <a className="text-dark" href="#routines"><i className="fas fa-arrow-left"></i></a>
+              <a className="text-dark" href="#routines" onClick={() => this.props.previousRoutineId(this.data.routineId)}><i className="fas fa-arrow-left"></i></a>
               <h2 className="text-center m-0 mx-2 text-break" role="button" data-toggle="modal" data-target="#saveModal">{this.data.routine.name}</h2>
               <a className="text-dark" href={`#favoritesAdd?routineId=${this.data.routineId}&routineName=${this.data.routine.name}`}><i className="fas fa-plus"></i></a>
             </div>

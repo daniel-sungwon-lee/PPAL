@@ -34,12 +34,14 @@ export default class App extends React.Component {
       previousHash: null,
       user: null,
       authorizing: true,
-      previousExerciseId: null
+      previousExerciseId: null,
+      previousRoutineId: null
     };
     this.previousHash = this.previousHash.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.previousExerciseId = this.previousExerciseId.bind(this);
+    this.previousRoutineId = this.previousRoutineId.bind(this);
   }
 
   componentDidMount() {
@@ -74,6 +76,10 @@ export default class App extends React.Component {
     this.setState({ previousExerciseId: id });
   }
 
+  previousRoutineId(id) {
+    this.setState({ previousRoutineId: id });
+  }
+
   renderPage() {
     const { route, user } = this.state;
 
@@ -102,7 +108,7 @@ export default class App extends React.Component {
       });
       if (typeNames.includes(route.path)) {
         return <Exercises exercise={route.path} previousHash={this.previousHash}
-                previousExId={this.state.previousExerciseId} />;
+                previousExId={this.state.previousExerciseId} previousExerciseId={this.previousExerciseId} />;
       }
 
       if (route.path === 'exercise') {
@@ -125,21 +131,22 @@ export default class App extends React.Component {
       }
 
       if (route.path === 'routines') {
-        return <Routines userId={userId} />;
+        return <Routines userId={userId} previousRoutineId={this.state.previousRoutineId} />;
       }
 
       if (route.path === 'routineForm') {
         const type = route.params.get('formType');
         const routineId = route.params.get('routineId');
 
-        return <RoutineForm userId={userId} type={type} routineId={routineId} />;
+        return <RoutineForm userId={userId} type={type} routineId={routineId}
+                previousRoutineId={this.previousRoutineId} />;
       }
 
       if (route.path === 'routine') {
         const routineId = route.params.get('routineId');
 
         return <RoutineDetail userId={userId} routineId={routineId} previousHash={this.previousHash}
-                previousExId={this.state.previousExerciseId} />;
+                previousExId={this.state.previousExerciseId} previousRoutineId={this.previousRoutineId} />;
       }
 
       if (route.path === 'favoritesAdd') {
@@ -147,7 +154,8 @@ export default class App extends React.Component {
         const routineName = route.params.get('routineName');
 
         return <AddFavorites routineId={routineId} routineName={routineName}
-                userId={userId} previousHash={this.previousHash} types={types} previousExId={this.state.previousExerciseId} />;
+                userId={userId} previousHash={this.previousHash} types={types}
+                previousExId={this.state.previousExerciseId} previousExerciseId={this.previousExerciseId} />;
       }
 
       if (route.path === 'stopwatch') {
@@ -166,8 +174,11 @@ export default class App extends React.Component {
     }
     return (
       <>
-        <Nav user={this.state.user} handleLogout={this.handleLogout} />
+        <Nav user={this.state.user} handleLogout={this.handleLogout}
+         previousExerciseId={this.previousExerciseId} previousRoutineId={this.previousRoutineId} />
+        <>
         {this.renderPage()}
+        </>
       </>
     );
   }

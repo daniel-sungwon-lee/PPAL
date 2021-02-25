@@ -63,6 +63,8 @@ export default class RoutineForm extends React.Component {
 
   handleCancel() {
     window.location.hash = '#routines';
+
+    this.props.previousRoutineId(null);
   }
 
   handleSubmit(event) {
@@ -84,6 +86,8 @@ export default class RoutineForm extends React.Component {
         .then(res => res.json())
         .then(result => {
           window.location.hash = '#routines';
+
+          this.props.previousRoutineId(result.routineId);
         })
         .catch(() => location.reload());
 
@@ -95,6 +99,8 @@ export default class RoutineForm extends React.Component {
       })
         .then(result => {
           window.location.hash = '#routines';
+
+          this.props.previousRoutineId(this.data.routineId);
         })
         .catch(() => location.reload());
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 import Spinner from '../components/spinner';
 import Fade from 'react-reveal/Fade';
+import { scroller } from 'react-scroll/modules';
 
 const days = [
   {
@@ -46,6 +47,15 @@ export default class Routines extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({ routines: data, loading: false });
+
+        if (this.props.previousRoutineId) {
+          scroller.scrollTo(this.props.previousRoutineId, {
+            duration: 1000,
+            smooth: true,
+            delay: 0,
+            offset: -94
+          });
+        }
       })
       .catch(() => location.reload());
   }

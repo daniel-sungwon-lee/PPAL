@@ -65,9 +65,11 @@ export default class AddFavorites extends React.Component {
           .catch(() => location.reload());
       }
       window.location.hash = `#routine?routineId=${this.data.routineId}`;
+      this.props.previousExerciseId(null);
 
     } else {
       window.location.hash = `#routine?routineId=${this.data.routineId}`;
+      this.props.previousExerciseId(null);
     }
   }
 
