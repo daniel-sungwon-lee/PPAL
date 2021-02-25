@@ -114,7 +114,8 @@ export default class ExerciseDetail extends React.Component {
                 handleSetsDown={this.handleSetsDown}
                 state={this.state}
                 data={this.data}
-                previousHash={this.props.previousHash} />
+                previousHash={this.props.previousHash}
+                previousExerciseId={this.props.previousExerciseId} />
               );
             })
         }
@@ -133,7 +134,7 @@ function SingleExercise(props) {
         <div className="header d-flex justify-content-between align-items-center header-packed">
           <i className="fas fa-times invisible"></i>
           <h2 className="text-center m-0 mx-2 text-break">{name}</h2>
-          <a className="text-dark" href={props.previousHash}><i className="fas fa-times"></i></a>
+          <a className="text-dark" href={props.previousHash} onClick={() => props.previousExerciseId(id)}><i className="fas fa-times"></i></a>
         </div>
         <div className="row row-exercise-single">
           <div className="w-100">

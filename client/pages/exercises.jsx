@@ -1,6 +1,7 @@
 import React from 'react';
 import Spinner from '../components/spinner';
 import Fade from 'react-reveal/Fade';
+import { scroller } from 'react-scroll';
 
 const apiURLParts = {
   chest: {
@@ -65,6 +66,15 @@ export default class Exercises extends React.Component {
           const { results } = data;
           this.setState({ exercises: results });
           this.setState({ loading: false });
+
+          if (this.props.previousExId) {
+            scroller.scrollTo(this.props.previousExId, {
+              duration: 1000,
+              smooth: true,
+              delay: 0,
+              offset: -94
+            });
+          }
         })
         .catch(() => location.reload());
     }

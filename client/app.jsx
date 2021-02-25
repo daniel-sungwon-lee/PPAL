@@ -33,11 +33,13 @@ export default class App extends React.Component {
       route: parseRoute(window.location.hash),
       previousHash: null,
       user: null,
-      authorizing: true
+      authorizing: true,
+      previousExerciseId: null
     };
     this.previousHash = this.previousHash.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.previousExerciseId = this.previousExerciseId.bind(this);
   }
 
   componentDidMount() {
@@ -68,6 +70,10 @@ export default class App extends React.Component {
     this.setState({ user: null });
   }
 
+  previousExerciseId(id) {
+    this.setState({ previousExerciseId: id });
+  }
+
   renderPage() {
     const { route, user } = this.state;
 
@@ -95,14 +101,14 @@ export default class App extends React.Component {
         return type.name;
       });
       if (typeNames.includes(route.path)) {
-        return <Exercises exercise={route.path} previousHash={this.previousHash} />;
+        return <Exercises exercise={route.path} previousHash={this.previousHash} previousExId={this.state.previousExerciseId} />;
       }
 
       if (route.path === 'exercise') {
         const exerciseId = route.params.get('exerciseId');
 
         return <ExerciseDetail exerciseId={exerciseId} userId={userId}
-                previousHash={this.state.previousHash}/>;
+                previousHash={this.state.previousHash} previousExerciseId={this.previousExerciseId} />;
       }
 
       if (route.path === 'favorites') {
