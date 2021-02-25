@@ -258,7 +258,7 @@ app.get('/api/routineExercises/:userId/:routineId', (req, res, next) => {
   join "favorites" using ("exerciseId")
   where "routineId" = $1
   and "userId" = $2
-  order by "isCompleted"
+  order by "isCompleted", "name"
   `;
   const params = [routineId, userId];
 

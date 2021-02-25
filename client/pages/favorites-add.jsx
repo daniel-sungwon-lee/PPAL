@@ -38,7 +38,7 @@ export default class AddFavorites extends React.Component {
             duration: 1000,
             smooth: true,
             delay: 0,
-            offset: -94
+            offset: -164
           });
         }
       })
@@ -147,7 +147,7 @@ function ExerciseTypeHeader(props) {
           </div>
         </div>
       </Fade>
-      <>
+      <Fade bottom>
         {
           props.favorites.map(exercise => {
             if (exercise.type === props.name) {
@@ -163,7 +163,7 @@ function ExerciseTypeHeader(props) {
             }
           })
         }
-      </>
+      </Fade>
     </>
   );
 }
@@ -173,21 +173,19 @@ function Exercise(props) {
   return (
     <>
       <div id={exerciseId} className="favorites-exercise-row d-flex justify-content-between align-items-center mb-5">
-        <Fade bottom>
-          <a className="w-75 text-decoration-none text-dark"
-            href={`#favoritesExercise?exerciseId=${exerciseId}`}
-            onClick={() => props.previousHash(window.location.hash)}>
-            <div className="row row-exercise m-0">
-              <button className="h4 exercise-name">{name}</button>
-            </div>
-          </a>
-          <label className="fas fa-plus favs-add" htmlFor={`check${exerciseId}`} style={{ transform: 'rotate(0deg)' }}></label>
-          <input id={`check${exerciseId}`}
-            className="d-none"
-            type="checkbox"
-            onClick={props.handleClick}
-            onChange={props.handleChange} />
-        </Fade>
+        <a className="w-75 text-decoration-none text-dark"
+          href={`#favoritesExercise?exerciseId=${exerciseId}`}
+          onClick={() => props.previousHash(window.location.hash)}>
+          <div className="row row-exercise m-0">
+            <button className="h4 exercise-name">{name}</button>
+          </div>
+        </a>
+        <label className="fas fa-plus favs-add" htmlFor={`check${exerciseId}`} style={{ transform: 'rotate(0deg)' }}></label>
+        <input id={`check${exerciseId}`}
+           className="d-none"
+           type="checkbox"
+           onClick={props.handleClick}
+           onChange={props.handleChange} />
       </div>
     </>
   );

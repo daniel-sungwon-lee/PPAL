@@ -1,6 +1,7 @@
 import React from 'react';
 import Spinner from '../components/spinner';
 import Fade from 'react-reveal/Fade';
+import { scroller } from 'react-scroll/modules';
 
 export default class RoutineDetail extends React.Component {
   constructor(props) {
@@ -29,6 +30,15 @@ export default class RoutineDetail extends React.Component {
           .then(res => res.json())
           .then(data => {
             this.setState({ exercises: data, loading: false });
+
+            if (this.props.previousExId) {
+              scroller.scrollTo(this.props.previousExId, {
+                duration: 1000,
+                smooth: true,
+                delay: 0,
+                offset: -94
+              });
+            }
           })
           .catch(() => location.reload());
       })
@@ -132,7 +142,7 @@ export default class RoutineDetail extends React.Component {
 function Exercise(props) {
   const { exerciseId, name, isCompleted } = props.exercise;
   return (
-    <div className="d-flex mb-5 align-items-center">
+    <div id={exerciseId} className="d-flex mb-5 align-items-center">
       <Fade bottom>
         <label className={props.checkLabelClass} htmlFor={`check${exerciseId}`}></label>
         <input type="checkbox" id={`check${exerciseId}`}

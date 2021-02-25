@@ -138,7 +138,8 @@ export default class App extends React.Component {
       if (route.path === 'routine') {
         const routineId = route.params.get('routineId');
 
-        return <RoutineDetail userId={userId} routineId={routineId} previousHash={this.previousHash} />;
+        return <RoutineDetail userId={userId} routineId={routineId} previousHash={this.previousHash}
+                previousExId={this.state.previousExerciseId} />;
       }
 
       if (route.path === 'favoritesAdd') {
