@@ -32,7 +32,7 @@ export default class Quote extends React.Component {
     this.setState({ num: this.state.num + 1 });
 
     this.setState({ loading: true });
-    fetch('https://quote-garden.herokuapp.com/api/v3/quotes/random')
+    fetch('https://quote-garden.onrender.com/api/v3/quotes/random')
       .then(res => res.json())
       .then(response => {
         const { data } = response;
