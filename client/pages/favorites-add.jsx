@@ -1,7 +1,10 @@
 import React from 'react';
 import Spinner from '../components/spinner';
-import Fade from 'react-reveal/Fade';
-import { scroller } from 'react-scroll/modules';
+import Slide from '@mui/material/Slide';
+import gsap from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+
+gsap.registerPlugin(ScrollToPlugin);
 
 const modalTypes = [
   { id: 1, message: 'Cancel?', message2: '' },
@@ -34,12 +37,8 @@ export default class AddFavorites extends React.Component {
         this.setState({ favorites: favorites, loading: false });
 
         if (this.props.previousExId) {
-          scroller.scrollTo(this.props.previousExId, {
-            duration: 1000,
-            smooth: true,
-            delay: 0,
-            offset: -164
-          });
+          const prevId = this.props.previousExId;
+          gsap.to(window, { duration: 1, scrollTo: prevId });
         }
       })
       .catch(() => location.reload());
@@ -140,7 +139,7 @@ export default class AddFavorites extends React.Component {
 function ExerciseTypeHeader(props) {
   return (
     <>
-      <Fade bottom>
+      <Slide direction='up' in>
         <div className="d-flex justify-content-start m-4">
           <div className="type-header d-flex align-items-center justify-content-center">
             <div className="w-100">
@@ -148,8 +147,8 @@ function ExerciseTypeHeader(props) {
             </div>
           </div>
         </div>
-      </Fade>
-      <Fade bottom>
+      </Slide>
+      <Slide direction='up' in>
         {
           props.favorites.map(exercise => {
             if (exercise.type === props.name) {
@@ -165,7 +164,7 @@ function ExerciseTypeHeader(props) {
             }
           })
         }
-      </Fade>
+      </Slide>
     </>
   );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import Spinner from '../components/spinner';
-import Zoom from 'react-reveal/Zoom';
+import Zoom from '@mui/material/Zoom';
 
 export default class ExerciseFav extends React.Component {
   constructor(props) {
@@ -120,7 +120,7 @@ function SingleExerciseFav(props) {
 
   return (
     <div className="container single-exercise">
-      <Zoom>
+      <Zoom in>
         <div className="header d-flex justify-content-between align-items-center header-packed">
           <i className="fas fa-times invisible"></i>
           <h2 className="text-center m-0 mx-2 text-break">{name}</h2>

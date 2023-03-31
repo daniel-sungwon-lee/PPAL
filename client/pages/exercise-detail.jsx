@@ -1,6 +1,6 @@
 import React from 'react';
 import Spinner from '../components/spinner';
-import Zoom from 'react-reveal/Zoom';
+import Zoom from '@mui/material/Zoom';
 
 export default class ExerciseDetail extends React.Component {
   constructor(props) {
@@ -130,7 +130,7 @@ function SingleExercise(props) {
   return (
     <div className="container single-exercise">
       <Modal message={props.data.message} />
-      <Zoom>
+      <Zoom in>
         <div className="header d-flex justify-content-between align-items-center header-packed">
           <i className="fas fa-times invisible"></i>
           <h2 className="text-center m-0 mx-2 text-break">{name}</h2>

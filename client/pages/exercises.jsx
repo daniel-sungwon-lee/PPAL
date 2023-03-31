@@ -1,7 +1,10 @@
 import React from 'react';
 import Spinner from '../components/spinner';
-import Fade from 'react-reveal/Fade';
-import { scroller } from 'react-scroll';
+import Fade from '@mui/material/Fade';
+import gsap from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+
+gsap.registerPlugin(ScrollToPlugin);
 
 const apiURLParts = {
   chest: {
@@ -68,12 +71,8 @@ export default class Exercises extends React.Component {
           this.setState({ loading: false });
 
           if (this.props.previousExId) {
-            scroller.scrollTo(this.props.previousExId, {
-              duration: 1000,
-              smooth: true,
-              delay: 0,
-              offset: -164
-            });
+            const prevId = this.props.previousExId;
+            gsap.to(window, { duration: 1, scrollTo: prevId });
           }
         })
         .catch(() => location.reload());
@@ -95,7 +94,7 @@ export default class Exercises extends React.Component {
                 </a>
               </div>
               <div className="m-auto w-75">
-                <Fade bottom>
+                <Fade in>
                   {
                     this.state.exercises.map(exercise => {
                       return (

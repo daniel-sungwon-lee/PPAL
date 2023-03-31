@@ -1,7 +1,7 @@
 import React from 'react';
 import Spinner from '../components/spinner';
 import Info from '../components/info';
-import Fade from 'react-reveal/Fade';
+import Fade from '@mui/material/Fade';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -60,7 +60,7 @@ export default class Login extends React.Component {
 
     return (
       <div className="container mt-0">
-        <Fade>
+        <Fade in>
           <div className="text-center header">
             <h1>PPAL</h1>
           </div>
