@@ -1,6 +1,6 @@
 import React from 'react';
 import Spinner from '../components/spinner';
-import Fade from '@mui/material/Fade';
+import Fade from 'react-reveal/Fade';
 
 export default class SignUp extends React.Component {
   constructor(props) {
@@ -48,7 +48,7 @@ export default class SignUp extends React.Component {
 
     return (
       <div className="container mt-0">
-        <Fade in>
+        <Fade>
           <div className="header d-flex justify-content-between align-items-center">
             <i className="fas fa-arrow-left invisible"></i>
             <h2 className="m-0">Sign up</h2>

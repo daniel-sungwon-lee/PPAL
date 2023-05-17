@@ -1,6 +1,6 @@
 import React from 'react';
 import Spinner from '../components/spinner';
-import Zoom from '@mui/material/Zoom';
+import Zoom from 'react-reveal/Zoom';
 
 export default class Quote extends React.Component {
   constructor(props) {
@@ -48,7 +48,7 @@ export default class Quote extends React.Component {
     return (
         <div className="container single-exercise">
           <h2 className="text-center header">Quote</h2>
-          <Zoom in>
+          <Zoom>
             <div className="row row-exercise-single row-quote">
               {
                 this.state.loading

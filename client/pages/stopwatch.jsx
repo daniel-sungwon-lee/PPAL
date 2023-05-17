@@ -1,5 +1,5 @@
 import React from 'react';
-import Zoom from '@mui/material/Zoom';
+import Zoom from 'react-reveal/Zoom';
 
 export default class Stopwatch extends React.Component {
   constructor(props) {
@@ -43,7 +43,7 @@ export default class Stopwatch extends React.Component {
     return (
       <div className="container">
         <h2 className="text-center header">Stopwatch</h2>
-        <Zoom in>
+        <Zoom>
           {
             this.state.start
               ? <div className="row-watch">

@@ -1,10 +1,7 @@
 import React from 'react';
 import Spinner from '../components/spinner';
-import Slide from '@mui/material/Slide';
-import gsap from 'gsap';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-
-gsap.registerPlugin(ScrollToPlugin);
+import Fade from 'react-reveal/Fade';
+import { scroller } from 'react-scroll/modules';
 
 export default class Favorites extends React.Component {
   constructor(props) {
@@ -21,8 +18,12 @@ export default class Favorites extends React.Component {
         this.setState({ favorites: data, loading: false });
 
         if (this.props.previousExId) {
-          const prevId = this.props.previousExId;
-          gsap.to(window, { duration: 1, scrollTo: prevId });
+          scroller.scrollTo(this.props.previousExId, {
+            duration: 1000,
+            smooth: true,
+            delay: 0,
+            offset: -94
+          });
         }
       })
       .catch(() => location.reload());
@@ -79,7 +80,7 @@ export default class Favorites extends React.Component {
 function ExerciseTypeHeader(props) {
   return (
     <>
-    <Slide direction='up' in>
+    <Fade bottom>
       <div className="d-flex justify-content-start m-4">
         <div className="type-header d-flex align-items-center justify-content-center">
           <div className="w-100">
@@ -87,7 +88,7 @@ function ExerciseTypeHeader(props) {
           </div>
         </div>
       </div>
-    </Slide>
+    </Fade>
     <>
       {
         props.favorites.map(exercise => {
@@ -113,7 +114,7 @@ function Exercise(props) {
   return (
     <>
       <div id={exerciseId} className="favorites-exercise-row d-flex justify-content-between align-items-center mb-5">
-        <Slide direction='up' in>
+        <Fade bottom>
           <a className="w-75 text-decoration-none text-dark"
             href={`#favoritesExercise?exerciseId=${exerciseId}`}
             onClick={() => props.previousHash(window.location.hash)}>
@@ -122,7 +123,7 @@ function Exercise(props) {
             </div>
           </a>
           <i className="fas fa-trash" data-toggle="modal" data-target={`#staticBackdrop${exerciseId}`}></i>
-        </Slide>
+        </Fade>
         <ModalStatic key={exerciseId} deleteExercise={props.deleteExercise} id={exerciseId}/>
       </div>
     </>

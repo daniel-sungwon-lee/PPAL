@@ -1,10 +1,7 @@
 import React from 'react';
 import Spinner from '../components/spinner';
-import Fade from '@mui/material/Fade';
-import gsap from 'gsap';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-
-gsap.registerPlugin(ScrollToPlugin);
+import Fade from 'react-reveal/Fade';
+import { scroller } from 'react-scroll/modules';
 
 export default class RoutineDetail extends React.Component {
   constructor(props) {
@@ -35,8 +32,12 @@ export default class RoutineDetail extends React.Component {
             this.setState({ exercises: data, loading: false });
 
             if (this.props.previousExId) {
-              const prevId = this.props.previousExId;
-              gsap.to(window, { duration: 1, scrollTo: prevId });
+              scroller.scrollTo(this.props.previousExId, {
+                duration: 1000,
+                smooth: true,
+                delay: 0,
+                offset: -94
+              });
             }
           })
           .catch(() => location.reload());
@@ -146,7 +147,7 @@ function Exercise(props) {
   const { exerciseId, name, isCompleted } = props.exercise;
   return (
     <div id={exerciseId} className="d-flex mb-5 align-items-center">
-      <Fade in>
+      <Fade bottom>
         <label className={props.checkLabelClass} htmlFor={`check${exerciseId}`}></label>
         <input type="checkbox" id={`check${exerciseId}`}
           className="d-none" checked={isCompleted}

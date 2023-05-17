@@ -1,6 +1,6 @@
 import React from 'react';
 import Spinner from '../components/spinner';
-import Zoom from '@mui/material/Zoom';
+import Zoom from 'react-reveal/Zoom';
 
 function ModalStatic(props) {
   return (
@@ -112,7 +112,7 @@ export default class RoutineForm extends React.Component {
         ? <Spinner />
         : <div className="container">
             <ModalStatic handleCancel={this.handleCancel} />
-            <Zoom in>
+            <Zoom>
               <div className="header d-flex justify-content-between align-items-center">
                 <i className="fas fa-ban invisible"></i>
                 <h2 className="text-uppercase m-0">{this.data.type}</h2>

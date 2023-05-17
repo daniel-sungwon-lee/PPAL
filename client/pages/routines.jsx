@@ -1,10 +1,7 @@
 import React from 'react';
 import Spinner from '../components/spinner';
-import Fade from '@mui/material/Fade';
-import gsap from 'gsap';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-
-gsap.registerPlugin(ScrollToPlugin);
+import Fade from 'react-reveal/Fade';
+import { scroller } from 'react-scroll/modules';
 
 const days = [
   {
@@ -52,8 +49,12 @@ export default class Routines extends React.Component {
         this.setState({ routines: data, loading: false });
 
         if (this.props.previousRoutineId) {
-          const prevId = this.props.previousExId;
-          gsap.to(window, { duration: 1, scrollTo: prevId });
+          scroller.scrollTo(this.props.previousRoutineId, {
+            duration: 1000,
+            smooth: true,
+            delay: 0,
+            offset: -94
+          });
         }
       })
       .catch(() => location.reload());
@@ -114,7 +115,7 @@ function Accordion(props) {
   const { day, num } = props.obj;
   return (
     <div className="card">
-      <Fade in>
+      <Fade>
         <div className="card-header" id={`heading${num}`}>
           <h2 className="mb-0">
             <button className="accordion-button btn btn-block text-left" type="button" data-toggle="collapse" data-target={`#collapse${num}`} aria-expanded="true" aria-controls={`collapse${num}`}>
@@ -146,7 +147,7 @@ function Routine(props) {
   const { name, routineId } = props.routine;
   return (
     <div id={routineId} className="routines-exercise-row d-flex justify-content-between align-items-center mb-5">
-      <Fade in>
+      <Fade>
         <a className="w-75 text-decoration-none text-dark"
           href={`#routine?routineId=${routineId}`}>
           <div className="row row-exercise m-0">

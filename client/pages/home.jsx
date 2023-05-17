@@ -1,5 +1,5 @@
 import React from 'react';
-import Grow from '@mui/material/Grow';
+import Bounce from 'react-reveal/Bounce';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ export default class Home extends React.Component {
       <>
       <div className="container">
         <h2 className="text-center header">Home</h2>
-        <Grow in>
+        <Bounce>
           {
             this.props.types.map(type => {
               return (
@@ -20,7 +20,7 @@ export default class Home extends React.Component {
               );
             })
           }
-        </Grow>
+        </Bounce>
       </div>
       </>
     );
