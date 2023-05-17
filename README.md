@@ -5,7 +5,7 @@ PPAL (Push, Pull, Abs, Legs) is a web application for people who want to search 
 A full stack solo project made using React, Bootstrap, CSS, JavaScript, HTML, Express, PostgreSQL, npm, Webpack, Babel, and Node.js.
 
 ## **Link to Live Site:**
-https://ppalll.herokuapp.com/
+https://ppal.up.railway.app/
 
 ## **Link to Video Walkthrough:**
 https://www.youtube.com/watch?v=nHrbjpGZWAQ&t=1s&ab_channel=Daniel
