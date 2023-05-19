@@ -24,15 +24,15 @@ export default class ExerciseDetail extends React.Component {
   }
 
   componentDidMount() {
-    const init = {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: ' Token 18800a66e3917105259880660857894f85fbb0f3'
-      }
-    };
+    // const init = {
+    //   method: 'GET',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     Authorization: ' Token 18800a66e3917105259880660857894f85fbb0f3'
+    //   }
+    // };
 
-    fetch(`https://wger.de/api/v2/exerciseinfo/${this.data.exerciseId}`, init)
+    fetch(`https://wger.de/api/v2/exerciseinfo/${this.data.exerciseId}`)
       .then(res => res.json())
       .then(data => {
         this.setState({ exercise: new Array(data), loading: false });

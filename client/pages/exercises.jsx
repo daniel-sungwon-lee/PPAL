@@ -6,33 +6,33 @@ import { scroller } from 'react-scroll';
 const apiURLParts = {
   chest: {
     category: 11,
-    limit: 29
+    limit: 150
   },
   back: {
     category: 12,
-    limit: 38
+    limit: 150
   },
   biceps: {
     category: 8,
-    limit: 15,
+    limit: 150,
     muscles: 1
   },
   triceps: {
     category: 8,
-    limit: 21,
+    limit: 150,
     muscles: 5
   },
   shoulders: {
     category: 13,
-    limit: 33
+    limit: 150
   },
   legs: {
     category: 9,
-    limit: 50
+    limit: 150
   },
   abs: {
     category: 10,
-    limit: 28
+    limit: 150
   }
 };
 
@@ -50,17 +50,17 @@ export default class Exercises extends React.Component {
 
     if (apiURLParts[ex]) {
       const { category, limit, muscles } = apiURLParts[ex];
-      const apiURL = `https://wger.de/api/v2/exerciseinfo/?language=2&category=${category}&limit=${limit}${muscles ? `&muscles=${muscles}` : ''}`;
+      const apiURL = `https://wger.de/api/v2/exercise/?language=2&category=${category}&limit=${limit}${muscles ? `&muscles=${muscles}` : ''}`;
 
-      const init = {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          Authorization: ' Token 18800a66e3917105259880660857894f85fbb0f3'
-        }
-      };
+      // const init = {
+      //   method: 'GET',
+      //   headers: {
+      //     Accept: 'application/json',
+      //     Authorization: ' Token 18800a66e3917105259880660857894f85fbb0f3'
+      //   }
+      // };
 
-      fetch(apiURL, init)
+      fetch(apiURL)
         .then(res => res.json())
         .then(data => {
           const { results } = data;
