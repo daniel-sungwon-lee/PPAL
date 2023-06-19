@@ -11,7 +11,7 @@ create table "users" (
   oids=false
 );
 create table "favorites" (
-    "exerciseId" integer not null,
+    "exerciseId" integer not null unique,
     "name" text not null,
     "type" text not null,
     "reps" integer not null,
